@@ -1,13 +1,13 @@
-#  <center> Python 编程-入门到实践笔记  
-##  <center> 第一章 基础知识  
+# <center> Python 编程-入门到实践笔记
+## <center> 第一章 基础知识
 1. 终端运行python：
 ```
-一. win: 
+  win: 
 1. CD 文件夹
 2. 显示文件夹下文件列表: dir
 3. python hello_world.py
 
-二. linux mac
+  linux mac
 1. 显示文件夹下文件列表: ls
 ```
 ## <center> 第二章 变量和简单数据类型
@@ -349,4 +349,100 @@ chinese_restaurant = Restaurant('Sichuan Restaurant', 'Sichuan')
 
 chinese_restaurant.describe_restaurant()
 chinese_restaurant.open_restaurant()
+```
+3. 继承：
+```commandline
+class 子类(父类):
+    def__init__(self, 形参） # 初始化父类属性 
+    super().__init__(形参）    # 调用父类方法
+```
+4. 重写父类方法：可以在子类中对继承的父类方法进行重新定义。
+5. 习题9.13：骰子 创建一个 Die 类，它包含一个名为 sides 的属性，该属性的默认值为6.编写一个名为
+roll_die() 的方法，它打印位于1和骰子面数之间的随机数。创建一个6面的骰子并掷10次。创建一个10面
+的骰子和一个20面的骰子，再分别掷10次。
+```commandline
+dice.py
+
+from random import randint
+
+class Dice:
+    """掷骰子打印点数"""
+    def __init__(self, sides=6):    # 骰子面数默认为6
+        self.sides = sides
+
+    def roll_dice(self):
+        return randint(1, self.sides)
+
+dice_6_points =[]
+dice_6 = Dice()
+for i in range(10):
+    dice_6_point = dice_6.roll_dice()
+    dice_6_points.append(dice_6_point)
+print(dice_6_points)
+
+dice_10_points = []
+dice_10 = Dice(sides=10)
+for i in range(10):
+    dice_10_point = dice_10.roll_dice()
+    dice_10_points.append(dice_10_point)
+print(dice_10_points)
+
+dice_20_points = []
+dice_20 = Dice(sides=20)
+for i in range(10):
+    dice_20_point = dice_20.roll_dice()
+    dice_20_points.append(dice_20_point)
+print(dice_20_points)     
+
+```
+6. 习题9.14：彩票 创建一个列表或元素，其种包含10个数和5个字母。从这个列表或元组种随机选择4个数
+字母，并打印一条消息，指出只要彩票上是这4个数或字母，就中大奖了。
+```commandline
+lottery.py
+
+from random import choice
+
+def win_lottery(lottery_lists):     # 从奖池号码中随机抽取4个号码并返回调用
+    winners_numbers = []
+    for i in range(4):
+        winners_number = choice(lottery_lists)
+        winners_numbers.append(winners_number)
+    return winners_numbers
+
+lottery_lists_1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+winners_numbers_1 = win_lottery(lottery_lists_1 )
+print(winners_numbers_1)
+
+
+```
+7. 习题9.15：彩票分析 可以使用一个循环来理解中前述彩票中奖有多难。为此，创建一个名为my_ticket的
+列表或元组，再编写一个循环，不断地随机选择数字或字母，直到中大奖为止。请打印一条消息，报告执行多少次
+循环才中了大奖。
+```commandline
+lottery_tries.py
+
+from random import choice
+
+def win_lottery(lottery_lists): # 从奖池号码中随机抽取4个号码并返回调用
+    winners_numbers = []
+    for i in range(4):
+        winners_number = choice(lottery_lists)
+        winners_numbers.append(winners_number)
+    return winners_numbers
+
+def tries_numbers():    # 从奖池号码中循环随机抽取4个号码，直到和中奖号码相同，返回循环次数
+    lottery_lists = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    my_ticket = [1, 3, 5, 7]
+    tries_number = 0
+    active = True
+    while active:
+        new_winning_ticket = win_lottery(lottery_lists)
+        tries_number = tries_number + 1
+        if new_winning_ticket == my_ticket:
+            active = False
+    return tries_number
+
+tries_number_1 = tries_numbers()
+print(tries_number_1)
+
 ```
