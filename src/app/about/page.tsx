@@ -10,7 +10,7 @@ export default function Page() {
 		{
 			title: '教育经历',
 			description: '2008年计科专业毕业，但无码（xue）农（yi）技（bu）能（jing）',
-			icon: '📦'
+			icon: '✏️'
 		},
 		{
 			title: '工作经历',
