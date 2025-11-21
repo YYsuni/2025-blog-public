@@ -132,13 +132,13 @@ export default function NavCard() {
 				className={clsx('overflow-hidden', form === 'mini' && 'p-3', form === 'icons' && 'flex items-center gap-6 p-3')}>
 				<Link className='flex items-center gap-3' href='/'>
 					<Image src='/images/avatar.png' alt='avatar' width={40} height={40} style={{ boxShadow: ' 0 12px 20px -5px #E2D9CE' }} className='rounded-full' />
-					{form === 'full' && <span className='font-averia mt-1 text-2xl leading-none font-medium'>YYsuni</span>}
-					{form === 'full' && <span className='text-brand mt-2 text-xs font-medium'>(开发中)</span>}
+					{form === 'full' && <span className='font-averia mt-1 text-2xl leading-none font-medium'>Jingle</span>}
+					{form === 'full' && <span className='text-brand mt-2 text-xs font-medium'></span>}
 				</Link>
 
 				{(form === 'full' || form === 'icons') && (
 					<>
-						{form !== 'icons' && <div className='text-secondary mt-6 text-sm uppercase'>General</div>}
+						{form !== 'icons' && <div className='text-secondary mt-6 text-sm uppercase'></div>}
 
 						<div className={cn('relative mt-2 space-y-2', form === 'icons' && 'mt-0 flex items-center gap-6 space-y-0')}>
 							<motion.div
