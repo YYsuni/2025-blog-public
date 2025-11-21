@@ -1,17 +1,15 @@
 {
 	"meta": {
-		"title": "YYsuni",
+		"title": "jingle",
 		"description": "YYsuni 的个人博客，记录前端开发、探索笔记。前端 UI 更新代码仓库。"
 	},
 	"theme": {
-		"colorBrand": "#35bfab"
+		"colorBrand": "#4F2928"
 	},
 	"backgroundColors": [
-		"#EDDD62",
-		"#9EE7D1",
-		"#84D68A",
-		"#EDDD62",
-		"#88E6E5",
-		"#a7f3d0"
+		"#6DB96F",
+		"#A5EFF8",
+		"#4198BE",
+		"#8DB6CE"
 	]
 }
