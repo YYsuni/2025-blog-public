@@ -446,3 +446,79 @@ tries_number_1 = tries_numbers()
 print(tries_number_1)
 
 ```
+## <center> 第10章 文件和异常
+1. pathlib模块：处理文件和目录
+2. splitlines():将文件的每一行作为元素，生成列表。
+3. read_text():读取文件
+4. write_text():写入文件
+5. 习题10.4：访客 编写一个程序，提示用户输入其名字。在用户做出响应后，将其名字写入文件guest.txt
+```commandline
+guest.py
+from pathlib import Path
+
+username = input("Enter username:")
+path = Path('guest.txt')
+path.write_text(username)
+
+```
+6. 习题10.5：访客簿 编写一个while循环，提示用户输入其名字。收集用户输入的所有名字，将其
+写入guest_book.txt，并确保这个文件中的每天记录都独占一行。
+```commandline
+guest.py
+
+from pathlib import Path
+
+path = Path('guest.txt')
+usernames = []
+username_str = ''
+active = True
+while active:
+    username = input("Enter username(Enter 'q' to quit)):\n")
+    if username == 'q':
+        active = False
+    else:
+        usernames.append(username)
+
+for name in usernames:
+    username_str = username_str + f"{name}\n"
+path.write_text(username_str)
+```
+7. 习题 10.6：加法运算 在提示用户提供数值输入时，常出现的一个问题是，用户提供的是文本而不是数。
+在这种情况下，当你尝试将输入转换为整数时，将引发 ValueError 异常。编写一个程序，提示用户输入
+两个数，再将它们相加并打印结果。在用户输入的任意一个值不是数时都捕获 ValueError 异常，并打印
+一条友好的错误消息。对你编写的程序进行测试：先输入两个数，再输入一些文本而不是数。
+```
+addition_operation.py
+
+try:
+    number_1 = int(input("输入一个数字:\n"))
+    number_2 = int(input("输入另一个数字:\n"))
+    number_add = number_1 + number_2
+except ValueError:
+    print("输入的不是数字")
+else:
+    print(f"{number_1}与{number_2}相加的和为{number_add}")
+
+```
+8. 习题10.7：加法计算器 将为练习10.6编写的代码放在一个 while 循环中，让用户在犯错
+（输入的时是文本而不是数）后能够继续输入数。
+```commandline
+addtion_operation_1.py
+
+while True:
+    try:
+        number_1 = input("输入一个数字:\n")
+        if number_1 == 'q':
+            break
+        number_1 = int(number_1)
+        number_2 = input("输入另一个数字:\n")
+        if number_2 == 'q':
+            break
+        number_2 = int(number_2)
+        number_add = number_1 + number_2
+    except ValueError:
+        print("输入的不是数字,请重新输入：")
+    else:
+        print(f"{number_1}与{number_2}相加的和为{number_add}")
+```
+9. 习题10.8：猫和狗 创建文件 cats.txt 和 dogs.txt，在第一个文件中至少存储三只猫的名字
