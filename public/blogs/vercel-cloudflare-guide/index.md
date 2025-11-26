@@ -38,6 +38,8 @@
     - **关键操作**：登录你的域名注册商（如阿里云）的控制台，找到域名管理页面，将原有的DNS服务器地址**替换**为Cloudflare提供的那两个地址。
     - **注意**：此更改的全球生效时间可能需要数分钟到48小时，请耐心等待。在此期间，Cloudflare会持续检查，状态变为“Active”即表示成功。
 
+![](/blogs/vercel-cloudflare-guide/6167707842c5c433.webp)
+
 ### 3.2 阶段二：在 Cloudflare 配置 DNS 解析
 
 当域名在Cloudflare的状态变为“Active”（激活）后，即可进行解析设置。
@@ -54,6 +56,8 @@
         - **名称（Name）**: `@`
         - **目标（Target）**: 同上一记录的目标地址。
         - **代理状态（Proxy status）**: 🟠 **橙色云朵（已代理）** 。
+
+![](/blogs/vercel-cloudflare-guide/7390e751b1edf83b.webp)
 
 ### 3.3 阶段三：在 Vercel 绑定自定义域名
 
