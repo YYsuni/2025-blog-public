@@ -1,5 +1,16 @@
 [
   {
+    "slug": "vercel-cloudflare-guide",
+    "title": "零基础搞定Vercel部署与Cloudflare域名绑定",
+    "tags": [
+      "Vercel",
+      "Cloudflare",
+      "CDN加速"
+    ],
+    "date": "2025-11-26",
+    "summary": "Vercel + Cloudflare 实现网站免备案部署与加速全攻略"
+  },
+  {
     "slug": "texture-format",
     "title": "图片格式 —— 关于材质的大小研究",
     "tags": [
