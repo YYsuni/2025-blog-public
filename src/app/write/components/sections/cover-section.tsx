@@ -18,6 +18,28 @@ export function CoverSection({ delay = 0 }: CoverSectionProps) {
 	const handleCoverDrop = async (e: React.DragEvent<HTMLDivElement>) => {
 		e.preventDefault()
 
+		// 处理从图片列表中拖入的情况
+		const md = e.dataTransfer.getData('text/markdown') || e.dataTransfer.getData('text/plain') || ''
+		const m = /!\[\]\(([^)]+)\)/.exec(md.trim())
+		if (m) {
+			const target = m[1]
+			let foundItem
+
+			if (target.startsWith('local-image:')) {
+				const id = target.replace(/^local-image:/, '')
+				foundItem = images.find(it => it.id === id)
+			} else {
+				foundItem = images.find(it => it.type === 'url' && it.url === target)
+			}
+
+			if (foundItem) {
+				setCover(foundItem)
+				toast.success('已设置封面')
+
+				return
+			}
+		}
+
 		// 处理直接拖入文件的情况
 		const files = e.dataTransfer.files
 		if (files && files.length > 0) {
@@ -39,31 +61,6 @@ export function CoverSection({ delay = 0 }: CoverSectionProps) {
 				toast.success('已设置封面')
 			}
 			return
-		}
-
-		// 处理从图片列表中拖入的情况
-		const md = e.dataTransfer.getData('text/markdown') || e.dataTransfer.getData('text/plain') || ''
-		const m = /!\[\]\(([^)]+)\)/.exec(md.trim())
-		if (!m) {
-			toast.error('请从图片列表中拖入图片')
-			return
-		}
-
-		const target = m[1]
-		let foundItem
-
-		if (target.startsWith('local-image:')) {
-			const id = target.replace(/^local-image:/, '')
-			foundItem = images.find(it => it.id === id)
-		} else {
-			foundItem = images.find(it => it.type === 'url' && it.url === target)
-		}
-
-		if (foundItem) {
-			setCover(foundItem)
-			toast.success('已设置封面')
-		} else {
-			toast.error('未找到该图片')
 		}
 	}
 

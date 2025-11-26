@@ -129,6 +129,12 @@ export const GITHUB_CONFIG = {
 
 ![](/blogs/readme/9780c38f886322fd.png)
 
+### 8.3 移除 blog 列表的更多按钮
+
+`src/app/blog/page.tsx` 文件，下图位置，删除这部分代码。
+
+![](/blogs/readme/a190410a273b2bea.png)
+
 ## 9. 互助群
 
 对于完全不是**程序员**的用户，确实会对于更新代码后，如何同步，如何**合并代码**手足无措。我创建了一个 **QQ群**（加群会简单点），或者 vx 群还是 tg 群会好一点可以 issue 里面说下就行。

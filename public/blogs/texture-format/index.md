@@ -14,7 +14,7 @@
 
 ## 压缩后
 
-这里使用 *iLoveIMG* 压缩。
+这里使用 _iLoveIMG_ 压缩。
 
 ![](/blogs/texture-format/a333b161dc2810c4.png)
 
@@ -61,7 +61,8 @@ webp 的**转换**可以通过 [cloudconvert
 
 或许我也直接写一个这个方案，放在这里。嗯，就这么办。
 
+写好了：[图片工具](/image-toolbox)
+
 ### 转换 App
 
 我还是不喜欢专门安装 app 之类的方案，因为我经常**换电脑**玩 windows/mac/ipad 都在用，不可能为每个设备都安装，还是得线上解决比较好。
-
