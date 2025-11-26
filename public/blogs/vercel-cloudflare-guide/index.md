@@ -81,6 +81,8 @@
 - `https://www.hdxiaoke.top`
 - `https://hdxiaoke.top`
 
+![](/blogs/vercel-cloudflare-guide/233f970aafb556fe.webp)
+
 如果一切顺利，你现在应该能看到你的网站内容了！
 
 ## 5. 总结
