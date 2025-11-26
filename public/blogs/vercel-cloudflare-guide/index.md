@@ -70,6 +70,8 @@
     - 输入 **`hdxiaoke.top`**，按回车。
 4.  Vercel 会自动验证DNS记录。如果配置正确，几分钟后域名状态会显示为绿色的 **“Valid”（有效）** 或 **“Proxy Detected”（已检测到代理）**，这表示绑定成功。
 
+![](/blogs/vercel-cloudflare-guide/233f970aafb556fe.webp)
+
 ### 3.4 阶段四：优化配置（可选但推荐）
 
 1.  **配置SSL/TLS**：
@@ -84,8 +86,6 @@
 完成以上所有步骤后，你的网站就已经配置好了！请打开浏览器，访问以下网址进行测试：
 - `https://www.hdxiaoke.top`
 - `https://hdxiaoke.top`
-
-![](/blogs/vercel-cloudflare-guide/233f970aafb556fe.webp)
 
 如果一切顺利，你现在应该能看到你的网站内容了！
 
