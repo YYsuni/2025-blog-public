@@ -48,8 +48,7 @@ export default function SocialButtons() {
 							animate={{ opacity: 1, scale: 1 }}
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
-							className='font-averia flex items-center gap-2 rounded-xl border bg-[#070707] px-3 py-2 text-xl text-white'
-							style={{ boxShadow: ' inset 0 0 12px rgba(255, 255, 255, 0.4)' }}>
+							className='card relative flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium whitespace-nowrap'>
 							<GithubSVG />
 							伊米博客
 						</motion.a>
