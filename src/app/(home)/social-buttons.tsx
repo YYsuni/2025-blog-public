@@ -1,5 +1,5 @@
 import { useCenterStore } from '@/hooks/use-center'
-import GithubSVG from '@/svgs/ym.png'
+import GithubSVG from '@/svgs/ym.svg'
 import { ANIMATION_DELAY, CARD_SPACING } from '@/consts'
 import { styles as hiCardStyles } from './hi-card'
 import JuejinSVG from '@/svgs/juejin.svg'
