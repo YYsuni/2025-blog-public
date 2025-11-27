@@ -192,5 +192,15 @@
 			"学习"
 		],
 		"stars": 4
+	},
+	{
+		"name": "Ease 函数参考",
+		"logo": "https://easings.net/96.8aa68ac4.png",
+		"url": "https://easings.net/",
+		"description": "当你在调整动画节奏时，这个 ease 表能帮助直观感受 ease 表现出的效果",
+		"tags": [
+			"Github"
+		],
+		"stars": 3
 	}
 ]
