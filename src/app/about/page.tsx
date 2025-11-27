@@ -7,7 +7,7 @@ import { useMarkdownRender } from '@/hooks/use-markdown-render'
 import { pushAbout, type AboutData } from './services/push-about'
 import { useAuthStore } from '@/hooks/use-auth'
 import LikeButton from '@/components/like-button'
-import GithubSVG from '@/svgs/github.svg'
+import GithubSVG from '@/svgs/ym.svg'
 import initialData from './list.json'
 
 export default function Page() {
