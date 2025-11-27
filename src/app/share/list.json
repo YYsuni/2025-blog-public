@@ -182,5 +182,15 @@
 			"3D"
 		],
 		"stars": 5
+	},
+	{
+		"name": "Making Software",
+		"logo": "https://www.makingsoftware.com/favicon.ico",
+		"url": "https://www.makingsoftware.com/",
+		"description": "面向软件设计和开发人员的参考手册。样式很棒的学习网站。",
+		"tags": [
+			"学习"
+		],
+		"stars": 4
 	}
 ]
