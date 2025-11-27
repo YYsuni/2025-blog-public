@@ -2,7 +2,7 @@
 	{
 		"name": "LibteTV",
 		"year": 2025,
-		"description": "一个自由观影的开元github项目，我部署到我的nas上了。",
+		"description": "一个自由观影的开元github项目，我部署到我的nas上了。密码：imibtc",
 		"image": "/images/project/afbbff366953859c.png",
 		"url": "http://imibtc.yyboxdns.com:10006/",
 		"tags": [
@@ -12,7 +12,7 @@
 	{
 		"name": "Yimi小站",
 		"year": 2025,
-		"image": "/images/project/585ad7a3b925f4f7.png",
+		"image": "blob:https://www.hdxiaoke.top/a968e1c3-73a7-4891-925f-ab9c0c79260f",
 		"url": "https://www.imibtc.com/blog/",
 		"description": "HuGo搭建的一个博客，虽号称是最快的浏览速度之一，但是操作很不方便啊",
 		"tags": [
