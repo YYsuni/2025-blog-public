@@ -113,6 +113,10 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			for (const it of state.images) {
 				if (it.type === 'file' && it.id === id) {
 					URL.revokeObjectURL(it.previewUrl)
+
+					if (it.id === state.cover?.id) {
+						set({ cover: null })
+					}
 				}
 			}
 			return { images: state.images.filter(it => it.id !== id) }

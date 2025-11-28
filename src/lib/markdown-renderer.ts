@@ -31,22 +31,26 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 	}
 
 	// Pre-process code blocks with Shiki
-	const codeBlockMap = new Map<string, string>()
+	const codeBlockMap = new Map<string, { html: string; original: string }>()
 	const tokens = marked.lexer(markdown)
 
 	for (const token of tokens) {
 		if (token.type === 'code') {
 			const codeToken = token as Tokens.Code
+			const originalCode = codeToken.text
 			try {
-				const html = await codeToHtml(codeToken.text, {
+				const html = await codeToHtml(originalCode, {
 					lang: codeToken.lang || 'text',
 					theme: 'one-light'
 				})
 				const key = `__SHIKI_CODE_${codeBlockMap.size}__`
-				codeBlockMap.set(key, html)
+				codeBlockMap.set(key, { html, original: originalCode })
 				codeToken.text = key
 			} catch {
 				// Keep original if highlighting fails
+				const key = `__SHIKI_CODE_${codeBlockMap.size}__`
+				codeBlockMap.set(key, { html: '', original: originalCode })
+				codeToken.text = key
 			}
 		}
 	}
@@ -61,12 +65,25 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 
 	renderer.code = (token: Tokens.Code) => {
 		// Check if this code block was pre-processed
-		const highlighted = codeBlockMap.get(token.text)
-		if (highlighted) {
-			return highlighted
+		const codeData = codeBlockMap.get(token.text)
+		if (codeData) {
+			// Add data-code attribute with original code for copy functionality
+			// Escape HTML entities for attribute value
+			const escapedCode = codeData.original
+				.replace(/&/g, '&amp;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+			if (codeData.html) {
+				// Shiki highlighted code
+				return `<pre data-code="${escapedCode}">${codeData.html}</pre>`
+			}
+			// Fallback for failed highlighting
+			return `<pre data-code="${escapedCode}"><code>${codeData.original}</code></pre>`
 		}
-		// Fallback to default
-		return `<pre><code>${token.text}</code></pre>`
+		// Fallback to default (inline code, not code block)
+		return `<code>${token.text}</code>`
 	}
 
 	renderer.listitem = (token: Tokens.ListItem) => {
