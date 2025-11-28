@@ -51,7 +51,7 @@ export default function ShareCard() {
 			className='space-y-2 max-sm:static'>
 			<h2 className='text-secondary text-sm'>随机分享</h2>
 
-			<Link href='/share' className='mt-2 block space-y-2'>
+			<a href={randomItem.url} target='_blank' rel='noopener noreferrer' className='mt-2 block space-y-2'>
 				<div className='flex items-center'>
 					<div className='relative mr-3 h-12 w-12 shrink-0 overflow-hidden rounded-xl'>
 						<img src={randomItem.logo} alt={randomItem.name} className='h-full w-full object-contain' />
@@ -60,7 +60,7 @@ export default function ShareCard() {
 				</div>
 
 				<p className='text-secondary line-clamp-3 text-xs'>{randomItem.description}</p>
-			</Link>
+			</a>
 		</Card>
 	)
 }
