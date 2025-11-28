@@ -23,8 +23,8 @@ export default function Home() {
 			{!maxSM && <CalendarCard />}
 			{!maxSM && <MusicCard />}
 			<SocialButtons />
-			{!maxSM && <ShareCard />}
 			<AritcleCard />
+			<ShareCard />
 			{!maxSM && <WriteButtons />}
 			<LikePosition />
 		</div>
