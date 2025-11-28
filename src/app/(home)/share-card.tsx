@@ -43,7 +43,7 @@ export default function ShareCard() {
 			width={styles.width}
 			x={center.x + hiCardStyles.width / 2 - socialButtonsStyles.width}
 			y={center.y + hiCardStyles.height / 2 + CARD_SPACING + socialButtonsStyles.height + CARD_SPACING}>
-			<h2 className='text-secondary text-sm'>随机推荐</h2>
+			<h2 className='text-secondary text-sm'>随机分享</h2>
 
 			<Link href='/share' className='mt-2 block space-y-2'>
 				<div className='flex items-center'>
