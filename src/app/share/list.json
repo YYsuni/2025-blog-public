@@ -202,5 +202,25 @@
 			"Github"
 		],
 		"stars": 3
+	},
+	{
+		"name": "Isocons",
+		"logo": "blob:https://www.yysuni.com/6e6e7339-d34d-40ef-b3e5-1f12ad5f6b1d",
+		"url": "https://www.isocons.app/",
+		"description": "3D icons 网站，酷酷的，免费。",
+		"tags": [
+			"Icons"
+		],
+		"stars": 3
+	},
+	{
+		"name": "Webp 转换压缩",
+		"logo": "https://www.yysuni.com/images/avatar.png",
+		"url": "https://www.yysuni.com/image-toolbox",
+		"description": "无限压缩，快且方便，可以直接对比效果",
+		"tags": [
+			"图片"
+		],
+		"stars": 3
 	}
 ]

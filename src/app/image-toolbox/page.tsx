@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from 'react'
 import { motion } from 'motion/react'
 import { ANIMATION_DELAY, INIT_DELAY } from '@/consts'
 import { DialogModal } from '@/components/dialog-modal'
@@ -80,10 +80,12 @@ export default function Page() {
 	const [maxWidth, setMaxWidth] = useState(1200)
 	const [batchConverting, setBatchConverting] = useState(false)
 	const [compareIndex, setCompareIndex] = useState<number | null>(null)
+	const [isDragging, setIsDragging] = useState(false)
 	const hasImages = images.length > 0
 	const hasConvertible = images.length > 0
 	const hasConverted = images.some(item => !!item.converted)
 	const imagesRef = useRef<SelectedImage[]>([])
+	const dragCounterRef = useRef(0)
 
 	useEffect(() => {
 		imagesRef.current = images
@@ -123,6 +125,38 @@ export default function Page() {
 			return deduped
 		})
 	}, [])
+
+	const handleDragEnter = useCallback((event: DragEvent<HTMLLabelElement>) => {
+		event.preventDefault()
+		event.stopPropagation()
+		dragCounterRef.current += 1
+		setIsDragging(true)
+	}, [])
+
+	const handleDragOver = useCallback((event: DragEvent<HTMLLabelElement>) => {
+		event.preventDefault()
+		event.stopPropagation()
+	}, [])
+
+	const handleDragLeave = useCallback((event: DragEvent<HTMLLabelElement>) => {
+		event.preventDefault()
+		event.stopPropagation()
+		dragCounterRef.current = Math.max(0, dragCounterRef.current - 1)
+		if (dragCounterRef.current === 0) {
+			setIsDragging(false)
+		}
+	}, [])
+
+	const handleDrop = useCallback(
+		(event: DragEvent<HTMLLabelElement>) => {
+			event.preventDefault()
+			event.stopPropagation()
+			setIsDragging(false)
+			dragCounterRef.current = 0
+			handleFiles(event.dataTransfer?.files ?? null)
+		},
+		[handleFiles]
+	)
 
 	const totalSize = useMemo(() => {
 		const bytes = images.reduce((acc, item) => acc + item.file.size, 0)
@@ -277,7 +311,13 @@ export default function Page() {
 					initial={{ opacity: 0, scale: 0.9 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ delay: INIT_DELAY + ANIMATION_DELAY }}
-					className='group hover:border-brand/20 card relative flex cursor-pointer flex-col items-center justify-center gap-3 text-center transition-colors hover:bg-white/80'>
+					onDragEnter={handleDragEnter}
+					onDragOver={handleDragOver}
+					onDragLeave={handleDragLeave}
+					onDrop={handleDrop}
+					className={`group hover:border-brand/20 card relative flex cursor-pointer flex-col items-center justify-center gap-3 text-center transition-colors hover:bg-white/80 ${
+						isDragging ? 'border-brand bg-white' : ''
+					}`}>
 					<input type='file' accept='image/*' multiple className='hidden' onChange={event => handleFiles(event.target.files)} />
 					<div className='bg-brand/10 text-brand/60 group-hover:bg-brand/10 flex h-20 w-20 items-center justify-center rounded-full text-3xl transition'>
 						📷

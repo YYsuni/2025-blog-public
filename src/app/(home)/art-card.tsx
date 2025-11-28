@@ -2,6 +2,7 @@ import Card from '@/components/card'
 import { useCenterStore } from '@/hooks/use-center'
 import { styles as hiCardStyles } from './hi-card'
 import { CARD_SPACING } from '@/consts'
+import { useRouter } from 'next/navigation'
 
 export const styles = {
 	width: 360,
@@ -11,6 +12,7 @@ export const styles = {
 
 export default function ArtCard() {
 	const center = useCenterStore()
+	const router = useRouter()
 
 	return (
 		<Card
@@ -20,7 +22,7 @@ export default function ArtCard() {
 			height={styles.height}
 			x={center.x}
 			y={center.y - hiCardStyles.height / 2 - styles.height / 2 - CARD_SPACING}>
-			<img src='/images/art/cat.png' alt='wall art' className='h-full w-full rounded-[32px] object-cover' />
+			<img onClick={() => router.push('/pictures')} src='/images/art/cat.png' alt='wall art' className='h-full w-full rounded-[32px] object-cover' />
 		</Card>
 	)
 }
