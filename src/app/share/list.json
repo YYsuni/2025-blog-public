@@ -1,15 +1,5 @@
 [
 	{
-		"name": "iLoveIMG",
-		"url": "https://www.iloveimg.com/zh-cn",
-		"logo": "/images/share/7e91e93e3cdd586b.svg",
-		"description": "免费图片处理网站，我经常用来压缩图片，压缩效果会比 Tinypng 更好。链式处理功能非常好用。",
-		"tags": [
-			"图片"
-		],
-		"stars": 4
-	},
-	{
 		"name": "TinyPNG",
 		"url": "https://tinypng.com/",
 		"logo": "https://tinypng.com/static/images/george-anim/large_george_x2.webp",
@@ -27,27 +17,6 @@
 		"tags": [
 			"图片",
 			"AI"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Nucleo",
-		"url": "https://nucleoapp.com/app/?library=core",
-		"logo": "/images/share/7e720f35557fa9de.svg",
-		"description": "图标库，网站整体很干净。独特的是，它有一类像素风格的图标，很有意思。它的 icon 也很多，还有 grass 风格的。",
-		"tags": [
-			"Icons"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Loadership",
-		"url": "https://www.loadership.com/",
-		"logo": "https://www.loadership.com/loadership_logo_round.svg",
-		"description": "13种 Loader 样式，在线调整使用。在 AI 时代可能意义小很多了。",
-		"tags": [
-			"CSS",
-			"Github"
 		],
 		"stars": 3
 	},
@@ -71,105 +40,5 @@
 			"Github"
 		],
 		"stars": 4
-	},
-	{
-		"name": "Awwwards",
-		"url": "https://www.awwwards.com/",
-		"logo": "https://assets.awwwards.com/assets/images/favicon.svg",
-		"description": "网站评选网站，你总能从这里发现惊艳的网站",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
-		"name": "CSS Design Awards",
-		"url": "https://www.cssdesignawards.com/",
-		"logo": "/images/share/aaae2bf4f74c8eb1.svg",
-		"description": "网站评选网站，跟 Awwwards 类似，可以看到每期的优秀网站。观感上会好些。",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
-		"name": "404s.design",
-		"logo": "/images/share/5c9a8b7deb717c5f.svg",
-		"url": "https://www.404s.design/",
-		"description": "收集 404 设计的网站，无聊的时候可以看下。",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Igloo Inc.",
-		"logo": "https://www.igloo.inc/assets/favicon32-af94112f.png",
-		"url": "https://www.igloo.inc/",
-		"description": "abeto 作品，非常酷炫",
-		"tags": [
-			"3D"
-		],
-		"stars": 4
-	},
-	{
-		"name": "abeto 官网",
-		"logo": "https://abeto.co/assets/favicon32-11fb90a3.png",
-		"url": "https://abeto.co/",
-		"description": "无限绽开的花，飘荡的树叶，复古风格化",
-		"tags": [
-			"3D"
-		],
-		"stars": 4
-	},
-	{
-		"name": "The Monolith Project",
-		"logo": "https://themonolithproject.net/assets/images-next/nose_logo.webp",
-		"url": "https://themonolithproject.net/",
-		"description": "奇幻宇宙的动画演绎，像看电影一样。“跨越多星之际，一座沉默的巨石碑悄然苏醒。“巨石碑计划”：每一次触碰，皆可重写现实。”",
-		"tags": [
-			"3D"
-		],
-		"stars": 5
-	},
-	{
-		"name": "Making Software",
-		"logo": "https://www.makingsoftware.com/favicon.ico",
-		"url": "https://www.makingsoftware.com/",
-		"description": "面向软件设计和开发人员的参考手册。样式很棒的学习网站。",
-		"tags": [
-			"学习"
-		],
-		"stars": 4
-	},
-	{
-		"name": "Ease 函数参考",
-		"logo": "https://easings.net/96.8aa68ac4.png",
-		"url": "https://easings.net/",
-		"description": "当你在调整动画节奏时，这个 ease 表能帮助直观感受 ease 表现出的效果",
-		"tags": [
-			"Github"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Isocons",
-		"logo": "blob:https://www.yysuni.com/6e6e7339-d34d-40ef-b3e5-1f12ad5f6b1d",
-		"url": "https://www.isocons.app/",
-		"description": "3D icons 网站，酷酷的，免费。",
-		"tags": [
-			"Icons"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Webp 转换压缩",
-		"logo": "https://www.yysuni.com/images/avatar.png",
-		"url": "https://www.yysuni.com/image-toolbox",
-		"description": "无限压缩，快且方便，可以直接对比效果",
-		"tags": [
-			"图片"
-		],
-		"stars": 3
 	}
 ]
