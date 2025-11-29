@@ -7,13 +7,6 @@
 		"stars": 5
 	},
 	{
-		"name": "Enji Kusnadi",
-		"url": "https://enji.dev/",
-		"avatar": "https://enji.dev/_next/image?url=%2Fassets%2Fimages%2Fme.png&w=1080&q=100",
-		"description": "第一个在设计样式上惊艳我的人，那时每逢推荐别人blog，我都会提这么一嘴。但这个不算她的blog 网站，只算它的线上简历，没有持续的内容，比较可惜。",
-		"stars": 3
-	},
-	{
 		"name": "Josh W. Comeau",
 		"url": "https://www.joshwcomeau.com/",
 		"avatar": "https://www.joshwcomeau.com/favicon.png",
@@ -35,20 +28,6 @@
 		"stars": 4
 	},
 	{
-		"name": "Risingle",
-		"url": "https://www.imrising.cn/",
-		"avatar": "https://www.imrising.cn/images/logo/logo.webp",
-		"description": "网站样式很棒，虽然用的别人的模板，但是他用的很棒。是个初出茅庐的程序员。",
-		"stars": 3
-	},
-	{
-		"name": "無名小栈",
-		"url": "https://blog.imsyy.top/",
-		"avatar": "https://blog.imsyy.top/images/logo/logo.webp",
-		"description": "Risingle blog 的模板主人，或许是头像和网站风格不搭，显得没有 Risingle 的舒服。Github 热门项目还不少，一看就是爱折腾的人，就是不爱写 blog，没啥内容。01 年，挺年轻的，独立开发者？不知道经历了什么。",
-		"stars": 2
-	},
-	{
 		"name": "韩小韩博客",
 		"url": "https://www.vvhan.com/",
 		"avatar": "https://q1.qlogo.cn/g?b=qq&nk=1655466387&s=640",
@@ -61,13 +40,6 @@
 		"avatar": "https://avatars.githubusercontent.com/u/11247099?v=4",
 		"description": "很厉害的一个人，好像还很年轻。经常在 b站活跃，开直播（看过）。我记得它几乎毕业就做了很多厉害的事情，vue 系列核心成员，似乎对他来说很轻松的事情。blog 多是英文，生活圈也是大神汇聚，真好。不怎么爱写blog，但相比来说已经算好的了。可以从他这窥探一些 vue \"上流社会\"",
 		"stars": 4
-	},
-	{
-		"name": "enpitsulin 铅笔",
-		"url": "https://enpitsulin.xyz/",
-		"avatar": "https://enpitsulin.xyz/favicon.svg",
-		"description": "很简洁的blog网站，像 nanda。只不过很久没内容了。他现在的头像一时让我想不起他是谁了，突然发现它过去可爱头像，我想起来这家伙了。",
-		"stars": 2
 	},
 	{
 		"name": "Innei 静かな森",
@@ -140,13 +112,6 @@
 		"stars": 4
 	},
 	{
-		"name": "Niracler 的博物志",
-		"url": "https://niracler.com/",
-		"avatar": "https://niracler.com/favicon.svg",
-		"description": "小透明，偶尔更新一篇blog。但是网站风格还是有特点的，可作为设计 blog 时的参考。",
-		"stars": 2
-	},
-	{
 		"name": "講評世界",
 		"url": "https://blog.moeyua.com/",
 		"avatar": "https://avatars.githubusercontent.com/u/45156493?v=4",
@@ -168,39 +133,11 @@
 		"stars": 3
 	},
 	{
-		"name": "季节记忆",
-		"avatar": "https://www.seamory.com/api/storage/2024112814523200000001349b3aa3c2",
-		"url": "https://www.seamory.com/",
-		"description": "好像是为后端/嵌入式？2025 年初建立的 blog，无 UI 设计。但少有后端人显露 blog，应当勉励的。",
-		"stars": 1
-	},
-	{
-		"name": "Ivan Kapunac",
-		"avatar": "https://media.licdn.com/dms/image/v2/D4D03AQHD1EtuIeXxDQ/profile-displayphoto-scale_400_400/B4DZnI8lKCHsAg-/0/1760012950053?e=1764806400&v=beta&t=eDxdpmvMVG90RGvTHcDmcz44kWbx3LeiyUnTcHGi52c",
-		"url": "https://ivankapunac.com/",
-		"description": "3D 个人介绍网站，看上去会惊讶一下。但交互的还是缺失的。如果建模是自己原创的话，还是挺厉害的。",
-		"stars": 3
-	},
-	{
 		"name": "微尔微",
 		"avatar": "https://www.vio.vin/apple-touch-icon.png",
 		"url": "https://www.vio.vin/",
 		"description": "23 年新晋散修，如他所说，一天倒腾一些奇怪的东西。应该是以后端为主，喜欢完一些硬件。静森系 blog，25年 blog 稳定输出。",
 		"stars": 2
-	},
-	{
-		"name": "搬砖日记",
-		"avatar": "https://banzhuanriji.com/img/icon.ico",
-		"url": "https://banzhuanriji.com/",
-		"description": "白底黑字。但是打理得挺好的。应该是 Andriod 开发者，24 年开始分享各种探索。摸不清根底。",
-		"stars": 2
-	},
-	{
-		"name": "博客.cn",
-		"avatar": "https://xmind.design/favicon.ico",
-		"url": "https://loud-fear-11e.notion.site/eb29a49346a742989582723f950fcf0f?v=4b4f7b7d24274ba7853426c101a149d7",
-		"description": "好像是 XMind 的内部 blog notion，不确认，但里面的内容确实专业深刻，先收藏一波",
-		"stars": 3
 	},
 	{
 		"name": "KK",

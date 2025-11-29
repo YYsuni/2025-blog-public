@@ -1,10 +1,8 @@
 'use client'
 
 import { motion } from 'motion/react'
-import StarRating from '@/components/star-rating'
 import { useSize } from '@/hooks/use-size'
 import { cn } from '@/lib/utils'
-import EditableStarRating from '@/components/editable-star-rating'
 import { useState } from 'react'
 import LogoUploadDialog, { type LogoItem } from './logo-upload-dialog'
 
@@ -14,7 +12,6 @@ export interface Share {
 	url: string
 	description: string
 	tags: string[]
-	stars: number
 }
 
 interface ShareCardProps {
@@ -132,15 +129,9 @@ export function ShareCard({ share, isEditMode = false, onUpdate, onDelete }: Sha
 							</a>
 						)}
 					</div>
-				</div>
+			</div>
 
-				{canEdit ? (
-					<EditableStarRating stars={localShare.stars} editable={true} onChange={stars => handleFieldChange('stars', stars)} />
-				) : (
-					<StarRating stars={localShare.stars} />
-				)}
-
-				<div className='mt-3 flex flex-wrap gap-1.5'>
+			<div className='mt-3 flex flex-wrap gap-1.5'>
 					{canEdit ? (
 						<input
 							type='text'
