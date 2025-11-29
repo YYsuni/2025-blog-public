@@ -22,7 +22,7 @@ type ShareItem = {
 	logo: string
 	description: string
 	tags: string[]
-	stars: number
+	stars?: number
 }
 
 export default function ShareCard() {
