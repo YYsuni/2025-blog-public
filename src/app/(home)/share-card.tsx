@@ -39,8 +39,8 @@ export default function ShareCard() {
 		return null
 	}
 
-	// 在移动端使用与HiCard相同的宽度
-	const cardWidth = maxSM && init ? hiCardStyles.width : styles.width
+	// 在移动端使用比HiCard稍小的宽度
+	const cardWidth = maxSM && init ? 320 : styles.width
 
 	return (
 		<Card
