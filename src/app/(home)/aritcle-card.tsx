@@ -22,7 +22,7 @@ export default function ArticleCard() {
 	const latestBlog = items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
 
 	// 在移动端使用比HiCard稍小的宽度
-	const cardWidth = maxSM && init ? 320 : styles.width
+	const cardWidth = maxSM && init ? 300 : styles.width
 
 	return (
 		<Card
