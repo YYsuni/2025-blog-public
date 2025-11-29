@@ -21,6 +21,8 @@ export default function Page() {
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const router = useRouter()
 
+	console.log('[suni pictures]', pictures)
+
 	const { isAuth, setPrivateKey } = useAuthStore()
 
 	const handleUploadSubmit = ({ images, description }: { images: ImageItem[]; description: string }) => {
@@ -31,35 +33,42 @@ export default function Page() {
 			return
 		}
 
-		const newPictures: Picture[] = []
-		const newMap = new Map(imageItems)
+		const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`
+		const desc = description.trim() || undefined
 
-		for (const imageItem of images) {
-			const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`
-			const imageUrl = imageItem.type === 'url' ? imageItem.url : imageItem.previewUrl
+		const imageUrls = images.map(imageItem => (imageItem.type === 'url' ? imageItem.url : imageItem.previewUrl))
 
-			newPictures.push({
-				id,
-				image: imageUrl,
-				uploadedAt: now,
-				description: description.trim() || undefined
-			})
-
-			newMap.set(id, imageItem)
+		const newPicture: Picture = {
+			id,
+			uploadedAt: now,
+			description: desc,
+			images: imageUrls
 		}
 
-		setPictures(prev => [...prev, ...newPictures])
+		const newMap = new Map(imageItems)
+
+		images.forEach((imageItem, index) => {
+			if (imageItem.type === 'file') {
+				newMap.set(`${id}::${index}`, imageItem)
+			}
+		})
+
+		setPictures(prev => [...prev, newPicture])
 		setImageItems(newMap)
 		setIsUploadDialogOpen(false)
 	}
 
 	const handleDelete = (picture: Picture) => {
-		if (!confirm('确定要删除这张图片吗？')) return
+		if (!confirm('确定要删除这一组图片吗？')) return
 
 		setPictures(prev => prev.filter(p => p.id !== picture.id))
 		setImageItems(prev => {
 			const next = new Map(prev)
-			next.delete(picture.id)
+			for (const key of next.keys()) {
+				if (key.startsWith(`${picture.id}::`)) {
+					next.delete(key)
+				}
+			}
 			return next
 		})
 	}

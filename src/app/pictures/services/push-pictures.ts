@@ -31,7 +31,7 @@ export async function pushPictures(params: PushPicturesParams): Promise<void> {
 
 	if (imageItems && imageItems.size > 0) {
 		toast.info('正在上传图片...')
-		for (const [id, imageItem] of imageItems.entries()) {
+		for (const [key, imageItem] of imageItems.entries()) {
 			if (imageItem.type === 'file') {
 				const hash = imageItem.hash || (await hashFileSHA256(imageItem.file))
 				const ext = getFileExt(imageItem.file.name)
@@ -51,7 +51,22 @@ export async function pushPictures(params: PushPicturesParams): Promise<void> {
 					uploadedHashes.add(hash)
 				}
 
-				updatedPictures = updatedPictures.map(p => (p.id === id ? { ...p, image: publicPath } : p))
+				const [groupId, indexStr] = key.split('::')
+				const imageIndex = Number(indexStr) || 0
+
+				updatedPictures = updatedPictures.map(p => {
+					if (p.id !== groupId) return p
+
+					const currentImages = p.images && p.images.length > 0 ? p.images : p.image ? [p.image] : []
+
+					const nextImages = currentImages.map((img, idx) => (idx === imageIndex ? publicPath : img))
+
+					return {
+						...p,
+						image: undefined,
+						images: nextImages
+					}
+				})
 			}
 		}
 	}

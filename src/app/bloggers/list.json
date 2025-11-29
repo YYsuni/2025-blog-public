@@ -173,5 +173,12 @@
 		"url": "https://www.elysium-stack.cn/",
 		"description": "UI 设计师 blogger，少见，blog 设计的很棒。一股游戏感铺面而来，25 年开始的内容。",
 		"stars": 3
+	},
+	{
+		"name": "十玖八柒",
+		"avatar": "https://ahzoo.cn/img/avatar.webp",
+		"url": "https://blog.ahzoo.cn/",
+		"description": "Z次元，后端开发，记录了很多后端研究。但折腾前端和 blog 还不少。把 blog 打理得有自己独特得舒适，实属难得",
+		"stars": 3
 	}
 ]
