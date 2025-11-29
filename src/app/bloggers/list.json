@@ -63,17 +63,17 @@
 		"stars": 4
 	},
 	{
-		"name": "Ivan Kapunac",
-		"avatar": "https://media.licdn.com/dms/image/v2/D4D03AQHD1EtuIeXxDQ/profile-displayphoto-scale_400_400/B4DZnI8lKCHsAg-/0/1760012950053?e=1764806400&v=beta&t=eDxdpmvMVG90RGvTHcDmcz44kWbx3LeiyUnTcHGi52c",
-		"url": "https://ivankapunac.com/",
-		"description": "3D 个人介绍网站，看上去会惊讶一下。但交互的还是缺失的。如果建模是自己原创的话，还是挺厉害的。",
-		"stars": 3
-	},
-	{
 		"name": "手里有只毛毛虫",
 		"avatar": "https://www.krjojo.com/wp-content/uploads/2024/05/avatar.avif",
 		"url": "https://www.krjojo.com/",
 		"description": "网站很舒服，一位六边形战士的独立开发者。文章目录能一眼看完就好了，想翻点想看的比较不容易。",
 		"stars": 4
+	},
+	{
+		"name": "YYsuni",
+		"avatar": "https://blog-archive.yysuni.com/favicons/android-chrome-512x512.png",
+		"url": "https://www.yysuni.com",
+		"description": "博主的第一个 Blog 网站，相当漂亮",
+		"stars": 5
 	}
 ]
