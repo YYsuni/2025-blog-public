@@ -1,0 +1,10 @@
+{
+  "title": "Vercel + Cloudflare 实现网站免备案部署与加速全攻略",
+  "tags": [
+    "Vercel",
+    "Cloudflare"
+  ],
+  "date": "2025-11-29",
+  "summary": "利用 **Vercel** 进行网站部署，并结合 **Cloudflare** 的免费CDN和DNS服务，实现自定义域名绑定、全球加速及HTTPS安全访问",
+  "cover": "/blogs/vercel-cloudflare-guide/233f970aafb556fe.webp"
+}
