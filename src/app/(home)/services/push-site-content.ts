@@ -4,7 +4,7 @@ import { GITHUB_CONFIG } from '@/consts'
 import { toast } from 'sonner'
 import { fileToBase64NoPrefix } from '@/lib/file-utils'
 import type { SiteContent, CardStyles } from '../stores/config-store'
-import type { FileItem } from '../config-dialog'
+import type { FileItem } from '../config-dialog/site-settings'
 
 export async function pushSiteContent(
 	siteContent: SiteContent,

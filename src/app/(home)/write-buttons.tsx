@@ -7,7 +7,7 @@ import { useCenterStore } from '@/hooks/use-center'
 import { useRouter } from 'next/navigation'
 import { useSize } from '@/hooks/use-size'
 import DotsSVG from '@/svgs/dots.svg'
-import ConfigDialog from './config-dialog'
+import ConfigDialog from './config-dialog/index'
 
 export default function WriteButton() {
 	const center = useCenterStore()
