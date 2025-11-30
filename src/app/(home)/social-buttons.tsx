@@ -40,7 +40,7 @@ export default function SocialButtons() {
 				<div className='absolute top-0 right-0 flex items-center gap-3 max-sm:static'>
 					{tertiaryShow && (
 						<motion.a
-							href='https://github.com/imibtc'
+							href='https://imibtc.com'
 							target='_blank'
 							initial={{ opacity: 0, scale: 0.6 }}
 							animate={{ opacity: 1, scale: 1 }}
@@ -49,7 +49,7 @@ export default function SocialButtons() {
 							className='font-averia flex items-center gap-2 rounded-xl border bg-[#070707] px-3 py-2 text-xl text-white'
 							style={{ boxShadow: ' inset 0 0 12px rgba(255, 255, 255, 0.4)' }}>
 							<GithubSVG />
-							Github
+							伊米博客
 						</motion.a>
 					)}
 
