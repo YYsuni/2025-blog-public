@@ -40,7 +40,7 @@ export default function SocialButtons() {
 				<div className='absolute top-0 right-0 flex items-center gap-3 max-sm:static'>
 					{tertiaryShow && (
 						<motion.a
-							href='https://github.com/yysuni'
+							href='https://github.com/imibtc'
 							target='_blank'
 							initial={{ opacity: 0, scale: 0.6 }}
 							animate={{ opacity: 1, scale: 1 }}
@@ -55,7 +55,7 @@ export default function SocialButtons() {
 
 					{secondaryShow && (
 						<motion.a
-							href='https://juejin.cn/user/2427311675422382'
+							href='https://www.imibtc.com/27.html'
 							target='_blank'
 							initial={{ opacity: 0, scale: 0.6 }}
 							animate={{ opacity: 1, scale: 1 }}
@@ -63,7 +63,7 @@ export default function SocialButtons() {
 							whileTap={{ scale: 0.95 }}
 							className='card relative flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium whitespace-nowrap'>
 							<JuejinSVG className='h-6 w-6' />
-							稀土掘金
+							精品资源
 						</motion.a>
 					)}
 
