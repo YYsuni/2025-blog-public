@@ -1,25 +1,5 @@
 [
 	{
-		"name": "The Monolith Project",
-		"logo": "https://themonolithproject.net/assets/images-next/nose_logo.webp",
-		"url": "https://themonolithproject.net/",
-		"description": "奇幻宇宙的动画演绎，像看电影一样。“跨越多星之际，一座沉默的巨石碑悄然苏醒。“巨石碑计划”：每一次触碰，皆可重写现实。”",
-		"tags": [
-			"3D"
-		],
-		"stars": 5
-	},
-	{
-		"name": "Webp 转换压缩",
-		"logo": "https://www.yysuni.com/images/avatar.png",
-		"url": "https://www.yysuni.com/image-toolbox",
-		"description": "无限压缩，快且方便，可以直接对比效果",
-		"tags": [
-			"图片"
-		],
-		"stars": 3
-	},
-	{
 		"name": "阅读书源、阅读软件",
 		"logo": "blob:https://www.hdxiaoke.top/9e9e28f6-f9a6-41fc-8bce-e5a33c3c437e",
 		"url": "https://pan.quark.cn/s/256cf38453d0",
