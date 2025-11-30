@@ -7,55 +7,6 @@
 		"stars": 5
 	},
 	{
-		"name": "Josh W. Comeau",
-		"url": "https://www.joshwcomeau.com/",
-		"avatar": "https://www.joshwcomeau.com/favicon.png",
-		"description": "John blog 更像是一个课程网站，每一篇文章都书写的很好，每次阅读都能吸收到新的东西。网站设计也恰到好处，工整、有趣。",
-		"stars": 5
-	},
-	{
-		"name": "nanda",
-		"url": "https://www.nan.fyi/",
-		"avatar": "https://www.nan.fyi/favicon.ico",
-		"description": "设计大师，nanda 。页面只用灰色加线条，都让我觉得叹为观止，内容不多，每篇都精雕细琢。跟 Josh 一样，属于技术网站，但它的教程引导更加出神入化，可称为程序艺术家。",
-		"stars": 5
-	},
-	{
-		"name": "Emil Kowalski",
-		"url": "https://emilkowal.ski/",
-		"avatar": "https://emilkowal.ski/favicon.ico",
-		"description": "Blog 就干脆\"不设计\"，无装饰。技术就比较轻松一些，它更强调动画/交互。Vercel 员工，他的组件很好用，也很 vercel。",
-		"stars": 4
-	},
-	{
-		"name": "Anthony Fu",
-		"url": "https://antfu.me/",
-		"avatar": "https://avatars.githubusercontent.com/u/11247099?v=4",
-		"description": "很厉害的一个人，好像还很年轻。经常在 b站活跃，开直播（看过）。我记得它几乎毕业就做了很多厉害的事情，vue 系列核心成员，似乎对他来说很轻松的事情。blog 多是英文，生活圈也是大神汇聚，真好。不怎么爱写blog，但相比来说已经算好的了。可以从他这窥探一些 vue \"上流社会\"",
-		"stars": 4
-	},
-	{
-		"name": "Cali",
-		"url": "https://cali.so/",
-		"avatar": "https://cali.so/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FPortrait.8d12f14a.png&w=96&q=75",
-		"description": "设计师，网站设计不错，但是 blog 内容很少。但厉害的是他已经自己开公司了，给别人设计网站，影石 Insta360 是他们设计的。很好的 blog 参考。他的 zolplay 网站跟 nanda 风格很像，不知道谁抄的谁。",
-		"stars": 4
-	},
-	{
-		"name": "Chrome Blog",
-		"url": "https://web.dev/blog?hl=zh-cn",
-		"avatar": "/images/blogger/2fe46db88bd43683.svg",
-		"description": "技术团队 blog，咨询、动态、故事。我觉得页面感受还不错。",
-		"stars": 4
-	},
-	{
-		"name": "Brian Lovin",
-		"url": "https://brianlovin.com/",
-		"avatar": "https://avatars.githubusercontent.com/u/1923260?v=4",
-		"description": "早期外国大神，在 Github,Facebook 工作过，现在在notion，资历老、项目多。blog 写成了 Dashboard 风格，蛮奇特的，但是 blog 并不多。",
-		"stars": 4
-	},
-	{
 		"name": "Cassie Evans's Blog",
 		"url": "https://www.cassie.codes/",
 		"avatar": "https://www.cassie.codes/images/avatar2.jpg",
