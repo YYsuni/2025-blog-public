@@ -49,7 +49,7 @@ export default function SocialButtons() {
 							className='font-averia flex items-center gap-2 rounded-xl border bg-[#070707] px-3 py-2 text-xl text-white'
 							style={{ boxShadow: ' inset 0 0 12px rgba(255, 255, 255, 0.4)' }}>
 							<GithubSVG />
-							伊米博客
+							YmBlog
 						</motion.a>
 					)}
 
