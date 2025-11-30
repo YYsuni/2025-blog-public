@@ -7,13 +7,6 @@
 		"stars": 5
 	},
 	{
-		"name": "Cassie Evans's Blog",
-		"url": "https://www.cassie.codes/",
-		"avatar": "https://www.cassie.codes/images/avatar2.jpg",
-		"description": "彩色网站，真的很酷。并且还是位女士，真的很少见。GASP、SVG、动画很精美，但是没几篇内容，也算是高级 blog 的一种诅咒。在 Twitter 上也是名人。",
-		"stars": 4
-	},
-	{
 		"name": "手里有只毛毛虫",
 		"avatar": "https://www.krjojo.com/wp-content/uploads/2024/05/avatar.avif",
 		"url": "https://www.krjojo.com/",
@@ -33,5 +26,12 @@
 		"url": "https://www.hdxiaoke.top/image-toolbox",
 		"description": "无限压缩，快且方便，可以直接对比效果",
 		"stars": 3
+	},
+	{
+		"name": "图片编辑",
+		"avatar": "blob:https://www.hdxiaoke.top/6f12deb1-93f1-4937-ba8c-255e07ac0497",
+		"url": "https://photokit.com/?lang=zh",
+		"description": "基于AI人工智能的在线图片编辑器，方便易用。您可以通过编辑器一键抠图、改图、修图、美图等。",
+		"stars": 5
 	}
 ]
