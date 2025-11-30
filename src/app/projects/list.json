@@ -1,15 +1,5 @@
 [
 	{
-		"name": "嘟嘟的博客",
-		"year": 2025,
-		"image": "/images/project/e0da2bf9a8d8a7de.webp",
-		"url": "https://imibtc.github.io/",
-		"description": "一个基于github的博客，论坛式界面。",
-		"tags": [
-			"博客"
-		]
-	},
-	{
 		"name": "AI-Media2Doc",
 		"year": 2025,
 		"image": "/images/project/056312b9de0379a0.webp",
