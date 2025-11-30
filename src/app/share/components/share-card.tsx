@@ -134,11 +134,7 @@ export function ShareCard({ share, isEditMode = false, onUpdate, onDelete }: Sha
 					</div>
 				</div>
 
-				{canEdit ? (
-					<EditableStarRating stars={localShare.stars} editable={true} onChange={stars => handleFieldChange('stars', stars)} />
-				) : (
-					<StarRating stars={localShare.stars} />
-				)}
+				{/* 隐藏星级评分 */}
 
 				<div className='mt-3 flex flex-wrap gap-1.5'>
 					{canEdit ? (
