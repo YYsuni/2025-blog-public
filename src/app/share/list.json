@@ -18,5 +18,15 @@
 			"图片"
 		],
 		"stars": 3
+	},
+	{
+		"name": "阅读书源、阅读软件",
+		"logo": "blob:https://www.hdxiaoke.top/9e9e28f6-f9a6-41fc-8bce-e5a33c3c437e",
+		"url": "https://pan.quark.cn/s/256cf38453d0",
+		"description": "包括B站墨辰大佬的书源、净化规则、排版、语音包等，很全很好用～",
+		"tags": [
+			"阅读"
+		],
+		"stars": 3
 	}
 ]
