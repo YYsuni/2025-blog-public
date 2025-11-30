@@ -137,7 +137,9 @@ export const GITHUB_CONFIG = {
 
 收集整理其他问题参考
 
-### 9.2 文章-文件夹的位置
+### 9.1 文章-文件夹的位置
 `public/blog` 每个文件夹是一篇文章
 
+### 9.2 隐藏“推荐分享”里的“星级评分”
+`src/app/share/components/share-card.tsx` 把 137~141 代码删除，换成 `{/* 隐藏星级评分 */}`
  
