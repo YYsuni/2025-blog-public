@@ -8,5 +8,38 @@
 		"tags": [
 			"博客"
 		]
+	},
+	{
+		"name": "AI-Media2Doc",
+		"year": 2025,
+		"image": "blob:https://www.hdxiaoke.top/abefd6d0-4393-4589-a165-9e22af558aa3",
+		"url": "https://github.com/imibtc/AI-Media2Doc",
+		"description": "一键将音视频转化为小红书/公众号/知识笔记/思维导图/视频字幕等各种风格的文档。",
+		"tags": [
+			"音视频转文档"
+		],
+		"github": "https://github.com/imibtc/AI-Media2Doc"
+	},
+	{
+		"name": "TrendRadar",
+		"year": 2025,
+		"image": "blob:https://www.hdxiaoke.top/87db46f0-45f9-4d15-a9e1-cade7c55864e",
+		"url": "https://imibtc.github.io/TrendRadar/",
+		"description": "新闻 - 多平台热点聚合工具，趋势分析工具。支持企业微信、飞书、钉钉、Telegram推送",
+		"tags": [
+			"新闻"
+		],
+		"github": "https://github.com/imibtc/TrendRadar"
+	},
+	{
+		"name": "ai-trend-publish",
+		"year": 2025,
+		"image": "blob:https://www.hdxiaoke.top/b159e847-3e68-41b0-805f-26455b6d499f",
+		"url": "https://github.com/imibtc/ai-trend-publish",
+		"description": "基于 Deno 开发的趋势发现和内容发布系统，支持多源数据采集、智能总结和自动发布到微信公众号。",
+		"tags": [
+			"自动发布"
+		],
+		"github": "https://github.com/imibtc/ai-trend-publish"
 	}
 ]
