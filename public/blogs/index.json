@@ -12,6 +12,18 @@
     "cover": "/blogs/readme/9532a65cc32ca5eb.png"
   },
   {
+    "slug": "douyin-yinliu",
+    "title": "中文域名·防封引流术：抖音快手秒跳任意页面",
+    "tags": [
+      "抖音",
+      "引流",
+      "中文域名"
+    ],
+    "date": "2025-11-30",
+    "summary": "中文域名（如：`伊米博客.我爱你`）规避平台网址封禁，成本低（19元/年），用户易记易传播，适合抖音/快手等敏感平台。",
+    "cover": "/blogs/douyin-yinliu/a771ec3712c56952.webp"
+  },
+  {
     "slug": "vercel-cloudflare-guide",
     "title": "Vercel + Cloudflare 实现网站免备案部署与加速全攻略",
     "tags": [
