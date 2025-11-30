@@ -63,7 +63,7 @@ export default function SocialButtons() {
 							whileTap={{ scale: 0.95 }}
 							className='card relative flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium whitespace-nowrap'>
 							<JuejinSVG className='h-6 w-6' />
-							精品资源
+							资源库
 						</motion.a>
 					)}
 
