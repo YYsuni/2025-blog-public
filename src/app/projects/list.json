@@ -6,7 +6,8 @@
 		"url": "https://github.com/imibtc/AI-Media2Doc",
 		"description": "一键将音视频转化为小红书/公众号/知识笔记/思维导图/视频字幕等各种风格的文档。",
 		"tags": [
-			"音视频转文档"
+			"音频转文档",
+			"视频转文档"
 		],
 		"github": "https://github.com/imibtc/AI-Media2Doc"
 	},
@@ -28,6 +29,7 @@
 		"url": "https://github.com/imibtc/ai-trend-publish",
 		"description": "基于 Deno 开发的趋势发现和内容发布系统，支持多源数据采集、智能总结和自动发布到微信公众号。",
 		"tags": [
+			"公众号",
 			"自动发布"
 		],
 		"github": "https://github.com/imibtc/ai-trend-publish"
@@ -39,8 +41,7 @@
 		"url": "https://github.com/imibtc/RedInk",
 		"description": "输入一句话,就能生成完整的小红书图文",
 		"tags": [
-			"小红书",
-			"图文生成器"
+			"小红书"
 		],
 		"github": "https://github.com/HisMax/RedInk"
 	}
