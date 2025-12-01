@@ -64,5 +64,15 @@
 			"Library"
 		],
 		"github": "https://github.com/YYsuni/archive-suni"
+	},
+	{
+		"name": "v0",
+		"year": 2025,
+		"image": "blob:https://eddy-dong.vercel.app/4f030c89-c527-4ac7-b14b-4f6990ed2b18",
+		"url": "https://v0.app/",
+		"description": "Vue",
+		"tags": [
+			"Vue"
+		]
 	}
 ]
