@@ -58,29 +58,6 @@ export function BlogToc({ toc, delay = 0 }: BlogTocProps) {
 		}
 	}, [toc])
 
-	// const indicatorStyle = useMemo(() => {
-	// 	if (activeIds.size === 0) {
-	// 		return { top: 0, height: 0 }
-	// 	}
-
-	// 	const activeIndices = toc.map((item, index) => (activeIds.has(item.id) ? index : -1)).filter(index => index !== -1)
-
-	// 	if (activeIndices.length === 0) {
-	// 		return { top: 0, height: 0 }
-	// 	}
-
-	// 	const minIndex = Math.min(...activeIndices)
-	// 	const maxIndex = Math.max(...activeIndices)
-
-	// 	const itemHeight = 28
-	// 	const gap = 8
-
-	// 	const top = minIndex * itemHeight
-	// 	const height = (maxIndex - minIndex + 1) * itemHeight - gap
-
-	// 	return { top, height }
-	// }, [activeIds, toc])
-
 	return (
 		<motion.div
 			initial={{ opacity: 0, scale: 0.8 }}
@@ -88,18 +65,7 @@ export function BlogToc({ toc, delay = 0 }: BlogTocProps) {
 			transition={{ delay }}
 			className='w-full rounded-xl border bg-white/40 p-3 text-sm'>
 			<h2 className='text-secondary mb-2 font-medium'>目录</h2>
-			<div className='relative space-y-2'>
-				{/* {indicatorStyle.height > 0 && (
-					<motion.div
-						className='bg-brand/40 absolute left-0 w-1 rounded-full'
-						initial={false}
-						animate={{
-							top: indicatorStyle.top,
-							height: indicatorStyle.height
-						}}
-						transition={{ duration: 0.2, ease: 'easeOut' }}
-					/>
-				)} */}
+			<div className='relative max-h-[300px] space-y-2 overflow-auto'>
 				{toc.length === 0 && <div className='text-secondary'>暂无</div>}
 				{toc.map(item => (
 					<a

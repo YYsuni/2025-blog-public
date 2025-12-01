@@ -13,6 +13,15 @@ type SizeState = {
 	recalc: () => void
 }
 
+const initState = {
+	init: false,
+	maxXL: false,
+	maxLG: false,
+	maxMD: false,
+	maxSM: false,
+	maxXS: false
+}
+
 const computeSize = (): Omit<SizeState, 'recalc'> => {
 	if (typeof window !== 'undefined') {
 		const width = window.innerWidth
@@ -27,18 +36,11 @@ const computeSize = (): Omit<SizeState, 'recalc'> => {
 		}
 	}
 
-	return {
-		init: false,
-		maxXL: false,
-		maxLG: false,
-		maxMD: false,
-		maxSM: false,
-		maxXS: false
-	}
+	return initState
 }
 
 export const useSizeStore = create<SizeState>(set => ({
-	...computeSize(),
+	...initState,
 	recalc: () => {
 		set(computeSize())
 	}

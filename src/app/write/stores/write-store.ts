@@ -18,7 +18,7 @@ type WriteStore = {
 	// Image state
 	images: ImageItem[]
 	addUrlImage: (url: string) => void
-	addFiles: (files: FileList | File[]) => Promise<void>
+	addFiles: (files: FileList | File[]) => Promise<ImageItem[]>
 	deleteImage: (id: string) => void
 
 	// Cover state
@@ -71,12 +71,12 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 	addFiles: async (files: FileList | File[]) => {
 		const { images } = get()
 		const arr = Array.from(files).filter(f => f.type.startsWith('image/'))
-		if (arr.length === 0) return
+		if (arr.length === 0) return []
 
-		const existingHashes = new Set<string>(
+		const existingHashes = new Map<string, ImageItem>(
 			images
 				.filter((it): it is Extract<ImageItem, { type: 'file'; hash?: string }> => it.type === 'file' && (it as any).hash)
-				.map(it => (it as any).hash as string)
+				.map(it => [(it as any).hash as string, it])
 		)
 
 		const computed = await Promise.all(
@@ -94,19 +94,31 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			return true
 		})
 
-		if (unique.length === 0) {
-			toast.info('图片已存在，不重复添加')
-			return
+		const resultImages: ImageItem[] = []
+
+		// 处理已存在的图片
+		for (const { hash } of computed) {
+			if (existingHashes.has(hash)) {
+				resultImages.push(existingHashes.get(hash)!)
+			}
 		}
 
-		const newItems: ImageItem[] = unique.map(({ file, hash }) => {
-			const id = Math.random().toString(36).slice(2, 10)
-			const previewUrl = URL.createObjectURL(file)
-			const filename = file.name
-			return { id, type: 'file', file, previewUrl, filename, hash }
-		})
+		// 处理新图片
+		if (unique.length > 0) {
+			const newItems: ImageItem[] = unique.map(({ file, hash }) => {
+				const id = Math.random().toString(36).slice(2, 10)
+				const previewUrl = URL.createObjectURL(file)
+				const filename = file.name
+				return { id, type: 'file', file, previewUrl, filename, hash }
+			})
 
-		set(state => ({ images: [...newItems, ...state.images] }))
+			set(state => ({ images: [...newItems, ...state.images] }))
+			resultImages.push(...newItems)
+		} else if (resultImages.length === 0) {
+			toast.info('图片已存在，不重复添加')
+		}
+
+		return resultImages
 	},
 	deleteImage: id =>
 		set(state => {

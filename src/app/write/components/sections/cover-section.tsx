@@ -49,15 +49,10 @@ export function CoverSection({ delay = 0 }: CoverSectionProps) {
 				return
 			}
 
-			const imagesBefore = images.length
-			await addFiles(imageFiles as unknown as FileList)
-
-			// 获取最新的 images 状态
-			const currentImages = useWriteStore.getState().images
-			if (currentImages.length > imagesBefore) {
-				// 获取最新添加的图片（第一个）并设置为封面
-				const newImage = currentImages[0]
-				setCover(newImage)
+			const resultImages = await addFiles(imageFiles as unknown as FileList)
+			if (resultImages && resultImages.length > 0) {
+				// 使用第一个图片作为封面
+				setCover(resultImages[0])
 				toast.success('已设置封面')
 			}
 			return
@@ -72,15 +67,10 @@ export function CoverSection({ delay = 0 }: CoverSectionProps) {
 		const files = e.target.files
 		if (!files || files.length === 0) return
 
-		const imagesBefore = images.length
-		await addFiles(files)
-
-		// 获取最新的 images 状态
-		const currentImages = useWriteStore.getState().images
-		if (currentImages.length > imagesBefore) {
-			// 获取最新添加的图片（第一个）并设置为封面
-			const newImage = currentImages[0]
-			setCover(newImage)
+		const resultImages = await addFiles(files)
+		if (resultImages && resultImages.length > 0) {
+			// 使用第一个图片作为封面
+			setCover(resultImages[0])
 			toast.success('已设置封面')
 		}
 

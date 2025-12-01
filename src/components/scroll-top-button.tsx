@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'motion/react'
-import clsx from 'clsx'
 import TopSVG from '@/svgs/top.svg'
+import { cn } from '@/lib/utils'
 
 type ScrollTopButtonProps = {
 	className?: string
@@ -19,7 +19,7 @@ export function ScrollTopButton({ className, delay }: ScrollTopButtonProps) {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setActive(window.scrollY > 100)
+			setActive(window.scrollY > 200)
 		}
 		handleScroll()
 		window.addEventListener('scroll', handleScroll, { passive: true })
@@ -41,7 +41,7 @@ export function ScrollTopButton({ className, delay }: ScrollTopButtonProps) {
 			whileTap={{ scale: 0.95 }}
 			onClick={handleClick}
 			aria-label='Scroll to top'
-			className={clsx('card text-secondary static gap-2 rounded-full p-3 text-sm', className)}>
+			className={cn('card text-secondary static gap-2 rounded-full p-3 text-sm', className)}>
 			<TopSVG className='w-7' />
 		</motion.button>
 	)

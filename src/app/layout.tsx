@@ -37,10 +37,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 				<script
 					dangerouslySetInnerHTML={{
 						__html: `
-						if (window && /windows|win32/i.test(navigator.userAgent)) {
-							setTimeout(() => document.documentElement.classList.add('windows'), 0)			
-						}
-			      `
+					if (/windows|win32/i.test(navigator.userAgent)) {
+						document.documentElement.classList.add('windows');
+					}
+		      `
 					}}
 				/>
 

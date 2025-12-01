@@ -5,13 +5,15 @@ import BlurredBubblesBackground from './backgrounds/blurred-bubbles'
 import NavCard from '@/components/nav-card'
 import { Toaster } from 'sonner'
 import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from 'lucide-react'
-import { useSizeInit } from '@/hooks/use-size'
+import { useSize, useSizeInit } from '@/hooks/use-size'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { ScrollTopButton } from '@/components/scroll-top-button'
 
 export default function Layout({ children }: PropsWithChildren) {
 	useCenterInit()
 	useSizeInit()
 	const { siteContent, regenerateKey } = useConfigStore()
+	const { maxSM, init } = useSize()
 
 	useEffect(() => {
 		if (typeof document === 'undefined') return
@@ -48,6 +50,8 @@ export default function Layout({ children }: PropsWithChildren) {
 				{children}
 				<NavCard />
 			</main>
+
+			{maxSM && init && <ScrollTopButton className='bg-brand/20 fixed right-6 bottom-8 z-50 shadow-md' />}
 		</>
 	)
 }
