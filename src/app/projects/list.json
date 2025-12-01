@@ -31,5 +31,17 @@
 			"自动发布"
 		],
 		"github": "https://github.com/imibtc/ai-trend-publish"
+	},
+	{
+		"name": "小红书AI图文生成器",
+		"year": 2025,
+		"image": "blob:https://www.hdxiaoke.top/39edfbb8-8e47-488b-92d5-b0fa4311a235",
+		"url": "https://github.com/imibtc/RedInk",
+		"description": "输入一句话,就能生成完整的小红书图文",
+		"tags": [
+			"小红书",
+			"图文生成器"
+		],
+		"github": "https://github.com/HisMax/RedInk"
 	}
 ]
