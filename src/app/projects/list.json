@@ -9,7 +9,7 @@
 			"音频转文档",
 			"视频转文档"
 		],
-		"github": "https://github.com/imibtc/AI-Media2Doc"
+		"github": "https://github.com/hanshuaikang/AI-Media2Doc"
 	},
 	{
 		"name": "TrendRadar",
@@ -32,12 +32,12 @@
 			"公众号",
 			"自动发布"
 		],
-		"github": "https://github.com/imibtc/ai-trend-publish"
+		"github": "https://github.com/OpenAISpace/ai-trend-publish"
 	},
 	{
 		"name": "小红书AI图文生成器",
 		"year": 2025,
-		"image": "/images/project/acec8e6d89383e7c.webp",
+		"image": "blob:https://www.hdxiaoke.top/b10eedf0-d9a0-4fab-8070-22d3435ef51d",
 		"url": "https://github.com/imibtc/RedInk",
 		"description": "输入一句话,就能生成完整的小红书图文",
 		"tags": [
