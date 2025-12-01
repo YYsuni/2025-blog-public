@@ -521,4 +521,76 @@ while True:
     else:
         print(f"{number_1}与{number_2}相加的和为{number_add}")
 ```
-9. 习题10.8：猫和狗 创建文件 cats.txt 和 dogs.txt，在第一个文件中至少存储三只猫的名字
+9. 习题10.8：猫和狗 创建文件 cats.txt 和 dogs.txt，在第一个文件中至少存储三只猫的名字，在
+第二个文件中至少存储三条狗的名字。编写一个程序，尝试读取这些文件，并将其内容打印在屏幕上。将这些
+代码放在一个try-except代码块中，以便在文件不存在时捕获FileNotFoundError异常，并显示一条友好
+的消息。将任意一个文件移到另一个地方，并确认except代码块中的代码将正确地执行。
+```commandline
+cat_and_dog.py
+
+from pathlib import Path
+
+def file_export(file_path):
+    """读取文件文件并输出内容"""
+    try:
+        contents = Path(file_path).read_text(encoding="utf-8")
+    except FileNotFoundError:
+        print("该文件不存在")
+    else:
+        print(f"The file {file_path} has name:\n")
+        words = contents.split()
+        for word in words:
+            print(f"{word}\n")
+
+filenames = ['cats.txt', 'dogs.txt']
+for filename in filenames:
+    file_export(filename)
+
+```
+10. 习题10.9：静默的猫和狗 修改你在练习10.8 中编写的except代码块，让程序在文件
+不存在时静默失败
+```commandline
+from pathlib import Path
+
+def file_export(file_path):
+    """读取文件文件并输出内容"""
+    try:
+        contents = Path(file_path).read_text(encoding="utf-8")
+    except FileNotFoundError:
+        pass
+    else:
+        print(f"The file {file_path} has name:\n")
+        words = contents.split()
+        for word in words:
+            print(f"{word}\n")
+
+filenames = ['cats.txt', 'dogs.txt']
+for filename in filenames:
+    file_export(filename)
+
+```
+11. json.dumps():以json格式存储数据
+12. json.loads():读取json文件
+13. 习题10.11 喜欢的数 编写一个程序，提示用户输入自己喜欢的数，并使用json.dumps() 将这个数
+存储在文件中。再编写一个程序，从文件中读取这个数，并打印如下消息。I know your favorite 
+number! It's____.
+```
+from pathlib import Path
+import json
+
+def get_favorite_number():
+    path = Path('favorite_number.json')
+
+    if path.exists():
+        contents = path.read_text()
+    else:
+        number = input("What is your favorite number? ")
+        contents = json.dumps(number)
+        path.write_text(contents)
+
+    favorite_number = json.loads(contents)
+    print(f"I know your favorite number! It's {favorite_number}")
+
+get_favorite_number()
+```
+14. 用户字典 示例 remember_me.py 只存储了一项信息——用户名。请扩展该示例
