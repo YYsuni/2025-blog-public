@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'motion/react'
 import { ANIMATION_DELAY, INIT_DELAY } from '@/consts'
 import LikeButton from '@/components/like-button'
@@ -18,10 +19,42 @@ type BlogSidebarProps = {
 	toc: TocItem[]
 	slug?: string
 }
+const offset = 72
 
 export function BlogSidebar({ cover, summary, toc, slug }: BlogSidebarProps) {
+	const [maxOffset, setMaxOffset] = useState(0)
 	const { scrollY } = useScroll()
-	const adjustedScrollY = useTransform(scrollY, value => Math.max(0, value - 72))
+
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return
+		}
+
+		const updateMaxOffset = () => {
+			const maxScrollable = document.documentElement.scrollHeight - window.innerHeight
+
+			const nextMaxOffset = Math.max(0, maxScrollable - offset)
+
+			setMaxOffset(nextMaxOffset)
+		}
+
+		const timer = setTimeout(() => {
+			updateMaxOffset()
+		}, 5000)
+
+		updateMaxOffset()
+		window.addEventListener('resize', updateMaxOffset)
+
+		return () => {
+			window.removeEventListener('resize', updateMaxOffset)
+			clearTimeout(timer)
+		}
+	}, [])
+
+	const adjustedScrollY = useTransform(scrollY, value => {
+		const adjusted = Math.max(0, value - offset)
+		return Math.min(adjusted, maxOffset)
+	})
 	const sidebarY = useSpring(adjustedScrollY, {
 		stiffness: 100,
 		damping: 15,
