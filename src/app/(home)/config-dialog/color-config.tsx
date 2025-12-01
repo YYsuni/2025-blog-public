@@ -10,6 +10,13 @@ interface ColorConfigProps {
 	setFormData: React.Dispatch<React.SetStateAction<SiteContent>>
 }
 
+const DEFAULT_THEME_COLORS = {
+	colorPrimary: '#334f52',
+	colorSecondary: '#7b888e',
+	colorBg: '#eeeeee',
+	colorBorder: '#ffffff'
+}
+
 interface ColorPreset {
 	name: string
 	colorBrand: string
@@ -30,6 +37,18 @@ const COLOR_PRESETS: ColorPreset[] = [
 ]
 
 export function ColorConfig({ formData, setFormData }: ColorConfigProps) {
+	const theme = formData.theme ?? {}
+
+	const handleThemeColorChange = (key: keyof typeof DEFAULT_THEME_COLORS, value: string) => {
+		setFormData(prev => ({
+			...prev,
+			theme: {
+				...prev.theme,
+				[key]: value
+			}
+		}))
+	}
+
 	const handleBrandColorChange = (value: string) => {
 		setFormData(prev => ({
 			...prev,
@@ -97,9 +116,31 @@ export function ColorConfig({ formData, setFormData }: ColorConfigProps) {
 	return (
 		<div className='space-y-6'>
 			<div>
-				<label className='mb-2 block text-sm font-medium'>主题色</label>
-				<div className='flex items-center gap-3'>
-					<ColorPicker value={formData.theme?.colorBrand ?? '#35bfab'} onChange={handleBrandColorChange} />
+				<label className='mb-2 block text-sm font-medium'>基础颜色</label>
+				<div className='grid grid-cols-2 gap-4'>
+					<div className='flex items-center gap-3'>
+						<ColorPicker value={formData.theme?.colorBrand ?? '#35bfab'} onChange={handleBrandColorChange} />
+						<span className='text-xs'>主题色</span>
+					</div>
+					<div className='flex items-center gap-3'>
+						<ColorPicker value={theme.colorPrimary ?? DEFAULT_THEME_COLORS.colorPrimary} onChange={value => handleThemeColorChange('colorPrimary', value)} />
+						<span className='text-xs'>主色</span>
+					</div>
+					<div className='flex items-center gap-3'>
+						<ColorPicker
+							value={theme.colorSecondary ?? DEFAULT_THEME_COLORS.colorSecondary}
+							onChange={value => handleThemeColorChange('colorSecondary', value)}
+						/>
+						<span className='text-xs'>次色</span>
+					</div>
+					<div className='flex items-center gap-3'>
+						<ColorPicker value={theme.colorBg ?? DEFAULT_THEME_COLORS.colorBg} onChange={value => handleThemeColorChange('colorBg', value)} />
+						<span className='text-xs'>背景色</span>
+					</div>
+					<div className='flex items-center gap-3'>
+						<ColorPicker value={theme.colorBorder ?? DEFAULT_THEME_COLORS.colorBorder} onChange={value => handleThemeColorChange('colorBorder', value)} />
+						<span className='text-xs'>边框色</span>
+					</div>
 				</div>
 			</div>
 

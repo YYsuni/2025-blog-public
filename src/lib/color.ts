@@ -19,16 +19,46 @@ export interface RGB {
 	b: number
 }
 
-// Convert hex to RGB
+export interface RGBA extends RGB {
+	a: number
+}
+
+// Convert 6-digit hex to RGB (no alpha)
 export function hexToRgb(hex: string): RGB {
-	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+	const cleaned = hex.replace('#', '')
+	const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(cleaned)
 	return result
 		? {
 				r: parseInt(result[1], 16),
 				g: parseInt(result[2], 16),
 				b: parseInt(result[3], 16)
-		  }
+			}
 		: { r: 0, g: 0, b: 0 }
+}
+
+// Convert hex (6 or 8 digits) to RGBA
+export function hexToRgba(hex: string): RGBA {
+	const cleaned = hex.replace('#', '')
+
+	if (cleaned.length === 6) {
+		const r = parseInt(cleaned.slice(0, 2), 16)
+		const g = parseInt(cleaned.slice(2, 4), 16)
+		const b = parseInt(cleaned.slice(4, 6), 16)
+
+		return { r, g, b, a: 1 }
+	}
+
+	if (cleaned.length === 8) {
+		const r = parseInt(cleaned.slice(0, 2), 16)
+		const g = parseInt(cleaned.slice(2, 4), 16)
+		const b = parseInt(cleaned.slice(4, 6), 16)
+		const a = parseInt(cleaned.slice(6, 8), 16) / 255
+
+		return { r, g, b, a }
+	}
+
+	// Fallback
+	return { r: 0, g: 0, b: 0, a: 1 }
 }
 
 // Convert RGB to hex
@@ -118,36 +148,54 @@ export function hslToHsv(h: number, s: number, l: number): HSVA {
 }
 
 // Convert HSV to HSL
-export function hsvToHsl(h: number, s: number, v: number): HSL {
-	const l = v * (1 - s / 2)
-	const s2 = l === 0 || l === 1 ? 0 : (v - l) / Math.min(l, 1 - l)
-
-	return {
-		h: h,
-		s: s2,
-		l: l
+export function hsvToHsl(h: number, s: number, v: number) {
+	let l = (v * (2 - s)) / 2
+	if (l != 0) {
+		if (l == 1) {
+			s = 0
+		} else if (l < 0.5) {
+			s = (s * v) / (l * 2)
+		} else {
+			s = (s * v) / (2 - l * 2)
+		}
 	}
+
+	return { h, s, l }
 }
 
 // Convert hex to HSVA
 export function hexToHsva(hex: string): HSVA {
-	const rgb = hexToRgb(hex)
-	const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b)
+	const rgba = hexToRgba(hex)
+	const hsl = rgbToHsl(rgba.r, rgba.g, rgba.b)
 	const hsv = hslToHsv(hsl.h, hsl.s, hsl.l)
 
 	return {
 		h: hsv.h,
 		s: hsv.s,
 		v: hsv.v,
-		a: 1
+		a: rgba.a
 	}
 }
 
-// Convert HSVA to hex
+// Convert HSVA to hex (outputs #RRGGBB or #RRGGBBAA when alpha < 1)
 export function hsvaToHex(h: number, s: number, v: number, a: number = 1): string {
 	const hsl = hsvToHsl(h, s, v)
 	const rgb = hslToRgb(hsl.h, hsl.s, hsl.l)
-	return rgbToHex(rgb.r, rgb.g, rgb.b)
+	const baseHex = rgbToHex(rgb.r, rgb.g, rgb.b)
+
+	// Normalize alpha between 0 and 1
+	const alpha = clamp(a, 0, 1)
+
+	// If fully opaque, keep legacy 6-digit hex for compatibility
+	if (alpha >= 1) {
+		return baseHex
+	}
+
+	const alphaHex = Math.round(alpha * 255)
+		.toString(16)
+		.padStart(2, '0')
+
+	return `${baseHex}${alphaHex}`
 }
 
 // Clamp number between min and max
@@ -159,4 +207,3 @@ export function clamp(value: number, min: number, max: number): number {
 export function toFixed(value: number, decimals: number = 2): number {
 	return Number(value.toFixed(decimals))
 }
-

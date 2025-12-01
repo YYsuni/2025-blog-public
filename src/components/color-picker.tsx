@@ -70,7 +70,6 @@ export function ColorPicker({ value = '#000000', onChange, className }: ColorPic
 					<ColorPickerPanel
 						value={value}
 						onChange={onChange}
-						onClose={() => setOpen(false)}
 						style={{
 							position: 'fixed',
 							top: `${position.top}px`,

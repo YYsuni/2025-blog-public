@@ -7,14 +7,13 @@ import { hexToHsva, hsvaToHex, hsvToHsl, clamp, toFixed } from '@/lib/color'
 interface ColorPickerPanelProps {
 	value: string
 	onChange?: (color: string) => void
-	onClose?: () => void
 	style?: React.CSSProperties
 	className?: string
 }
 
 const MOUSE_LEFT = 0
 
-export function ColorPickerPanel({ value, onChange, onClose, style, className }: ColorPickerPanelProps) {
+export function ColorPickerPanel({ value, onChange, style, className }: ColorPickerPanelProps) {
 	const [show, setShow] = useState(false)
 	const [hueOffset, setHueOffset] = useState(0)
 	const [alphaOffset, setAlphaOffset] = useState(255)
@@ -61,7 +60,7 @@ export function ColorPickerPanel({ value, onChange, onClose, style, className }:
 			return toFixed((hueOffset / width) * 360)
 		}
 		return 0
-	}, [hueOffset])
+	}, [hueOffset, hueRef.current])
 
 	const alpha = useMemo(() => {
 		if (alphaRef.current) {
@@ -69,7 +68,7 @@ export function ColorPickerPanel({ value, onChange, onClose, style, className }:
 			return clamp(toFixed(alphaOffset / width, 4), 0, 1)
 		}
 		return 1
-	}, [alphaOffset])
+	}, [alphaOffset, alphaRef.current])
 
 	const saturation = useMemo(() => {
 		if (pickerRef.current) {
@@ -77,7 +76,7 @@ export function ColorPickerPanel({ value, onChange, onClose, style, className }:
 			return clamp(toFixed(saturationOffset / width, 4), 0, 1)
 		}
 		return 1
-	}, [saturationOffset])
+	}, [saturationOffset, pickerRef.current])
 
 	const bright = useMemo(() => {
 		if (pickerRef.current) {
@@ -85,9 +84,11 @@ export function ColorPickerPanel({ value, onChange, onClose, style, className }:
 			return 1 - clamp(toFixed(brightOffset / height, 4), 0, 1)
 		}
 		return 0
-	}, [brightOffset])
+	}, [brightOffset, pickerRef.current])
 
-	const hsl = useMemo(() => hsvToHsl(hue, saturation, bright), [hue, saturation, bright])
+	const hsl = useMemo(() => {
+		return hsvToHsl(hue, saturation, bright)
+	}, [hue, saturation, bright])
 	const hex = useMemo(() => hsvaToHex(hue, saturation, bright, alpha), [hue, saturation, bright, alpha])
 
 	// Notify parent of color change
@@ -170,11 +171,14 @@ export function ColorPickerPanel({ value, onChange, onClose, style, className }:
 
 	const handleHexInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const inputValue = e.target.value
-		if (/^#[0-9A-Fa-f]{0,6}$/.test(inputValue)) {
-			if (inputValue.length === 7 && onChange) {
+
+		// Support both #RRGGBB and #RRGGBBAA
+		if (/^#[0-9A-Fa-f]{0,8}$/.test(inputValue)) {
+			if ((inputValue.length === 7 || inputValue.length === 9) && onChange) {
 				onChange(inputValue)
 			}
-			if (inputValue.length === 7) {
+
+			if (inputValue.length === 7 || inputValue.length === 9) {
 				const hsva = hexToHsva(inputValue)
 				if (hueRef.current && pickerRef.current && alphaRef.current) {
 					const hueWidth = hueRef.current.getBoundingClientRect().width

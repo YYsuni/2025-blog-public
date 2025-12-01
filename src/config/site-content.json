@@ -4,7 +4,11 @@
 		"description": "XiaoKe 的个人博客，记录点滴生活，学习记录，资源分享"
 	},
 	"theme": {
-		"colorBrand": "#35bfab"
+		"colorBrand": "#35bfab",
+		"colorPrimary": "#334f52",
+		"colorSecondary": "#7b888e",
+		"colorBg": "#eeeeee",
+		"colorBorder": "#ffffff"
 	},
 	"backgroundColors": [
 		"#EDDD62",
@@ -13,5 +17,16 @@
 		"#EDDD62",
 		"#88E6E5",
 		"#a7f3d0"
-	]
+	],
+	"artImages": [
+		{
+			"id": "cat",
+			"url": "/images/art/cat.png"
+		},
+		{
+			"id": "a46372ff45bc5524",
+			"url": "/images/art/a46372ff45bc5524.jpg"
+		}
+	],
+	"currentArtImageId": "a46372ff45bc5524"
 }
