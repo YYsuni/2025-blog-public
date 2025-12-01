@@ -1,18 +1,5 @@
 [
 	{
-		"name": "Pixel Motion",
-		"year": 2025,
-		"description": "网页端像素绘画工具，支持组件化画布，多画布同时绘画，色彩变量",
-		"image": "https://pixel-motion.yysuni.com/favicon.svg",
-		"url": "https://pixel-motion.yysuni.com/",
-		"tags": [
-			"像素画",
-			"React",
-			"Figma",
-			"阮周刊"
-		]
-	},
-	{
 		"name": "Path Motion",
 		"year": 2025,
 		"description": "在线 svg path 工具，针对 path 绘制、压缩、运动等功能",
