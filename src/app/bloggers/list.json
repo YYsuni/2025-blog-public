@@ -33,5 +33,12 @@
 		"url": "https://photokit.com/?lang=zh",
 		"description": "基于AI人工智能的在线图片编辑器，方便易用。您可以通过编辑器一键抠图、改图、修图、美图等。",
 		"stars": 5
+	},
+	{
+		"name": "元Coding | AI 编程实战手册知识库",
+		"avatar": "blob:https://www.hdxiaoke.top/0c203136-e08f-42ad-88bb-fcbbb0e1a863",
+		"url": "https://meta-aicoding.com",
+		"description": "新手了解，学习AI编程。目前累计 100 个实战案例",
+		"stars": 5
 	}
 ]
