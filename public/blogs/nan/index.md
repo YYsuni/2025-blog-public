@@ -1,13 +1,13 @@
-#  <center> Python 编程-入门到实践笔记  
-##  <center> 第一章 基础知识  
+# <center> Python 编程-入门到实践笔记
+## <center> 第一章 基础知识
 1. 终端运行python：
 ```
-一. win: 
+  win: 
 1. CD 文件夹
 2. 显示文件夹下文件列表: dir
 3. python hello_world.py
 
-二. linux mac
+  linux mac
 1. 显示文件夹下文件列表: ls
 ```
 ## <center> 第二章 变量和简单数据类型
@@ -111,17 +111,18 @@ print(file_1)
 
 # <center> 第四章 操作列表
 1. range(1, 5):返回1、2、3、4 四个数。
-2. range(1, 100, 2): range函数可设置步数。
-3. 列表最小值:min(lists)
-4. 列表最大值:max(lists)
-5. 列表求和:sum(lists)
-6. 列表推导式:
+2. range(5):返回0、1、2、3、4
+3. range(1, 100, 2): range函数可设置步数。
+4. 列表最小值:min(lists)
+5. 列表最大值:max(lists)
+6. 列表求和:sum(lists)
+7. 列表推导式:
 ```
 生成1到10的数，并将每个数平方，然后将平方数作为元素储存在列表中
 
 lists = [value**2 for value in range(1, 11)]
 ```
-7. 习题4.3：使用一个循环打印1-20（含）。
+8. 习题4.3：使用一个循环打印1-20（含）。
 ```
 number_lists(1-20).py
 
@@ -129,7 +130,7 @@ number_lists = range(1, 21)
 for number in number_lists:
     print(number)
 ```
-8. 习题4.4：创建一个包含数 1～1000000 的列表，再使用一个 for 循环将这些数打印出来。
+9. 习题4.4：创建一个包含数 1～1000000 的列表，再使用一个 for 循环将这些数打印出来。
 ```commandline
 number_lists(1-1000000).py
 
@@ -137,7 +138,7 @@ number_lists = range(1, 100_0001)
 for number in number_lists:
     print(number)
 ```
-9. 习题4.5：创建一个包含数1～1000000的列表，再使用 min() 和 max() 核实该列表确实是从
+10. 习题4.5：创建一个包含数1～1000000的列表，再使用 min() 和 max() 核实该列表确实是从
 1 开始到1000000结束的。另外，对这个列表调用函数sum（）。
 ```commandline
 number_lists_min_max_sum(1-1000000).py
@@ -152,7 +153,7 @@ print(number_lists_max)
 print(number_lists_sum)
 
 ```
-10. 习题4.6：通过给range()函数指定第三个参数来创建一个列表，其中包含1～20的奇数；再使用一个
+11. 习题4.6：通过给range()函数指定第三个参数来创建一个列表，其中包含1～20的奇数；再使用一个
 for循环将这些数打印
 ```commandline
 number_lists_odd(1-20).py
@@ -161,7 +162,7 @@ odd_number_lists = range(1, 21, 2)
 for odd_number in odd_number_lists:
     print(odd_number)
 ```
-11. 习题4.7：创建一个列表，其中包含 3～30 内能被 3 整除的数，再使用一个 for 循环将这个列表
+12. 习题4.7：创建一个列表，其中包含 3～30 内能被 3 整除的数，再使用一个 for 循环将这个列表
 中的数打出来。
 ```commandline
 multiple_3_lists.py
@@ -170,7 +171,7 @@ multiple_3_lists = range(3, 31, 3)
 for multiple_3 in multiple_3_lists:
     print(multiple_3)
 ```
-12. 习题4.8：将同一个数乘三次称为立方。例如，在 Python 中，2 的立方用 2**3 表示。创建
+13. 习题4.8：将同一个数乘三次称为立方。例如，在 Python 中，2 的立方用 2**3 表示。创建
 一个列表，其中包含前 10 个整数（1～10）的立方，再使用一个 for 循环将这些立方数打印出来。
 ```commandline
 cube_lists(1-10).py
@@ -179,8 +180,8 @@ cube_lists = [ value**3 for value in range(1, 11)]
 for cube_number in cube_lists:
     print(cube_number)
 ```
-13. 列表切片：lists[0, 3]:返回列表0-2的元素。也可不指定开头或末尾。
-14. 习题4.10：选择你在本章编写的一个程序，在末尾添加几行代码，以完成如下任务。
+14. 列表切片：lists[0, 3]:返回列表0-2的元素。也可不指定开头或末尾。
+15. 习题4.10：选择你在本章编写的一个程序，在末尾添加几行代码，以完成如下任务。
 打印消息“The first three items in the list are:”，再使用切片来打印列表的前三个元素。
 打印消息“Three items from the middle of the list are:”，再使用切片来打印列表中间的三个元素。
 打印消息“The last three items in the list are:”，再使用切片来打印列表末尾的三个元素。
@@ -208,7 +209,7 @@ print(notice_last_three)
 for number_last_three in lists[-3:]:    # 打印列表最后的三个元素
     print(number_last_three)
 ```
-15. 元组(tuple)：不可修改元素，但可重新定义元组。tuple = (1, 2 , 3)
+16. 元组(tuple)：不可修改元素，但可重新定义元组。tuple = (1, 2 , 3)
 # <center>  第五章 if语句
 1. 检查某元素是否在列表中： in和not in
 2. 习题5.8：以特殊方式跟管理员打招呼　创建一个至少包含 5 个用户名的列表，并且其中一个用户名
@@ -349,4 +350,374 @@ chinese_restaurant = Restaurant('Sichuan Restaurant', 'Sichuan')
 
 chinese_restaurant.describe_restaurant()
 chinese_restaurant.open_restaurant()
+```
+3. 继承：
+```commandline
+class 子类(父类):
+    def__init__(self, 形参） # 初始化父类属性 
+    super().__init__(形参）    # 调用父类方法
+```
+4. 重写父类方法：可以在子类中对继承的父类方法进行重新定义。
+5. 习题9.13：骰子 创建一个 Die 类，它包含一个名为 sides 的属性，该属性的默认值为6.编写一个名为
+roll_die() 的方法，它打印位于1和骰子面数之间的随机数。创建一个6面的骰子并掷10次。创建一个10面
+的骰子和一个20面的骰子，再分别掷10次。
+```commandline
+dice.py
+
+from random import randint
+
+class Dice:
+    """掷骰子打印点数"""
+    def __init__(self, sides=6):    # 骰子面数默认为6
+        self.sides = sides
+
+    def roll_dice(self):
+        return randint(1, self.sides)
+
+dice_6_points =[]
+dice_6 = Dice()
+for i in range(10):
+    dice_6_point = dice_6.roll_dice()
+    dice_6_points.append(dice_6_point)
+print(dice_6_points)
+
+dice_10_points = []
+dice_10 = Dice(sides=10)
+for i in range(10):
+    dice_10_point = dice_10.roll_dice()
+    dice_10_points.append(dice_10_point)
+print(dice_10_points)
+
+dice_20_points = []
+dice_20 = Dice(sides=20)
+for i in range(10):
+    dice_20_point = dice_20.roll_dice()
+    dice_20_points.append(dice_20_point)
+print(dice_20_points)     
+
+```
+6. 习题9.14：彩票 创建一个列表或元素，其种包含10个数和5个字母。从这个列表或元组种随机选择4个数
+字母，并打印一条消息，指出只要彩票上是这4个数或字母，就中大奖了。
+```commandline
+lottery.py
+
+from random import choice
+
+def win_lottery_number():     # 从奖池号码中随机抽取4个号码并返回调用
+    lottery_lists = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    winners_numbers = []
+    for i in range(4):
+        winners_number = choice(lottery_lists)
+        winners_numbers.append(winners_number)
+    print(winners_numbers)
+
+win_lottery_number()
+
+```
+7. 习题9.15：彩票分析 可以使用一个循环来理解中前述彩票中奖有多难。为此，创建一个名为my_ticket的
+列表或元组，再编写一个循环，不断地随机选择数字或字母，直到中大奖为止。请打印一条消息，报告执行多少次
+循环才中了大奖。
+```commandline
+lottery_tries.py
+
+from random import choice
+
+def win_lottery(): # 从奖池号码中随机抽取4个号码并返回调用
+    lottery_lists = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    winner_numbers = []
+    for i in range(4):
+        winner_number = choice(lottery_lists)
+        winner_numbers.append(winner_number)
+    return winner_numbers
+
+def tries_numbers():    # 从奖池号码中循环随机抽取4个号码，直到和中奖号码相同，返回循环次数
+
+    my_ticket = [1, 3, 5, 7]
+    tries_number = 0
+    active = True
+    while active:
+        new_winer_numbers= win_lottery()
+        tries_number = tries_number + 1
+        if new_winer_numbers == my_ticket:
+            active = False
+    print(f"{tries_number}")
+
+tries_numbers()
+
+```
+## <center> 第10章 文件和异常
+1. pathlib模块：处理文件和目录
+2. splitlines():将文件的每一行作为元素，生成列表。
+3. read_text():读取文件
+4. write_text():写入文件
+5. 习题10.4：访客 编写一个程序，提示用户输入其名字。在用户做出响应后，将其名字写入文件guest.txt
+```commandline
+guest.py
+from pathlib import Path
+
+username = input("Enter username:")
+path = Path('guest.txt')
+path.write_text(username)
+
+```
+6. 习题10.5：访客簿 编写一个while循环，提示用户输入其名字。收集用户输入的所有名字，将其
+写入guest_book.txt，并确保这个文件中的每天记录都独占一行。
+```commandline
+guest.py
+
+from pathlib import Path
+
+path = Path('guest.txt')
+usernames = []
+username_str = ''
+active = True
+while active:
+    username = input("Enter username(Enter 'q' to quit)):\n")
+    if username == 'q':
+        active = False
+    else:
+        usernames.append(username)
+
+for name in usernames:
+    username_str = username_str + f"{name}\n"
+path.write_text(username_str)
+```
+7. 习题 10.6：加法运算 在提示用户提供数值输入时，常出现的一个问题是，用户提供的是文本而不是数。
+在这种情况下，当你尝试将输入转换为整数时，将引发 ValueError 异常。编写一个程序，提示用户输入
+两个数，再将它们相加并打印结果。在用户输入的任意一个值不是数时都捕获 ValueError 异常，并打印
+一条友好的错误消息。对你编写的程序进行测试：先输入两个数，再输入一些文本而不是数。
+```
+addition_operation.py
+
+try:
+    number_1 = int(input("输入一个数字:\n"))
+    number_2 = int(input("输入另一个数字:\n"))
+    number_add = number_1 + number_2
+except ValueError:
+    print("输入的不是数字")
+else:
+    print(f"{number_1}与{number_2}相加的和为{number_add}")
+
+```
+8. 习题10.7：加法计算器 将为练习10.6编写的代码放在一个 while 循环中，让用户在犯错
+（输入的时是文本而不是数）后能够继续输入数。
+```commandline
+addtion_operation_1.py
+
+while True:
+    try:
+        number_1 = input("输入一个数字:\n")
+        if number_1 == 'q':
+            break
+        number_1 = int(number_1)
+        number_2 = input("输入另一个数字:\n")
+        if number_2 == 'q':
+            break
+        number_2 = int(number_2)
+        number_add = number_1 + number_2
+    except ValueError:
+        print("输入的不是数字,请重新输入：")
+    else:
+        print(f"{number_1}与{number_2}相加的和为{number_add}")
+```
+9. 习题10.8：猫和狗 创建文件 cats.txt 和 dogs.txt，在第一个文件中至少存储三只猫的名字，在
+第二个文件中至少存储三条狗的名字。编写一个程序，尝试读取这些文件，并将其内容打印在屏幕上。将这些
+代码放在一个try-except代码块中，以便在文件不存在时捕获FileNotFoundError异常，并显示一条友好
+的消息。将任意一个文件移到另一个地方，并确认except代码块中的代码将正确地执行。
+```commandline
+cat_and_dog.py
+
+from pathlib import Path
+
+def file_export(file_path):
+    """读取文件文件并输出内容"""
+    try:
+        contents = Path(file_path).read_text(encoding="utf-8")
+    except FileNotFoundError:
+        print("该文件不存在")
+    else:
+        print(f"The file {file_path} has name:\n")
+        words = contents.split()
+        for word in words:
+            print(f"{word}\n")
+
+filenames = ['cats.txt', 'dogs.txt']
+for filename in filenames:
+    file_export(filename)
+
+```
+10. 习题10.9：静默的猫和狗 修改你在练习10.8 中编写的except代码块，让程序在文件
+不存在时静默失败
+```commandline
+from pathlib import Path
+
+def file_export(file_path):
+    """读取文件文件并输出内容"""
+    try:
+        contents = Path(file_path).read_text(encoding="utf-8")
+    except FileNotFoundError:
+        pass
+    else:
+        print(f"The file {file_path} has name:\n")
+        words = contents.split()
+        for word in words:
+            print(f"{word}\n")
+
+filenames = ['cats.txt', 'dogs.txt']
+for filename in filenames:
+    file_export(filename)
+
+```
+11. json.dumps():以json格式存储数据
+12. json.loads():读取json文件
+13. 习题10.11 喜欢的数 编写一个程序，提示用户输入自己喜欢的数，并使用json.dumps() 将这个数
+存储在文件中。再编写一个程序，从文件中读取这个数，并打印如下消息。I know your favorite 
+number! It's____.
+```
+from pathlib import Path
+import json
+
+def get_favorite_number():
+    path = Path('favorite_number.json')
+
+    if path.exists():
+        contents = path.read_text()
+    else:
+        number = input("What is your favorite number? ")
+        contents = json.dumps(number)
+        path.write_text(contents)
+
+    favorite_number = json.loads(contents)
+    print(f"I know your favorite number! It's {favorite_number}")
+
+get_favorite_number()
+```
+14. 习题10.12 用户字典 示例 remember_me.py 只存储了一项信息——用户名。请扩展该示例，让用户同时提供另外
+两项信息，再将收集到的所有信息存储到一个字典中。使用json.dumps()将这个字典写入文件，并使用
+json.loads()从文件中读取它。打印一条摘要消息，指出程序记住了有关用户的那些信息。
+```commandline
+from pathlib import Path
+import json
+
+def get_person_information():
+    person_information = {'name':'', 'age':'', 'height':''}
+    path = Path('person_information.json')
+    if path.exists():
+        contents = path.read_text()
+    else:
+        name = input('Enter your name: ')
+        age = input('Enter your age: ')
+        height = input('Enter your height: ')
+        contents = json.dumps({'name': name, 'age': age, 'height': height})
+        path.write_text(contents)
+
+    person_information = json.loads(contents)
+    print(f"Your name is {person_information['name']}, and your age is "
+          f"{person_information['age']}, and your height is "
+          f"{person_information['height']}.")
+
+get_person_information()
+```
+## <center> 第11章 测试代码
+1. 测试文件以test_打头，测试函数也以test_打头。
+2. 在终端进行测试，进入测试文件见，输入:pytest
+3. assert:断言
+4. 习题11.1 城市和国家 编写一个函数，它接受两个形参：一个城市名和一个国家名。这个函数返回一个格式
+为City, Country 的字符串，如 Santiago, Chile。将这个函数存储在一个名为city_functions.py
+的模块中，以免pytest 在运行时，尝试运行之前编写的测试。创建一个名为test_cities.py的程序，对刚
+编写的函数进行测试。编写一个名为test_city_country()的函数，核实在使用类似于'santiago' 和
+'chile'这样的值来调用该函数时，得到的字符串是正确的。进行测试，确认test_city_country()通过了。
+```commandline
+city_functions.py
+
+def city_functions(city, country):
+    city_function = f"{city}, {country}"
+    return city_function
+
+test_city_functions.py
+from city_functions import city_functions
+def test_city_functions():
+    city_function_1 = city_functions('Santiago', 'Chile')
+    assert city_function_1 == 'Santiago, Chile'
+
+```
+5. 习题11.2 人口数量 修改前面的函数，是其包含第三个必不可少的形参population，并返回一个格式
+为City, Country -  population xxx 的字符串。如 Santiago, Chile - population 
+5000000 运行测试，确认test_city_country()未通过。修改上述函数，将形参population 设置为
+可选的。再次运行测试，确认test_city_country()又通过了。再编写一个名为test_city_country_
+population()的测试，核实可以使用类似于'santiago'、'chile'和'population=5000000'这样
+的值来调用这个函数。再次运行测试，确认test_city_country_population()通过了。
+```commandline
+city_functions.py
+
+def city_functions(city, country, population=None):
+    if population:
+        city_function = f"{city}, {country}, population - {population}"
+    else:
+        city_function = f"{city}, {country}"
+    return city_function
+
+test_city_functions.py
+
+from city_functions import city_functions
+def test_city_functions():
+    city_function_1 = city_functions('Santiago', 'Chile',5000000)
+    assert city_function_1 == 'Santiago, Chile, population - 5000000'
+```
+6. 常用断言
+
+| 断言                         | 用途        |
+|----------------------------|-----------|
+| assert a == b              | 断言两个值相等   |
+| assert a != b              | 断言两个值不相等  |
+| assert a                   | 断言a的布尔值为真 |
+| assert not a               | 断言a的布尔值为假 |
+
+| assert element in list     | 断言元素再列表中  |
+| assert element not in list | 断言元素不在列表中 |
+7. 装饰器 @pytest.fixture:设定一个函数供其它测试函数调用。
+8. 习题11.3：雇员 编写一个名为Employee的类，其__init__()方法接受名、姓和年薪，并将它们都
+存储在属性中。编写一个名为give_raise()的方法，它默认将年薪增加5000美元，同时能够接受其他的
+年薪增加量。为Employee 类编写一个测试文件，其中包含两个测试函数：test_give_default_raise()
+和test_give_custom_raise().在不使用夹具的情况下编写这两个测试，并确保它们都通过了。然后，编写
+一个夹具，以免在每个测试函数中都创建一个Employee对象。重新运行测试，确认两个测试都通过了。
+```commandline
+test_employee.py
+
+import pytest
+
+from employee import Employee
+
+def test_give_default_raise():
+    first_name = 'nan'
+    last_name = 'die'
+    employee_1 = Employee(first_name, last_name, annual_salary=5000)
+    annual_salary_1 = employee_1.give_annual_salary()
+    assert annual_salary_1 == 10000
+
+def test_give_custom_raise():
+    first_name = 'nan'
+    last_name = 'die'
+    employee_2 = Employee(first_name, last_name, annual_salary=5000)
+    annual_salary_2 = employee_2.give_annual_salary(10000)
+    assert annual_salary_2 == 15000
+
+
+test_employee_1.py
+import pytest
+from employee import Employee
+
+@pytest.fixture
+def employee_1():
+    return Employee('<NAME>', '<NAME>', annual_salary=5000)
+
+def test_give_default_raise(employee_1):
+
+    annual_salary_1 = employee_1.give_annual_salary()
+    assert annual_salary_1 == 10000
+
+def test_give_custom_raise(employee_1):
+
+    annual_salary_2 = employee_1.give_annual_salary(10000)
+    assert annual_salary_2 == 15000
 ```
