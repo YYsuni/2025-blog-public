@@ -375,8 +375,8 @@
 	},
 	{
 		"name": "UI Design Prompt",
-		"logo": "blob:https://eddy-dong.vercel.app/f7810c4b-76c2-4313-9ad0-7f71173dd518",
-		"url": "https://eddy-dong.vercel.app/share",
+		"logo": "/images/share/7883bcfcb0504af6.png",
+		"url": "https://www.uiprompt.site/",
 		"description": "设计风格\n探索 70+ 种现代 UI 设计风格\n解决 AI 生成 UI 的同质化问题，提供经过实战验证的 Prompt 模板",
 		"tags": [
 			"AI"
