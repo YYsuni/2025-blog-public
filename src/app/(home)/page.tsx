@@ -5,8 +5,8 @@ import ArtCard from '@/app/(home)/art-card'
 import ClockCard from '@/app/(home)/clock-card'
 import CalendarCard from '@/app/(home)/calendar-card'
 import MusicCard from '@/app/(home)/music-card'
-
-
+import SocialButtons from '@/app/(home)/social-buttons'
+import ShareCard from '@/app/(home)/share-card'
 import AritcleCard from '@/app/(home)/aritcle-card'
 import WriteButtons from '@/app/(home)/write-buttons'
 import LikePosition from './like-position'
@@ -60,6 +60,8 @@ export default function Home() {
 				{!maxSM && <ClockCard />}
 				{!maxSM && <CalendarCard />}
 				{!maxSM && <MusicCard />}
+				<SocialButtons />
+				{!maxSM && <ShareCard />}
 				
 				
 				<AritcleCard />
