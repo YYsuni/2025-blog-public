@@ -39,8 +39,8 @@
 	"socialButtons": {
 		"width": 315,
 		"height": 48,
-		"order": 6,
-		"offsetX": null,
+		"order": 5,
+		"offsetX": -250,
 		"offsetY": null
 	},
 	"shareCard": {
