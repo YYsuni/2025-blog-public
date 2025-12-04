@@ -31,24 +31,24 @@ const list = [
 		label: '近期文章',
 		href: '/blog'
 	},
-	{
-		icon: ProjectsOutlineSVG,
-		iconActive: ProjectsFilledSVG,
-		label: '我的项目',
-		href: '/projects'
-	},
+	//{
+	//	icon: ProjectsOutlineSVG,
+	//	iconActive: ProjectsFilledSVG,
+	//	label: '我的项目',
+	//	href: '/projects'
+	//},
 	{
 		icon: AboutOutlineSVG,
 		iconActive: AboutFilledSVG,
 		label: '关于网站',
 		href: '/about'
 	},
-	{
-		icon: ShareOutlineSVG,
-		iconActive: ShareFilledSVG,
-		label: '推荐分享',
-		href: '/share'
-	},
+	//{
+	//	icon: ShareOutlineSVG,
+	//	iconActive: ShareFilledSVG,
+	//	label: '推荐分享',
+	//	href: '/share'
+	//},
 	{
 		icon: WebsiteOutlineSVG,
 		iconActive: WebsiteFilledSVG,
@@ -102,7 +102,7 @@ export default function NavCard() {
 
 	const size = useMemo(() => {
 		if (form === 'mini') return { width: 64, height: 64 }
-		else if (form === 'icons') return { width: 340, height: 64 }
+		else if (form === 'icons') return { width: 236, height: 64 }
 		else return { width: styles.width, height: styles.height }
 	}, [form, styles])
 
