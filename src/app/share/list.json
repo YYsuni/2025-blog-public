@@ -314,12 +314,22 @@
 		"stars": 3
 	},
 	{
-		"name": "Ghiblio",
-		"logo": "https://ghiblio.art/icons/5.png",
-		"url": "https://ghiblio.art/zh/sora-2",
-		"description": "使用 Sora2 创建惊艳的视频\n先进的AI视频生成技术，具备真实物理效果、同步音频和前所未有的创意控制。体验下一代视频创作技术",
+		"name": "虚拟号码",
+		"logo": "https://smsactivate.s3.eu-central-1.amazonaws.com/assets/ico/yw0.webp",
+		"url": "https://sms-activate.io/cn/freeNumbers",
+		"description": "接收短信的免费虚拟号码\n免费虚拟号码 是一种无需在网站上注册即可试用 SMS-Activate 服务的简便方法。 只需三个步骤和几分钟即可确认所需服务的号码：\n\n在此页面选择所需国家的号码；\n复制并在您需要注册的站点或应用程序中使用；\n一旦短信被收到，验证码码通过此号码发送到总列表。\n免费假号码接受任何短信，但来自支付系统和与金融交易相关的其他服务的消息除外。\n您无需刷新网页！ 所有短信都到达我们的服务器并立即显示在我们的网站上。",
 		"tags": [
-			"AI"
+			"虚拟号码"
+		],
+		"stars": 3
+	},
+	{
+		"name": "ai编辑器",
+		"logo": "https://github.githubassets.com/favicons/favicon.png",
+		"url": "https://github.com/yeongpin/cursor-free-vip",
+		"description": "Cursor Ai ，自动重置机器ID ， 免费升级使用Pro功能",
+		"tags": [
+			"编辑器"
 		],
 		"stars": 3
 	}
