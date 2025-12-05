@@ -13,7 +13,14 @@
 		"colorCard": "#ffffff66",
 		"colorArticle": "#ffffffcc"
 	},
-	"backgroundColors": ["#FCC841", "#DFEFFC", "#DEDE92", "#DE4331", "#FE9750", "#FCC841"],
+	"backgroundColors": [
+		"#FCC841",
+		"#DFEFFC",
+		"#DEDE92",
+		"#DE4331",
+		"#FE9750",
+		"#FCC841"
+	],
 	"artImages": [
 		{
 			"id": "cat",
