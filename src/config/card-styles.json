@@ -28,8 +28,8 @@
 		"width": 350,
 		"height": 286,
 		"order": 5,
-		"offsetX": null,
-		"offsetY": null,
+		"offsetX": 198,
+		"offsetY": -163,
 		"enabled": true
 	},
 	"musicCard": {
@@ -53,8 +53,8 @@
 		"width": 200,
 		"height": 180,
 		"order": 7,
-		"offsetX": null,
-		"offsetY": null,
+		"offsetX": 559,
+		"offsetY": -333,
 		"enabled": true
 	},
 	"articleCard": {
