@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"title": "糖果罐里好多糖果",
-		"description": "暂时"
+		"description": "古今多少事伤心事，多付笑谈中"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -23,15 +23,11 @@
 	],
 	"artImages": [
 		{
-			"id": "cat",
-			"url": "/images/art/cat.png"
-		},
-		{
-			"id": "a46372ff45bc5524",
-			"url": "/images/art/a46372ff45bc5524.jpg"
+			"id": "3aeb80035ec10988",
+			"url": "/images/art/3aeb80035ec10988.png"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "3aeb80035ec10988",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -41,23 +37,9 @@
 	"currentBackgroundImageId": "",
 	"socialButtons": [
 		{
-			"id": "github",
-			"type": "github",
-			"value": "https://github.com/yysuni",
-			"label": "Github",
-			"order": 3
-		},
-		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "candy@xy",
 			"label": "",
 			"order": 1
 		}
