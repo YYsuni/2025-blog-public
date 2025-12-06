@@ -18,6 +18,7 @@ import { readFileAsText } from '@/lib/file-utils'
 import { cn } from '@/lib/utils'
 import { batchDeleteBlogs } from './services/batch-delete-blogs'
 import { Check } from 'lucide-react'
+import { ScrollTopButton } from '@/components/scroll-top-button'
 
 type DisplayMode = 'day' | 'week' | 'month' | 'year'
 
@@ -460,6 +461,9 @@ export default function BlogPage() {
 					</motion.button>
 				)}
 			</motion.div>
+
+			{/* 右下角回到顶部按钮 */}
+			<ScrollTopButton className='fixed right-6 bottom-8 z-50 shadow-md max-sm:right-4 max-sm:bottom-6' />
 		</>
 	)
 }
