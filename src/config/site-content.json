@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "Victor's Blog",
+		"description": "Victor 的个人博客，记录前端开发、探索笔记。前端 UI 更新代码仓库。",
+		"username": "Victor"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -14,7 +14,14 @@
 		"colorCard": "#ffffff66",
 		"colorArticle": "#ffffffcc"
 	},
-	"backgroundColors": ["#FCC841", "#DFEFFC", "#DEDE92", "#DE4331", "#FE9750", "#FCC841"],
+	"backgroundColors": [
+		"#FCC841",
+		"#DFEFFC",
+		"#DEDE92",
+		"#DE4331",
+		"#FE9750",
+		"#FCC841"
+	],
 	"artImages": [
 		{
 			"id": "cat",
@@ -23,9 +30,17 @@
 		{
 			"id": "a46372ff45bc5524",
 			"url": "/images/art/a46372ff45bc5524.jpg"
+		},
+		{
+			"id": "8918e80e98d1fc98",
+			"url": "/images/art/8918e80e98d1fc98.jpg"
+		},
+		{
+			"id": "1f48d5ef48349de0",
+			"url": "/images/art/1f48d5ef48349de0.jpg"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "1f48d5ef48349de0",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -42,18 +57,18 @@
 			"order": 3
 		},
 		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "31494664063@qq.com",
 			"label": "",
 			"order": 1
+		},
+		{
+			"id": "button-1764945986503",
+			"type": "wechat",
+			"value": "a2916536972",
+			"label": "",
+			"order": 3
 		}
 	]
 }
