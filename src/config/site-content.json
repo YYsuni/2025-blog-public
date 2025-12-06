@@ -30,9 +30,13 @@
 		{
 			"id": "a46372ff45bc5524",
 			"url": "/images/art/a46372ff45bc5524.jpg"
+		},
+		{
+			"id": "1f48d5ef48349de0",
+			"url": "/images/art/1f48d5ef48349de0.jpg"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "1f48d5ef48349de0",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -56,5 +60,5 @@
 			"order": 1
 		}
 	],
-	"clockShowSeconds": false
+	"clockShowSeconds": true
 }
