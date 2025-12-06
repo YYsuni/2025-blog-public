@@ -9,21 +9,24 @@ import { HomeDraggableLayer } from './home-draggable-layer'
 
 export default function ClockCard() {
 	const center = useCenterStore()
-	const { cardStyles } = useConfigStore()
+	const { cardStyles, siteContent } = useConfigStore()
 	const [time, setTime] = useState(new Date())
 	const styles = cardStyles.clockCard
 	const hiCardStyles = cardStyles.hiCard
+	const showSeconds = siteContent.clockShowSeconds ?? false
 
 	useEffect(() => {
+		const interval = showSeconds ? 1000 : 5000
 		const timer = setInterval(() => {
 			setTime(new Date())
-		}, 5000)
+		}, interval)
 
 		return () => clearInterval(timer)
-	}, [])
+	}, [showSeconds])
 
 	const hours = time.getHours().toString().padStart(2, '0')
 	const minutes = time.getMinutes().toString().padStart(2, '0')
+	const seconds = time.getSeconds().toString().padStart(2, '0')
 
 	const x = styles.offsetX !== null ? center.x + styles.offsetX : center.x + CARD_SPACING + hiCardStyles.width / 2
 	const y = styles.offsetY !== null ? center.y + styles.offsetY : center.y - styles.offset - styles.height
@@ -37,6 +40,13 @@ export default function ClockCard() {
 					<Colon />
 					<SevenSegmentDigit value={parseInt(minutes[0])} />
 					<SevenSegmentDigit value={parseInt(minutes[1])} />
+					{showSeconds && (
+						<>
+							<Colon />
+							<SevenSegmentDigit value={parseInt(seconds[0])} />
+							<SevenSegmentDigit value={parseInt(seconds[1])} />
+						</>
+					)}
 				</div>
 			</Card>
 		</HomeDraggableLayer>

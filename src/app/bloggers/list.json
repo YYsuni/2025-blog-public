@@ -65,7 +65,7 @@
 	{
 		"name": "enpitsulin 铅笔",
 		"url": "https://enpitsulin.xyz/",
-		"avatar": "https://enpitsulin.xyz/favicon.svg",
+		"avatar": "https://enpitsulin.dev/images/avatar.webp",
 		"description": "很简洁的blog网站，像 nanda。只不过很久没内容了。他现在的头像一时让我想不起他是谁了，突然发现它过去可爱头像，我想起来这家伙了。",
 		"stars": 2
 	},
@@ -173,13 +173,6 @@
 		"url": "https://www.seamory.com/",
 		"description": "好像是为后端/嵌入式？2025 年初建立的 blog，无 UI 设计。但少有后端人显露 blog，应当勉励的。",
 		"stars": 1
-	},
-	{
-		"name": "Ivan Kapunac",
-		"avatar": "https://media.licdn.com/dms/image/v2/D4D03AQHD1EtuIeXxDQ/profile-displayphoto-scale_400_400/B4DZnI8lKCHsAg-/0/1760012950053?e=1764806400&v=beta&t=eDxdpmvMVG90RGvTHcDmcz44kWbx3LeiyUnTcHGi52c",
-		"url": "https://ivankapunac.com/",
-		"description": "3D 个人介绍网站，看上去会惊讶一下。但交互的还是缺失的。如果建模是自己原创的话，还是挺厉害的。",
-		"stars": 3
 	},
 	{
 		"name": "微尔微",

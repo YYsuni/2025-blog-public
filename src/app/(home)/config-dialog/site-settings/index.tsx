@@ -51,6 +51,18 @@ export function SiteSettings({
 				backgroundImageUploads={backgroundImageUploads}
 				setBackgroundImageUploads={setBackgroundImageUploads}
 			/>
+
+			<div>
+				<label className='flex items-center gap-2'>
+					<input
+						type='checkbox'
+						checked={formData.clockShowSeconds ?? false}
+						onChange={e => setFormData({ ...formData, clockShowSeconds: e.target.checked })}
+						className='accent-brand h-4 w-4 rounded'
+					/>
+					<span className='text-sm font-medium'>时钟显示秒数</span>
+				</label>
+			</div>
 		</div>
 	)
 }

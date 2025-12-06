@@ -70,5 +70,6 @@
 			"label": "",
 			"order": 3
 		}
-	]
+	],
+	"clockShowSeconds": false
 }

@@ -12,6 +12,7 @@ interface LayoutEditState {
 	cancelEditing: () => void
 	saveEditing: () => void
 	setOffset: (key: CardKey, offsetX: number | null, offsetY: number | null) => void
+	setSize: (key: CardKey, width: number | undefined, height: number | undefined) => void
 }
 
 export const useLayoutEditStore = create<LayoutEditState>((set, get) => ({
@@ -54,6 +55,20 @@ export const useLayoutEditStore = create<LayoutEditState>((set, get) => ({
 				...cardStyles[key],
 				offsetX,
 				offsetY
+			}
+		}
+
+		setCardStyles(next)
+	},
+	setSize: (key, width, height) => {
+		const { cardStyles, setCardStyles } = useConfigStore.getState()
+
+		const next: CardStyles = {
+			...cardStyles,
+			[key]: {
+				...cardStyles[key],
+				width,
+				height
 			}
 		}
 
