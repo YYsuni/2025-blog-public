@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "Victor's Blog",
+		"description": "Victor的个人博客，记录开发、探索、笔记。",
+		"username": "Victor"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -49,16 +49,9 @@
 			"order": 3
 		},
 		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "3194665063@qq.com",
 			"label": "",
 			"order": 1
 		}
