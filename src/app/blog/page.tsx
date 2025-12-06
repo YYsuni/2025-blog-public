@@ -125,6 +125,41 @@ export default function BlogPage() {
 		})
 	}, [])
 
+	// 全选所有文章
+	const handleSelectAll = useCallback(() => {
+		setSelectedSlugs(new Set(editableItems.map(item => item.slug)))
+	}, [editableItems])
+
+	// 全选/取消全选某个时间维度分组
+	const handleSelectGroup = useCallback((groupKey: string) => {
+		const group = groupedItems[groupKey]
+		if (!group) return
+		
+		// 检查该分组是否所有文章都已选中
+		const allSelected = group.items.every(item => selectedSlugs.has(item.slug))
+		
+		setSelectedSlugs(prev => {
+			const next = new Set(prev)
+			if (allSelected) {
+				// 如果已全选，则取消该分组的选择
+				group.items.forEach(item => {
+					next.delete(item.slug)
+				})
+			} else {
+				// 如果未全选，则全选该分组
+				group.items.forEach(item => {
+					next.add(item.slug)
+				})
+			}
+			return next
+		})
+	}, [groupedItems, selectedSlugs])
+
+	// 取消全选
+	const handleDeselectAll = useCallback(() => {
+		setSelectedSlugs(new Set())
+	}, [])
+
 	const handleItemClick = useCallback(
 		(event: React.MouseEvent, slug: string) => {
 			if (!editMode) return
@@ -249,12 +284,29 @@ export default function BlogPage() {
 								animate={{ opacity: 1, scale: 1 }}
 								transition={{ delay: INIT_DELAY + ANIMATION_DELAY * index }}
 								className='card relative w-full max-w-[840px] space-y-6'>
-								<div className='mb-3 flex items-center gap-3 text-base'>
-									<div className='font-medium'>{getGroupLabel(groupKey)}</div>
-
-									<div className='h-2 w-2 rounded-full bg-[#D9D9D9]'></div>
-
-									<div className='text-secondary text-sm'>{group.items.length} 篇文章</div>
+								<div className='mb-3 flex items-center justify-between gap-3 text-base'>
+									<div className='flex items-center gap-3'>
+										<div className='font-medium'>{getGroupLabel(groupKey)}</div>
+										<div className='h-2 w-2 rounded-full bg-[#D9D9D9]'></div>
+										<div className='text-secondary text-sm'>{group.items.length} 篇文章</div>
+									</div>
+									{editMode && (() => {
+										const groupAllSelected = group.items.every(item => selectedSlugs.has(item.slug))
+										return (
+											<motion.button
+												whileHover={{ scale: 1.05 }}
+												whileTap={{ scale: 0.95 }}
+												onClick={() => handleSelectGroup(groupKey)}
+												className={cn(
+													'rounded-lg border px-3 py-1 text-xs transition-colors',
+													groupAllSelected
+														? 'border-brand/40 bg-brand/10 text-brand hover:bg-brand/20'
+														: 'border-transparent bg-white/60 text-secondary hover:border-brand/40 hover:bg-white/80 hover:text-brand'
+												)}>
+												{groupAllSelected ? '取消全选' : '全选该分组'}
+											</motion.button>
+										)
+									})()}
 								</div>
 								<div>
 									{group.items.map(it => {
@@ -331,9 +383,16 @@ export default function BlogPage() {
 				</>
 			</div>
 
-			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='absolute top-4 right-6 flex gap-3 max-sm:hidden'>
+			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='absolute top-4 right-6 flex items-center gap-3 max-sm:hidden'>
 				{editMode ? (
 					<>
+						<motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+							onClick={selectedCount === editableItems.length ? handleDeselectAll : handleSelectAll}
+							className='rounded-xl border bg-white/60 px-4 py-2 text-xs transition-colors hover:bg-white/80'>
+							{selectedCount === editableItems.length ? '取消全选' : '全选'}
+						</motion.button>
 						<motion.button
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
