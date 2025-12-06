@@ -30,13 +30,9 @@
 		{
 			"id": "a46372ff45bc5524",
 			"url": "/images/art/a46372ff45bc5524.jpg"
-		},
-		{
-			"id": "1f48d5ef48349de0",
-			"url": "/images/art/1f48d5ef48349de0.jpg"
 		}
 	],
-	"currentArtImageId": "1f48d5ef48349de0",
+	"currentArtImageId": "a46372ff45bc5524",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -48,7 +44,7 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://github.com/huangguozhao",
 			"label": "Github",
 			"order": 3
 		},
@@ -58,7 +54,14 @@
 			"value": "3194665063@qq.com",
 			"label": "",
 			"order": 1
+		},
+		{
+			"id": "button-1765000735107",
+			"type": "wechat",
+			"value": "15975952616",
+			"label": "",
+			"order": 3
 		}
 	],
-	"clockShowSeconds": true
+	"clockShowSeconds": false
 }
