@@ -41,6 +41,13 @@
 			"value": "xy@candy",
 			"label": "",
 			"order": 1
+		},
+		{
+			"id": "button-1765122916295",
+			"type": "bilibili",
+			"value": "https://space.bilibili.com/501093800",
+			"label": "",
+			"order": 2
 		}
 	]
 }
