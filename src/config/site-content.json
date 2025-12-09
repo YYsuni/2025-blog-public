@@ -57,7 +57,7 @@
 		},
 		{
 			"id": "email",
-			"type": "qq",
+			"type": "email",
 			"value": "3539955834@qq.com",
 			"label": "",
 			"order": 1
