@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "YU-PLUS",
+		"description": "YU-PLUS的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
+		"username": "YU-PLUS"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -32,7 +32,7 @@
 			"url": "/images/art/a46372ff45bc5524.jpg"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "cat",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -44,14 +44,14 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://2025-blog-public-acc59jo2n-yu-pluss-projects.vercel.app/",
 			"label": "Github",
 			"order": 3
 		},
 		{
 			"id": "juejin",
 			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
+			"value": "https://2025-blog-public-acc59jo2n-yu-pluss-projects.vercel.app/",
 			"label": "稀土掘金",
 			"order": 2
 		},
@@ -67,6 +67,6 @@
 	"summaryInContent": false,
 	"isCachePem": false,
 	"hideEditButton": false,
-	"currentHatIndex": 3,
+	"currentHatIndex": 4,
 	"hatFlipped": false
 }
