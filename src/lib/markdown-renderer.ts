@@ -36,21 +36,29 @@ async function loadShiki() {
 }
 
 export async function renderMarkdown(markdown: string): Promise<MarkdownRenderResult> {
-	// Parse TOC from markdown
+	// Pre-process with marked lexer first
+	const tokens = marked.lexer(markdown)
+
+	// Extract TOC from parsed tokens (this correctly skips code blocks)
 	const toc: TocItem[] = []
-	for (const line of markdown.split('\n')) {
-		const m = /^(#{1,3})\s+(.+)$/.exec(line.trim())
-		if (m) {
-			const level = m[1].length
-			const text = m[2].trim()
-			const id = slugify(text)
-			toc.push({ id, text, level })
+	function extractHeadings(tokenList: typeof tokens) {
+		for (const token of tokenList) {
+			if (token.type === 'heading' && token.depth <= 3) {
+				// Use the parsed text (markdown syntax like links/code already stripped)
+				const text = token.text
+				const id = slugify(text)
+				toc.push({ id, text, level: token.depth })
+			}
+			// Recursively check nested tokens (e.g., in blockquotes, lists)
+			if ('tokens' in token && token.tokens) {
+				extractHeadings(token.tokens as typeof tokens)
+			}
 		}
 	}
+	extractHeadings(tokens)
 
 	// Pre-process code blocks with Shiki
 	const codeBlockMap = new Map<string, { html: string; original: string }>()
-	const tokens = marked.lexer(markdown)
 	const shiki = await loadShiki()
 
 	for (const token of tokens) {
