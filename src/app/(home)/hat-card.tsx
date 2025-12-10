@@ -33,6 +33,8 @@ export default function HatCard() {
 			<motion.div
 				initial={{ opacity: 0, scale: 0.6, left: x, top: y, width: styles.width, height: styles.height }}
 				animate={{ opacity: 1, scale: 1, left: x, top: y, width: styles.width, height: styles.height }}
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
 				className='absolute flex h-full w-full items-center justify-center'>
 				<img
 					src={`/images/hats/${hatIndex}.webp`}
