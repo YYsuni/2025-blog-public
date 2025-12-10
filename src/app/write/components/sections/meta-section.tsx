@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { useWriteStore } from '../../stores/write-store'
 import { TagInput } from '../ui/tag-input'
+import { Switch } from '@/components/ui/switch'
 
 type MetaSectionProps = {
 	delay?: number
@@ -29,6 +30,18 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 					value={form.date}
 					onChange={e => updateForm({ date: e.target.value })}
 				/>
+				<div className="flex items-center gap-2">
+					<input
+						type="checkbox"
+						id="hidden-check"
+						checked={form.hidden || false}
+						onChange={(e) => updateForm({ hidden: e.target.checked })}
+						className="h-4 w-4 rounded border-gray-300"
+					/>
+					<label htmlFor="hidden-check" className="text-sm text-gray-600 select-none cursor-pointer">
+						隐藏此文章（仅管理员可见）
+					</label>
+				</div>
 			</div>
 		</motion.div>
 	)

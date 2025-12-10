@@ -42,7 +42,8 @@ const initialForm: PublishForm = {
 	md: '',
 	tags: [],
 	date: new Date().toISOString().slice(0, 10),
-	summary: ''
+	summary: '',
+	hidden: false
 }
 
 export const useWriteStore = create<WriteStore>((set, get) => ({
@@ -181,7 +182,8 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 					md: blog.markdown,
 					tags: blog.config.tags || [],
 					date: blog.config.date || new Date().toISOString().slice(0, 10),
-					summary: blog.config.summary || ''
+					summary: blog.config.summary || '',
+					hidden: blog.config.hidden || false
 				},
 				images,
 				cover,

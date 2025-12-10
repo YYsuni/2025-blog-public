@@ -41,6 +41,7 @@
 		"@types/react-dom": "^19",
 		"babel-plugin-react-compiler": "1.0.0",
 		"code-inspector-plugin": "^1.2.10",
+		"next-sitemap": "^4.2.3",
 		"prettier": "^3.6.2",
 		"prettier-plugin-tailwindcss": "^0.7.1",
 		"tailwindcss": "^4",

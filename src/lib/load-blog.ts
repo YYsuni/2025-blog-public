@@ -4,6 +4,7 @@ export type BlogConfig = {
 	date?: string
 	summary?: string
 	cover?: string
+	hidden?: boolean
 }
 
 export type LoadedBlog = {

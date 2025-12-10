@@ -65,5 +65,6 @@
 	],
 	"clockShowSeconds": false,
 	"summaryInContent": false,
+	"isCachePem": false,
 	"hideEditButton": false
 }
