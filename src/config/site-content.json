@@ -1,26 +1,24 @@
 {
 	"meta": {
-		"title": "xiaoming",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "xiaoming"
+		"title": "Xiaoming",
+		"description": "Xiaoming的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
+		"username": "Xiaoming"
 	},
 	"theme": {
-		"colorBrand": "#de4331",
-		"colorPrimary": "#4E3F42",
-		"colorSecondary": "#7b888e",
-		"colorBrandSecondary": "#FCC841",
-		"colorBg": "#eeeeee",
-		"colorBorder": "#ffffff",
-		"colorCard": "#ffffff66",
-		"colorArticle": "#ffffffcc"
+		"colorBrand": "#48A7E9",
+		"colorPrimary": "#e6e8e8",
+		"colorSecondary": "#acadae",
+		"colorBrandSecondary": "#51d0b9",
+		"colorBg": "#0a051f",
+		"colorBorder": "#8a8a8a5e",
+		"colorCard": "#ffffff0e",
+		"colorArticle": "#6f6f6f33"
 	},
 	"backgroundColors": [
-		"#FCC841",
-		"#DFEFFC",
-		"#DEDE92",
-		"#DE4331",
-		"#FE9750",
-		"#FCC841"
+		"#B224C2",
+		"#9112F7",
+		"#DBD15A",
+		"#3CE853"
 	],
 	"artImages": [
 		{
@@ -44,21 +42,21 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://github.com/xiaoshenming",
 			"label": "Github",
 			"order": 3
 		},
 		{
 			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
+			"type": "bilibili",
+			"value": "https://space.bilibili.com/424572043",
+			"label": "哔哩哔哩",
 			"order": 2
 		},
 		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "laomozuishuai@gmail.com",
 			"label": "",
 			"order": 1
 		}
