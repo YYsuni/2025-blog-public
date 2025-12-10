@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "YU-PLUS",
+		"description": "YU-PLUS的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
+		"username": "YU-PLUS"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -44,21 +44,21 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://2025-blog-public-psi-nine.vercel.app/",
 			"label": "Github",
 			"order": 3
 		},
 		{
 			"id": "juejin",
 			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
+			"value": "https://2025-blog-public-psi-nine.vercel.app/",
 			"label": "稀土掘金",
 			"order": 2
 		},
 		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "1134486495@qq.com",
 			"label": "",
 			"order": 1
 		}
@@ -67,6 +67,6 @@
 	"summaryInContent": false,
 	"isCachePem": false,
 	"hideEditButton": false,
-	"currentHatIndex": 3,
+	"currentHatIndex": 4,
 	"hatFlipped": false
 }
