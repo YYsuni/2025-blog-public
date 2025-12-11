@@ -1,22 +1,22 @@
 [
   {
-    "slug": "test1",
-    "title": "这是个测试页面",
-    "tags": [],
-    "date": "2025-12-11T14:25",
-    "summary": "测试！",
-    "cover": "/blogs/test1/10d5500412ffef51.png",
-    "hidden": false
-  },
-  {
     "slug": "java-design-patterns-guide",
     "title": "Java 开发中的设计原则与模式实战指南",
     "tags": [
       "后端开发",
       "JAVA"
     ],
-    "date": "2025-12-10",
+    "date": "2025-12-11T14:27",
     "summary": "厌倦了一改就崩的代码？本文用最简单的方式讲解Java设计原则和模式，让你的代码更好维护。",
+    "hidden": false
+  },
+  {
+    "slug": "test1",
+    "title": "这是个测试页面",
+    "tags": [],
+    "date": "2025-12-11T14:25",
+    "summary": "测试！",
+    "cover": "/blogs/test1/10d5500412ffef51.png",
     "hidden": false
   }
 ]
