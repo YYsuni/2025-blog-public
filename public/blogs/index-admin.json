@@ -18,5 +18,14 @@
     "summary": "测试！",
     "cover": "/blogs/test1/10d5500412ffef51.png",
     "hidden": false
+  },
+  {
+    "slug": "vuejs-capacitor-mobile-app-encapsulation",
+    "title": "Vue.js移动端封装只需要6步：装包→配置→编译→初始化→添加平台→同步",
+    "tags": [],
+    "date": "2025-12-11T08:05:11.678Z",
+    "summary": "",
+    "cover": "/blogs/vuejs-capacitor-mobile-app-encapsulation/2e3d72a33d9dc100.webp",
+    "hidden": false
   }
 ]
