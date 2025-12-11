@@ -1,5 +1,55 @@
 [
 	{
+		"name": "n8n by huggingface",
+		"url": "https://https://richffan-n8n.hf.space/",
+		"logo": "/images/share/n8n-color.svg",
+		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
+		"tags": [
+			"AI"
+		],
+		"stars": 5
+	},
+	{
+		"name": "n8n by claw cloud",
+		"url": "https://8n-kphhkwkm.us-east-1.clawcloudrun.com",
+		"logo": "/images/share/n8n-color.svg",
+		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
+		"tags": [
+			"AI"
+		],
+		"stars": 5
+	},
+	{
+		"name": "n8n by zeabur",
+		"url": "https://fann8n.zeabur.app/",
+		"logo": "/images/share/n8n-color.svg",
+		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
+		"tags": [
+			"AI"
+		],
+		"stars": 5
+	},
+	{
+		"name": "扣子空间",
+		"url": "https://www.coze.cn/space/7567926374095913012/library",
+		"logo": "https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/obric/coze/favicon.1970.png",
+		"description": "扣子(Coze)是基于AI Agent的智能办公平台，提供AI写作、PPT生成、网页开发与AI设计等一体化生产力工具，扣子致力于为用户与企业提供高效、安全、便捷的智能办公新体验。",
+		"tags": [
+			"AI"
+		],
+		"stars": 5
+	},
+	{
+		"name": "dify",
+		"url": "https://cloud.dify.ai/apps",
+		"logo": "https://cloud.dify.ai/logo/logo.svg",
+		"description": "开源的大语言模型（LLM）应用开发平台，旨在简化生成式 AI 应用的开发和部署。",
+		"tags": [
+			"AI"
+		],
+		"stars": 5
+	},
+	{
 		"name": "iLoveIMG",
 		"url": "https://www.iloveimg.com/zh-cn",
 		"logo": "/images/share/7e91e93e3cdd586b.svg",
