@@ -1,5 +1,15 @@
 [
   {
+    "slug": "ces",
+    "title": "新增测试隐藏文章",
+    "tags": [
+      "测试"
+    ],
+    "date": "2025-12-11T23:23",
+    "summary": "测试",
+    "cover": "/blogs/ces/837544e8ec5fbb15.webp"
+  },
+  {
     "slug": "mirror-sources-guide-complete",
     "title": "我跟镜像源不得不说的那些事",
     "tags": [

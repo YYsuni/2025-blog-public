@@ -1,6 +1,6 @@
 import { toBase64Utf8, getRef, createTree, createCommit, updateRef, createBlob, type TreeItem } from '@/lib/github-client'
 import { fileToBase64NoPrefix, hashFileSHA256 } from '@/lib/file-utils'
-import { prepareDualBlogsIndex } from '@/lib/blog-index'
+import { prepareBlogsIndex } from '@/lib/blog-index'
 import { getAuthToken } from '@/lib/auth'
 import { GITHUB_CONFIG } from '@/consts'
 import type { ImageItem } from '../types'
@@ -134,33 +134,27 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 		sha: configBlob.sha
 	})
 
-	const { adminJson, publicJson } = await prepareDualBlogsIndex(
+	// prepare and create blob for blogs index
+	const indexJson = await prepareBlogsIndex(
 		token,
 		GITHUB_CONFIG.OWNER,
 		GITHUB_CONFIG.REPO,
 		{
 			slug: form.slug,
-			...config
+			title: form.title,
+			tags: form.tags,
+			date: dateStr,
+			summary: form.summary,
+			cover: coverPath
 		},
 		GITHUB_CONFIG.BRANCH
 	)
-
-	// 3. 创建 Admin Index Blob (index-admin.json)
-	const adminIndexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(adminJson), 'base64')
-	treeItems.push({
-		path: 'public/blogs/index-admin.json',
-		mode: '100644',
-		type: 'blob',
-		sha: adminIndexBlob.sha
-	})
-
-	// 4. 创建 Public Index Blob (index.json)
-	const publicIndexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(publicJson), 'base64')
+	const indexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(indexJson), 'base64')
 	treeItems.push({
 		path: 'public/blogs/index.json',
 		mode: '100644',
 		type: 'blob',
-		sha: publicIndexBlob.sha
+		sha: indexBlob.sha
 	})
 
 	// create tree
