@@ -6,7 +6,6 @@ import { GITHUB_CONFIG } from '@/consts'
 import type { ImageItem } from '../types'
 import { getFileExt } from '@/lib/utils'
 import { toast } from 'sonner'
-import { readAdminIndexJson } from '@/lib/blog-index'
 
 export type PushBlogParams = {
 	form: {
@@ -16,6 +15,7 @@ export type PushBlogParams = {
 		tags: string[]
 		date?: string
 		summary?: string
+		hidden?: boolean
 	}
 	cover?: ImageItem | null
 	images?: ImageItem[]
@@ -25,27 +25,8 @@ export type PushBlogParams = {
 
 export async function pushBlog(params: PushBlogParams): Promise<void> {
 	const { form, cover, images, mode = 'create', originalSlug } = params
-	const generateRandomSlug = async (attempt = 0): Promise<string> => {
-		if (attempt >= 3) {
-			toast.info('无法生成唯一的随机 Slug，请稍后重试')
-			throw new Error('无法生成唯一的随机 Slug，请稍后重试')
-		}
 
-		// 生成8位随机字符串
-		const randomSlug = Math.random().toString(36).slice(2, 10)
-		const indexList = await readAdminIndexJson()
-		if (indexList.some(item => item.slug === randomSlug)) {
-			// slug和已有的重复，重试
-			generateRandomSlug(attempt + 1)
-		}
-
-		return randomSlug
-	}
-
-	if (!form?.slug) {
-		toast.info('正在生成随机 slug...')
-		form.slug = await generateRandomSlug()
-	}
+	if (!form?.slug) throw new Error('需要 slug')
 
 	if (mode === 'edit' && originalSlug && originalSlug !== form.slug) {
 		throw new Error('编辑模式下不支持修改 slug，请保持原 slug 不变')
