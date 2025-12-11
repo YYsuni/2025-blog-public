@@ -8,6 +8,7 @@ import { ArtImagesSection } from './art-images-section'
 import { BackgroundImagesSection } from './background-images-section'
 import { SocialButtonsSection } from './social-buttons-section'
 import { HatSection } from './hat-section'
+import { OAuth2LoginButton } from '@/components/oauth2-login-button'
 
 export type { FileItem, ArtImageUploads, BackgroundImageUploads, SocialButtonImageUploads } from './types'
 
@@ -93,16 +94,26 @@ export function SiteSettings({
 					<span className='text-sm font-medium'>隐藏编辑按钮（页面编辑快捷键 ctrl/cmd + ,）</span>
 				</label>
 			</div>
-			<div className='flex gap-3'>
-				<label className='flex items-center gap-2'>
-					<input
-						type='checkbox'
-						checked={formData.isCachePem ?? false}
-						onChange={e => setFormData({ ...formData, isCachePem: e.target.checked })}
-						className='accent-brand h-4 w-4 rounded'
-					/>
-					<span className='text-sm font-medium'>缓存PEM(已加密，但存在风险)</span>
-				</label>
+			<div className='space-y-4'>
+				<div className='flex gap-3'>
+					<label className='flex items-center gap-2'>
+						<input
+							type='checkbox'
+							checked={formData.isCachePem ?? false}
+							onChange={e => setFormData({ ...formData, isCachePem: e.target.checked })}
+							className='accent-brand h-4 w-4 rounded'
+						/>
+						<span className='text-sm font-medium'>缓存PEM(已加密，但存在风险)</span>
+					</label>
+				</div>
+
+				<div className='border rounded-lg p-4 bg-gray-50'>
+					<h3 className='text-sm font-medium mb-3'>GitHub OAuth2 登录</h3>
+					<p className='text-xs text-gray-600 mb-3'>
+						使用GitHub OAuth2登录，避免私钥文件丢失。登录后可以直接操作仓库。
+					</p>
+					<OAuth2LoginButton />
+				</div>
 			</div>
 
 			<HatSection formData={formData} setFormData={setFormData} />

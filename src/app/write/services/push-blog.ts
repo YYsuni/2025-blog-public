@@ -1,7 +1,8 @@
 import { toBase64Utf8, getRef, createTree, createCommit, updateRef, createBlob, type TreeItem } from '@/lib/github-client'
 import { fileToBase64NoPrefix, hashFileSHA256 } from '@/lib/file-utils'
-import { prepareBlogsIndex } from '@/lib/blog-index'
+import { prepareBlogsIndex, prepareDualBlogsIndex } from '@/lib/blog-index'
 import { getAuthToken } from '@/lib/auth'
+import { useAuthStore } from '@/hooks/use-auth'
 import { GITHUB_CONFIG } from '@/consts'
 import type { ImageItem } from '../types'
 import { getFileExt } from '@/lib/utils'
@@ -33,7 +34,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 	}
 
 	// 获取认证 token（自动从全局认证状态获取）
-	const token = await getAuthToken()
+	const token = await useAuthStore.getState().getAuthToken()
 
 	toast.info('正在获取分支信息...')
 	const refData = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`)
