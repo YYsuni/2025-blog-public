@@ -116,7 +116,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 	})
 
 	// create blob for config.json
-	const dateStr = form.date || new Date().toISOString().slice(0, 10)
+	const dateStr = form.date || new Date().toISOString()
 	const config = {
 		title: form.title,
 		tags: form.tags,

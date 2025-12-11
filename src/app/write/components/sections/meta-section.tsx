@@ -24,7 +24,7 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 
 				<TagInput tags={form.tags} onChange={tags => updateForm({ tags })} />
 				<input
-					type='date'
+					type='datetime-local'
 					placeholder='日期'
 					className='bg-card w-full rounded-lg border px-3 py-2 text-sm'
 					value={form.date}
