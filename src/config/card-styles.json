@@ -13,7 +13,7 @@
 		"order": 1,
 		"offsetX": -151,
 		"offsetY": -310,
-		"enabled": true
+		"enabled": false
 	},
 	"clockCard": {
 		"width": 232,
