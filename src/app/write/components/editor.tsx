@@ -2,11 +2,17 @@ import { motion } from 'motion/react'
 import { useWriteStore } from '../stores/write-store'
 import { INIT_DELAY } from '@/consts'
 import { useRef } from 'react'
+import { getAuthToken } from '@/lib/auth'
+import { GITHUB_CONFIG } from '@/consts'
+import { readAdminIndexJson } from '@/lib/blog-index'
+import { toast } from 'sonner'
+import { useAuthStore } from '@/hooks/use-auth'
 
 const defaultText = 'text'
 
 export function WriteEditor() {
 	const { form, updateForm, images, addFiles } = useWriteStore()
+	const { isAuth } = useAuthStore()
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 
 	const insertText = (text: string) => {
@@ -155,6 +161,34 @@ export function WriteEditor() {
 		}
 	}
 
+	const handleGenerateRandomSlug = async (attempt = 0) => {
+		if (attempt >= 3) {
+			toast.info('无法生成唯一的随机 Slug，请稍后重试')
+			return
+		}
+
+		if (!isAuth) {
+			toast.info('请先导入密钥')
+			return
+		}
+
+		// 生成8位随机字符串
+		const randomSlug = Math.random().toString(36).slice(2, 10)
+		// 获取认证 token（自动从全局认证状态获取）
+		const token = await getAuthToken()
+		const indexList = await readAdminIndexJson(token ? token : '',
+			GITHUB_CONFIG.OWNER,
+			GITHUB_CONFIG.REPO,
+			GITHUB_CONFIG.BRANCH
+		)
+		if (indexList.some(item => item.slug === randomSlug)) {
+			// slug和已有的重复，重试
+			handleGenerateRandomSlug(attempt + 1)
+		} else {
+			updateForm({ slug: randomSlug })
+		}
+	}
+
 	return (
 		<motion.div
 			initial={{ opacity: 0, scale: 0.8 }}
@@ -171,11 +205,20 @@ export function WriteEditor() {
 				/>
 				<input
 					type='text'
-					placeholder='slug（xx-xx）'
+					placeholder='slug(xx-xx)留空则自动生成'
 					className='bg-card w-[200px] rounded-lg border px-3 py-2 text-sm'
 					value={form.slug}
 					onChange={e => updateForm({ slug: e.target.value })}
 				/>
+				<motion.button
+					initial={{ opacity: 0, scale: 0.6 }}
+					animate={{ opacity: 1, scale: 1 }}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					className='bg-card rounded-xl border px-4 py-2 text-sm'
+					onClick={() => handleGenerateRandomSlug()}>
+					随机Slug
+				</motion.button>
 			</div>
 			<textarea
 				ref={textareaRef}

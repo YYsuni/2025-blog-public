@@ -6,6 +6,7 @@ import { GITHUB_CONFIG } from '@/consts'
 import type { ImageItem } from '../types'
 import { getFileExt } from '@/lib/utils'
 import { toast } from 'sonner'
+import { readAdminIndexJson } from '@/lib/blog-index'
 
 export type PushBlogParams = {
 	form: {
@@ -24,8 +25,27 @@ export type PushBlogParams = {
 
 export async function pushBlog(params: PushBlogParams): Promise<void> {
 	const { form, cover, images, mode = 'create', originalSlug } = params
+	const generateRandomSlug = async (attempt = 0): Promise<string> => {
+		if (attempt >= 3) {
+			toast.info('无法生成唯一的随机 Slug，请稍后重试')
+			throw new Error('无法生成唯一的随机 Slug，请稍后重试')
+		}
 
-	if (!form?.slug) throw new Error('需要 slug')
+		// 生成8位随机字符串
+		const randomSlug = Math.random().toString(36).slice(2, 10)
+		const indexList = await readAdminIndexJson()
+		if (indexList.some(item => item.slug === randomSlug)) {
+			// slug和已有的重复，重试
+			generateRandomSlug(attempt + 1)
+		}
+
+		return randomSlug
+	}
+
+	if (!form?.slug) {
+		toast.info('正在生成随机 slug...')
+		form.slug = await generateRandomSlug()
+	}
 
 	if (mode === 'edit' && originalSlug && originalSlug !== form.slug) {
 		throw new Error('编辑模式下不支持修改 slug，请保持原 slug 不变')
@@ -134,34 +154,34 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 	})
 
 	const { adminJson, publicJson } = await prepareDualBlogsIndex(
-        token,
-        GITHUB_CONFIG.OWNER,
-        GITHUB_CONFIG.REPO,
-        {
-            slug: form.slug,
-            ...config
-        },
-        GITHUB_CONFIG.BRANCH
-    )
+		token,
+		GITHUB_CONFIG.OWNER,
+		GITHUB_CONFIG.REPO,
+		{
+			slug: form.slug,
+			...config
+		},
+		GITHUB_CONFIG.BRANCH
+	)
 
-    // 3. 创建 Admin Index Blob (index-admin.json)
-    const adminIndexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(adminJson), 'base64')
-    treeItems.push({
-        path: 'public/blogs/index-admin.json',
-        mode: '100644',
-        type: 'blob',
-        sha: adminIndexBlob.sha
-    })
+	// 3. 创建 Admin Index Blob (index-admin.json)
+	const adminIndexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(adminJson), 'base64')
+	treeItems.push({
+		path: 'public/blogs/index-admin.json',
+		mode: '100644',
+		type: 'blob',
+		sha: adminIndexBlob.sha
+	})
 
-    // 4. 创建 Public Index Blob (index.json)
-    const publicIndexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(publicJson), 'base64')
-    treeItems.push({
-        path: 'public/blogs/index.json',
-        mode: '100644',
-        type: 'blob',
-        sha: publicIndexBlob.sha
-    })
-	
+	// 4. 创建 Public Index Blob (index.json)
+	const publicIndexBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(publicJson), 'base64')
+	treeItems.push({
+		path: 'public/blogs/index.json',
+		mode: '100644',
+		type: 'blob',
+		sha: publicIndexBlob.sha
+	})
+
 	// create tree
 	toast.info('正在创建文件树...')
 	const treeData = await createTree(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, treeItems, latestCommitSha)
