@@ -31,9 +31,13 @@
 		{
 			"id": "145ca1887d64b7b6",
 			"url": "/images/background/145ca1887d64b7b6.png"
+		},
+		{
+			"id": "e466a2cd742cf716",
+			"url": "/images/background/e466a2cd742cf716.png"
 		}
 	],
-	"currentBackgroundImageId": "145ca1887d64b7b6",
+	"currentBackgroundImageId": "e466a2cd742cf716",
 	"socialButtons": [
 		{
 			"id": "email",
