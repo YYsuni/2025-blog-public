@@ -26,7 +26,6 @@ import { useSize } from '@/hooks/use-size'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { HomeDraggableLayer } from '@/app/(home)/home-draggable-layer'
 import { useFullscreenStore } from '@/hooks/use-fullscreen'
-import { useUser } from '@/hooks/use-user'
 
 // PC端导航列表
 const pcList = [
@@ -106,31 +105,8 @@ export default function NavCard() {
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 	const { siteContent, cardStyles } = useConfigStore()
 	const { isFullscreen } = useFullscreenStore()
-	const { user, authenticated, loading: userLoading } = useUser()
 	const styles = cardStyles.navCard
 	const hiCardStyles = cardStyles.hiCard
-
-	// 点击头像处理登录
-	const handleAvatarClick = (e: React.MouseEvent) => {
-		if (form !== 'icons') return // 主页头像保持跳转首页
-		e.preventDefault()
-		
-		if (!authenticated) {
-			// 开发环境直接模拟登录
-			if (process.env.NODE_ENV === 'development') {
-				// 本地开发模式：设置模拟登录状态
-				localStorage.setItem('dev_auth', 'admin')
-				window.location.reload()
-				return
-			}
-			// 生产环境：跳转到受保护的页面触发 Access 登录
-			window.location.href = '/'
-		} else if (process.env.NODE_ENV === 'development') {
-			// 开发环境：点击已登录头像可以登出
-			localStorage.removeItem('dev_auth')
-			window.location.reload()
-		}
-	}
 
 	// 根据设备选择导航列表
 	const list = maxSM ? mobileList : pcList
@@ -199,25 +175,13 @@ export default function NavCard() {
 						form === 'icons' && 'flex items-center gap-6 p-3 !fixed z-50',
 						maxSM && '!fixed z-50 !bg-white/60 !backdrop-blur-xl !border-white/40 !shadow-[0_4px_16px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.5)]'
 					)}>
-					{form === 'icons' ? (
-						<button className='flex items-center gap-3' onClick={handleAvatarClick}>
-							<div className={cn(
-								'relative',
-								pathname === '/' && 'after:absolute after:inset-[-4px] after:rounded-full after:bg-gradient-to-br after:from-amber-200/60 after:to-orange-300/40 after:blur-md after:-z-10',
-								authenticated && 'ring-2 ring-green-400 ring-offset-1'
-							)}>
-								<Image src='/images/avatar.png' alt='avatar' width={40} height={40} style={{ boxShadow: ' 0 12px 20px -5px #E2D9CE' }} className='rounded-full' />
-							</div>
-						</button>
-					) : (
-						<Link className='flex items-center gap-3' href='/'>
-							<div className={cn('relative', pathname === '/' && 'after:absolute after:inset-[-4px] after:rounded-full after:bg-gradient-to-br after:from-amber-200/60 after:to-orange-300/40 after:blur-md after:-z-10')}>
-								<Image src='/images/avatar.png' alt='avatar' width={40} height={40} style={{ boxShadow: ' 0 12px 20px -5px #E2D9CE' }} className='rounded-full' />
-							</div>
-							{form === 'full' && <span className='font-averia mt-1 text-2xl leading-none font-medium'>{siteContent.meta.title}</span>}
-							{form === 'full' && <span className='text-brand mt-2 text-xs font-medium'>(开发中)</span>}
-						</Link>
-					)}
+					<Link className='flex items-center gap-3' href='/'>
+						<div className={cn('relative', pathname === '/' && 'after:absolute after:inset-[-4px] after:rounded-full after:bg-gradient-to-br after:from-amber-200/60 after:to-orange-300/40 after:blur-md after:-z-10')}>
+							<Image src='/images/avatar.png' alt='avatar' width={40} height={40} style={{ boxShadow: ' 0 12px 20px -5px #E2D9CE' }} className='rounded-full' />
+						</div>
+						{form === 'full' && <span className='font-averia mt-1 text-2xl leading-none font-medium'>{siteContent.meta.title}</span>}
+						{form === 'full' && <span className='text-brand mt-2 text-xs font-medium'>(开发中)</span>}
+					</Link>
 
 					{(form === 'full' || form === 'icons') && (
 						<>
