@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 import GridView, { type Blogger } from './grid-view'
 import CreateDialog from './components/create-dialog'
 import { pushBloggers } from './services/push-bloggers'
-import { useAuthStore } from '@/hooks/use-auth'
+import { useAuthStore, hasAnyAuth } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import initialList from './list.json'
 import type { AvatarItem } from './components/avatar-upload-dialog'
@@ -21,7 +21,8 @@ export default function Page() {
 	const [avatarItems, setAvatarItems] = useState<Map<string, AvatarItem>>(new Map())
 	const keyInputRef = useRef<HTMLInputElement>(null)
 
-	const { isAuth, setPrivateKey } = useAuthStore()
+	const { setPrivateKey } = useAuthStore()
+	const isAuth = hasAnyAuth()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 

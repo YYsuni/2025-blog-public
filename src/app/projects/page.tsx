@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 import { ProjectCard, type Project } from './components/project-card'
 import CreateDialog from './components/create-dialog'
 import { pushProjects } from './services/push-projects'
-import { useAuthStore } from '@/hooks/use-auth'
+import { useAuthStore, hasAnyAuth } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import initialList from './list.json'
 import type { ImageItem } from './components/image-upload-dialog'
@@ -21,7 +21,8 @@ export default function Page() {
 	const [imageItems, setImageItems] = useState<Map<string, ImageItem>>(new Map())
 	const keyInputRef = useRef<HTMLInputElement>(null)
 
-	const { isAuth, setPrivateKey } = useAuthStore()
+	const { setPrivateKey } = useAuthStore()
+	const isAuth = hasAnyAuth()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 

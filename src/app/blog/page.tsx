@@ -13,7 +13,7 @@ import ShortLineSVG from '@/svgs/short-line.svg'
 import { useBlogIndex, type BlogIndexItem } from '@/hooks/use-blog-index'
 import { useReadArticles } from '@/hooks/use-read-articles'
 import JuejinSVG from '@/svgs/juejin.svg'
-import { useAuthStore } from '@/hooks/use-auth'
+import { useAuthStore, hasAnyAuth } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { readFileAsText } from '@/lib/file-utils'
 import { cn } from '@/lib/utils'
@@ -25,7 +25,8 @@ type DisplayMode = 'day' | 'week' | 'month' | 'year'
 export default function BlogPage() {
 	const { items, loading } = useBlogIndex()
 	const { isRead } = useReadArticles()
-	const { isAuth, setPrivateKey } = useAuthStore()
+	const { setPrivateKey } = useAuthStore()
+	const isAuth = hasAnyAuth()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 

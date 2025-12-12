@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 import GridView from './grid-view'
 import CreateDialog from './components/create-dialog'
 import { pushShares } from './services/push-shares'
-import { useAuthStore } from '@/hooks/use-auth'
+import { useAuthStore, hasAnyAuth } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import initialList from './list.json'
 import type { Share } from './components/share-card'
@@ -22,7 +22,8 @@ export default function Page() {
 	const [logoItems, setLogoItems] = useState<Map<string, LogoItem>>(new Map())
 	const keyInputRef = useRef<HTMLInputElement>(null)
 
-	const { isAuth, setPrivateKey } = useAuthStore()
+	const { setPrivateKey } = useAuthStore()
+	const isAuth = hasAnyAuth()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 

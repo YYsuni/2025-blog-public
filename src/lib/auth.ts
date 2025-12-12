@@ -1,6 +1,7 @@
 import { createInstallationToken, getInstallationId, signAppJwt } from './github-client'
 import { GITHUB_CONFIG } from '@/consts'
 import { useAuthStore } from '@/hooks/use-auth'
+import { getOAuth2Token } from './oauth2-github'
 import { toast } from 'sonner'
 import { decrypt,encrypt } from './aes256-util'
 
@@ -77,8 +78,8 @@ export async function hasAuth(): Promise<boolean> {
 
 /**
  * 统一的认证 Token 获取
- * 自动处理缓存、签发等逻辑
- * @returns GitHub Installation Token
+ * 自动处理缓存、OAuth2、App 认证等逻辑
+ * @returns GitHub Token (Installation Token 或 OAuth2 Token)
  */
 export async function getAuthToken(): Promise<string> {
 	// 1. 先尝试从缓存获取 token
@@ -88,7 +89,19 @@ export async function getAuthToken(): Promise<string> {
 		return cachedToken
 	}
 
-	// 2. 获取私钥（从缓存）
+	// 2. 优先尝试 OAuth2 token
+	try {
+		const oauth2Token = await getOAuth2Token()
+		if (oauth2Token) {
+			toast.info('使用 OAuth2 令牌...')
+			saveTokenToCache(oauth2Token)
+			return oauth2Token
+		}
+	} catch (error) {
+		console.warn('OAuth2 token 获取失败，尝试 App 认证:', error)
+	}
+
+	// 3. 回退到传统的 App 认证
 	const privateKey = useAuthStore.getState().privateKey
 	if (!privateKey) {
 		throw new Error('需要先设置私钥。请使用 useAuth().setPrivateKey()')
