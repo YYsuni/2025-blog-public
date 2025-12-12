@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuthStore } from '@/hooks/use-auth'
-import { KJUR, KEYUTIL } from 'jsrsasign'
 
 export const GH_API = 'https://api.github.com'
 
@@ -18,7 +17,9 @@ export function toBase64Utf8(input: string): string {
 	return btoa(unescape(encodeURIComponent(input)))
 }
 
-export function signAppJwt(appId: string, privateKeyPem: string): string {
+// 动态导入 jsrsasign，避免在 Workers 环境中加载
+export async function signAppJwt(appId: string, privateKeyPem: string): Promise<string> {
+	const { KJUR, KEYUTIL } = await import('jsrsasign')
 	const now = Math.floor(Date.now() / 1000)
 	const header = { alg: 'RS256', typ: 'JWT' }
 	const payload = { iat: now - 60, exp: now + 8 * 60, iss: appId }
