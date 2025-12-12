@@ -3,8 +3,8 @@
 import Card from '@/components/card'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
-import { motion } from 'motion/react'
+import { useEffect, useMemo, useState, useRef } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import { useCenterStore } from '@/hooks/use-center'
 import { CARD_SPACING } from '@/consts'
 import ScrollOutlineSVG from '@/svgs/scroll-outline.svg'
@@ -26,6 +26,9 @@ import { useSize } from '@/hooks/use-size'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { HomeDraggableLayer } from '@/app/(home)/home-draggable-layer'
 import { useFullscreenStore } from '@/hooks/use-fullscreen'
+import { useAuthStore } from '@/hooks/use-auth'
+import { toast } from 'sonner'
+import { X } from 'lucide-react'
 
 // PC端导航列表
 const pcList = [
@@ -105,8 +108,60 @@ export default function NavCard() {
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 	const { siteContent, cardStyles } = useConfigStore()
 	const { isFullscreen } = useFullscreenStore()
+	const { isAuth, setPrivateKey, clearAuth } = useAuthStore()
 	const styles = cardStyles.navCard
 	const hiCardStyles = cardStyles.hiCard
+
+	// 三次点击头像弹出认证
+	const [clickCount, setClickCount] = useState(0)
+	const [showAuthDialog, setShowAuthDialog] = useState(false)
+	const [authKey, setAuthKey] = useState('')
+	const clickTimerRef = useRef<NodeJS.Timeout | null>(null)
+	const keyInputRef = useRef<HTMLInputElement>(null)
+
+	const handleAvatarClick = (e: React.MouseEvent) => {
+		e.preventDefault()
+		e.stopPropagation()
+		
+		setClickCount(prev => {
+			const newCount = prev + 1
+			if (newCount >= 3) {
+				setShowAuthDialog(true)
+				return 0
+			}
+			return newCount
+		})
+
+		// 重置计时器
+		if (clickTimerRef.current) clearTimeout(clickTimerRef.current)
+		clickTimerRef.current = setTimeout(() => setClickCount(0), 1000)
+	}
+
+	const handleAuth = () => {
+		if (authKey.trim()) {
+			setPrivateKey(authKey.trim())
+			setShowAuthDialog(false)
+			setAuthKey('')
+			toast.success('认证成功')
+		}
+	}
+
+	const handleLogout = () => {
+		clearAuth()
+		setShowAuthDialog(false)
+		toast.success('已退出登录')
+	}
+
+	const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0]
+		if (file) {
+			const text = await file.text()
+			setPrivateKey(text)
+			setShowAuthDialog(false)
+			toast.success('认证成功')
+		}
+		e.target.value = ''
+	}
 
 	// 根据设备选择导航列表
 	const list = maxSM ? mobileList : pcList
@@ -162,6 +217,61 @@ export default function NavCard() {
 
 	if (show && !isFullscreen)
 		return (
+			<>
+			<input ref={keyInputRef} type='file' accept='.pem' className='hidden' onChange={handleFileSelect} />
+			
+			{/* 认证弹窗 */}
+			<AnimatePresence>
+				{showAuthDialog && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className='fixed inset-0 z-[100] flex items-center justify-center bg-black/20 backdrop-blur-sm'
+						onClick={() => setShowAuthDialog(false)}>
+						<motion.div
+							initial={{ scale: 0.9, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							exit={{ scale: 0.9, opacity: 0 }}
+							onClick={e => e.stopPropagation()}
+							className='relative w-[90%] max-w-md rounded-2xl bg-white p-6 shadow-xl'>
+							<button onClick={() => setShowAuthDialog(false)} className='absolute top-4 right-4 text-gray-400 hover:text-gray-600'>
+								<X size={20} />
+							</button>
+							
+							<h3 className='mb-4 text-lg font-semibold'>{isAuth ? '已认证' : '管理员认证'}</h3>
+							
+							{isAuth ? (
+								<div className='space-y-4'>
+									<p className='text-sm text-gray-600'>你已通过认证，可以编辑网站内容。</p>
+									<button onClick={handleLogout} className='w-full rounded-xl bg-red-50 py-2.5 text-sm font-medium text-red-600 hover:bg-red-100'>
+										退出登录
+									</button>
+								</div>
+							) : (
+								<div className='space-y-4'>
+									<p className='text-sm text-gray-500'>输入密钥或导入 .pem 文件进行认证</p>
+									<textarea
+										value={authKey}
+										onChange={e => setAuthKey(e.target.value)}
+										placeholder='-----BEGIN RSA PRIVATE KEY-----&#10;...'
+										className='h-32 w-full resize-none rounded-xl border bg-gray-50 p-3 text-xs font-mono focus:border-blue-300 focus:outline-none'
+									/>
+									<div className='flex gap-3'>
+										<button onClick={() => keyInputRef.current?.click()} className='flex-1 rounded-xl border bg-white py-2.5 text-sm font-medium hover:bg-gray-50'>
+											导入文件
+										</button>
+										<button onClick={handleAuth} disabled={!authKey.trim()} className='flex-1 rounded-xl bg-blue-500 py-2.5 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50'>
+											认证
+										</button>
+									</div>
+								</div>
+							)}
+						</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+
 			<HomeDraggableLayer cardKey='navCard' x={position.x} y={position.y} width={styles.width} height={styles.height}>
 				<Card
 					order={styles.order}
@@ -175,13 +285,13 @@ export default function NavCard() {
 						form === 'icons' && 'flex items-center gap-6 p-3 !fixed z-50',
 						maxSM && '!fixed z-50 !bg-white/60 !backdrop-blur-xl !border-white/40 !shadow-[0_4px_16px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,0.5)]'
 					)}>
-					<Link className='flex items-center gap-3' href='/'>
-						<div className={cn('relative', pathname === '/' && 'after:absolute after:inset-[-4px] after:rounded-full after:bg-gradient-to-br after:from-amber-200/60 after:to-orange-300/40 after:blur-md after:-z-10')}>
+					<div className='flex items-center gap-3'>
+						<button onClick={handleAvatarClick} className={cn('relative', pathname === '/' && 'after:absolute after:inset-[-4px] after:rounded-full after:bg-gradient-to-br after:from-amber-200/60 after:to-orange-300/40 after:blur-md after:-z-10', isAuth && 'ring-2 ring-green-400 ring-offset-2 rounded-full')}>
 							<Image src='/images/avatar.png' alt='avatar' width={40} height={40} style={{ boxShadow: ' 0 12px 20px -5px #E2D9CE' }} className='rounded-full' />
-						</div>
-						{form === 'full' && <span className='font-averia mt-1 text-2xl leading-none font-medium'>{siteContent.meta.title}</span>}
+						</button>
+						{form === 'full' && <Link href='/'><span className='font-averia mt-1 text-2xl leading-none font-medium'>{siteContent.meta.title}</span></Link>}
 						{form === 'full' && <span className='text-brand mt-2 text-xs font-medium'>(开发中)</span>}
-					</Link>
+					</div>
 
 					{(form === 'full' || form === 'icons') && (
 						<>
@@ -232,5 +342,6 @@ export default function NavCard() {
 					)}
 				</Card>
 			</HomeDraggableLayer>
+			</>
 		)
 }
