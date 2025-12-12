@@ -39,5 +39,15 @@
 			"软件"
 		],
 		"stars": 5
+	},
+	{
+		"name": "繁体字转换",
+		"logo": "https://www.2weima.com/static/images/logo-162.png",
+		"url": "https://www.2weima.com/jianfan.html",
+		"description": "阅读古文，可能需要用到",
+		"tags": [
+			"工具"
+		],
+		"stars": 5
 	}
 ]
