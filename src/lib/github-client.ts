@@ -17,16 +17,6 @@ export function toBase64Utf8(input: string): string {
 	return btoa(unescape(encodeURIComponent(input)))
 }
 
-// 动态导入 jsrsasign，避免在 Workers 环境中加载
-export async function signAppJwt(appId: string, privateKeyPem: string): Promise<string> {
-	const { KJUR, KEYUTIL } = await import('jsrsasign')
-	const now = Math.floor(Date.now() / 1000)
-	const header = { alg: 'RS256', typ: 'JWT' }
-	const payload = { iat: now - 60, exp: now + 8 * 60, iss: appId }
-	const prv = KEYUTIL.getKey(privateKeyPem) as unknown as string
-	return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), prv)
-}
-
 export async function getInstallationId(jwt: string, owner: string, repo: string): Promise<number> {
 	const res = await fetch(`${GH_API}/repos/${owner}/${repo}/installation`, {
 		headers: {

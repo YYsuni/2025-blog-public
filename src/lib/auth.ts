@@ -1,7 +1,9 @@
-import { createInstallationToken, getInstallationId, signAppJwt } from './github-client'
-import { GITHUB_CONFIG } from '@/consts'
+'use client'
+
+// 旧的 GitHub App 认证已废弃，现在使用 GitHub OAuth
+// 这个文件保留是为了兼容其他服务（pictures, projects 等）
+
 import { useAuthStore } from '@/hooks/use-auth'
-import { toast } from 'sonner'
 
 const GITHUB_TOKEN_CACHE_KEY = 'github_token'
 
@@ -41,34 +43,13 @@ export function hasAuth(): boolean {
 }
 
 /**
- * 统一的认证 Token 获取
- * 自动处理缓存、签发等逻辑
- * @returns GitHub Installation Token
+ * 获取认证 Token（已废弃，保留兼容）
+ * @deprecated 使用 GitHub OAuth 登录后，不再需要手动获取 token
  */
 export async function getAuthToken(): Promise<string> {
-	// 1. 先尝试从缓存获取 token
 	const cachedToken = getTokenFromCache()
 	if (cachedToken) {
-		toast.info('使用缓存的令牌...')
 		return cachedToken
 	}
-
-	// 2. 获取私钥（从缓存）
-	const privateKey = useAuthStore.getState().privateKey
-	if (!privateKey) {
-		throw new Error('需要先设置私钥。请使用 useAuth().setPrivateKey()')
-	}
-
-	toast.info('正在签发 JWT...')
-	const jwt = await signAppJwt(GITHUB_CONFIG.APP_ID, privateKey)
-
-	toast.info('正在获取安装信息...')
-	const installationId = await getInstallationId(jwt, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO)
-
-	toast.info('正在创建安装令牌...')
-	const token = await createInstallationToken(jwt, installationId)
-
-	saveTokenToCache(token)
-
-	return token
+	throw new Error('GitHub App 认证已废弃，请使用 GitHub OAuth 登录')
 }
