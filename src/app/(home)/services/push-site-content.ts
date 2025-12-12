@@ -1,5 +1,5 @@
 import { toBase64Utf8, getRef, createTree, createCommit, updateRef, createBlob, type TreeItem } from '@/lib/github-client'
-import { getAuthToken } from '@/lib/auth'
+import { useAuthStore } from '@/hooks/use-auth'
 import { GITHUB_CONFIG } from '@/consts'
 import { toast } from 'sonner'
 import { fileToBase64NoPrefix } from '@/lib/file-utils'
@@ -20,7 +20,7 @@ export async function pushSiteContent(
 	removedBackgroundImages?: BackgroundImageConfig[],
 	socialButtonImageUploads?: SocialButtonImageUploads
 ): Promise<void> {
-	const token = await getAuthToken()
+	const token = await useAuthStore.getState().getAuthToken()
 
 	toast.info('正在获取分支信息...')
 	const refData = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`)

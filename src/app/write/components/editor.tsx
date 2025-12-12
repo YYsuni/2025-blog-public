@@ -1,7 +1,12 @@
+'use client'
+
 import { motion } from 'motion/react'
 import { useWriteStore } from '../stores/write-store'
 import { INIT_DELAY } from '@/consts'
 import { useRef } from 'react'
+import { useAuthStore } from '@/hooks/use-auth'
+import { GITHUB_CONFIG } from '@/consts'
+import { toast } from 'sonner'
 
 const defaultText = 'text'
 
@@ -155,6 +160,17 @@ export function WriteEditor() {
 		}
 	}
 
+	const handleGenerateRandomSlug = async () => {
+		if (!isAuth) {
+			toast.info('请先导入密钥')
+			return
+		}
+
+		// 生成8位随机字符串
+		const randomSlug = Math.random().toString(36).slice(2, 10)
+		updateForm({ slug: randomSlug })
+		toast.success('已生成随机 Slug')
+	}
 	return (
 		<motion.div
 			initial={{ opacity: 0, scale: 0.8 }}
