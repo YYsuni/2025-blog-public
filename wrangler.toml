@@ -1,4 +1,4 @@
-# wrangler.toml
+# wrangler.toml - 0n0.uk
 name = '0n0'
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
