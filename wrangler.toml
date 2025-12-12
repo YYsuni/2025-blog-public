@@ -2,9 +2,3 @@ name = "blog-2025"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".open-next/assets"
-
-# D1 数据库绑定
-[[d1_databases]]
-binding = "DB"
-database_name = "blog-db"
-database_id = "69297e0b-6da4-4cb8-b349-80891d0fbb4a"
