@@ -1,6 +1,5 @@
 import { marked } from 'marked'
 import type { Tokens } from 'marked'
-import { codeToHtml } from 'shiki'
 
 export type TocItem = { id: string; text: string; level: number }
 
@@ -40,6 +39,8 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 			const originalCode = codeToken.text
 			const key = `__SHIKI_CODE_${codeBlockMap.size}__`
 			try {
+				// 动态导入 shiki，避免在 Workers 环境中加载时触发 eval
+				const { codeToHtml } = await import('shiki')
 				const html = await codeToHtml(originalCode, {
 					lang: codeToken.lang || 'text',
 					theme: 'one-light'
