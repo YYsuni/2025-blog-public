@@ -18,3 +18,10 @@ database_id = "69297e0b-6da4-4cb8-b349-80891d0fbb4a"
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "0n0"
+
+# 环境变量
+[vars]
+GITHUB_CLIENT_ID = "Iv23liYJ9CdbfLjiW1TB"
+GITHUB_ALLOWED_USER = "Villode"
+NEXT_PUBLIC_SITE_URL = "https://0n0.uk"
+# GITHUB_CLIENT_SECRET 需要通过 wrangler secret 设置，不要放在代码里
