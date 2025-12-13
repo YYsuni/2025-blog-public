@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { ShuffleIcon, PlayIcon, MusicIcon, XIcon, EditIcon, PlusIcon, TrashIcon, SaveIcon } from 'lucide-react'
 import { list } from '@/app/music/list'
 import { cn } from '@/lib/utils'
-import { pushMusicPlaylist, loadMusicPlaylist, type MusicItem, type MusicPlaylist } from '@/app/music/services/push-music-playlist'
+import { pushMusicPlaylist, type MusicItem, type MusicPlaylist } from '@/app/music/services/push-music-playlist'
 
 export default function RandomMusicPlayer() {
 	const [isPlaying, setIsPlaying] = useState(false)
@@ -22,21 +22,23 @@ export default function RandomMusicPlayer() {
 	// 加载用户歌单
 	const loadUserPlaylist = async () => {
 		try {
-			// 优先尝试加载用户自定义歌单
-			const playlist = await loadMusicPlaylist()
-			if (playlist && playlist.songs && playlist.songs.length > 0) {
-				setMusicList(playlist.songs)
-				console.log('已加载用户自定义歌单')
-			} else {
-				// 如果没有用户歌单，使用默认歌单
-				setMusicList(list)
-				console.log('使用默认歌单')
+			// 直接读取本地JSON文件，不需要GitHub认证
+			const response = await fetch('/music/user-playlist.json')
+			if (response.ok) {
+				const playlist = await response.json()
+				if (playlist && playlist.songs && playlist.songs.length > 0) {
+					setMusicList(playlist.songs)
+					console.log('已加载用户自定义歌单')
+					return
+				}
 			}
 		} catch (error) {
-			console.error('加载歌单失败，使用默认歌单:', error)
-			// 出错时使用默认歌单
-			setMusicList(list)
+			console.log('读取用户歌单失败，使用默认歌单:', error)
 		}
+		
+		// 如果没有用户歌单或读取失败，使用默认歌单
+		setMusicList(list)
+		console.log('使用默认歌单')
 	}
 
 	// 保存用户歌单
