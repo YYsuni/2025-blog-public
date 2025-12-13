@@ -15,6 +15,7 @@ export default function RandomMusicPlayer() {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [currentSong, setCurrentSong] = useState<MusicItem | null>(null)
 	const [isExpanded, setIsExpanded] = useState(false)
+	const [isMinimized, setIsMinimized] = useState(false)
 	const [playHistory, setPlayHistory] = useState<MusicItem[]>([])
 
 	// 获取随机歌曲（避免重复）
@@ -36,6 +37,7 @@ export default function RandomMusicPlayer() {
 		setPlayHistory([song])
 		setIsPlaying(true)
 		setIsExpanded(true)
+		setIsMinimized(false)
 	}
 
 	// 播放下一首随机歌曲
@@ -45,14 +47,27 @@ export default function RandomMusicPlayer() {
 		setPlayHistory(prev => [...prev.slice(-4), song]) // 保留最近5首的历史
 	}
 
-	// 关闭播放器
+	// 最小化播放器（点击叉叉）
+	const minimizePlayer = () => {
+		setIsExpanded(false)
+		setIsMinimized(true)
+	}
+
+	// 完全关闭播放器
 	const closePlayer = () => {
 		setIsExpanded(false)
+		setIsMinimized(false)
 		setTimeout(() => {
 			setIsPlaying(false)
 			setCurrentSong(null)
 			setPlayHistory([])
 		}, 300)
+	}
+
+	// 恢复展开播放器
+	const restorePlayer = () => {
+		setIsExpanded(true)
+		setIsMinimized(false)
 	}
 
 	return (
@@ -86,9 +101,9 @@ export default function RandomMusicPlayer() {
 
 			{/* 展开的播放器 */}
 			<AnimatePresence>
-				{isPlaying && currentSong && (
+				{isPlaying && currentSong && isExpanded && (
 					<motion.div
-						className='absolute bottom-full right-0 mb-4 w-96 rounded-2xl border border-border bg-card/95 backdrop-blur-md shadow-2xl'
+						className='absolute bottom-full right-0 mb-4 w-[385px] rounded-2xl border border-border bg-card/95 backdrop-blur-md shadow-2xl'
 						initial={{ opacity: 0, scale: 0.9, y: 20 }}
 						animate={{ opacity: 1, scale: 1, y: 0 }}
 						exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -100,32 +115,29 @@ export default function RandomMusicPlayer() {
 								<MusicIcon className='h-5 w-5 text-white' />
 							</div>
 							<div>
-								<h3 className='font-medium text-primary'>随机音乐播放器</h3>
-								<p className='text-xs text-secondary'>正在播放: {currentSong.name}</p>
+								<h3 className='text-base font-medium text-primary'>随机音乐播放器</h3>
+								<p className='text-sm text-secondary'>{currentSong.name}</p>
 							</div>
 						</div>
 						<button
-							onClick={closePlayer}
+							onClick={minimizePlayer}
 							className='flex h-8 w-8 items-center justify-center rounded-full text-secondary hover:bg-border hover:text-primary transition-colors'>
-							×
+							<XIcon className='h-4 w-4' />
 						</button>
 					</div>
 
 					{/* iframe 容器 */}
 					<div className='p-4'>
-						<div className='relative overflow-hidden rounded-lg border border-border bg-white/5'>
+						<div className='relative overflow-hidden rounded-lg border border-border bg-white/5 flex items-center justify-center' style={{ height: '112px' }}>
 							<div 
-								className='aspect-video w-full'
+								style={{ width: '330px', height: '86px' }}
 								dangerouslySetInnerHTML={{ __html: currentSong.iframe }}
 							/>
 						</div>
 					</div>
 
 					{/* 控制按钮 */}
-					<div className='flex items-center justify-between border-t border-border p-4'>
-						<div className='text-xs text-secondary'>
-							提示：无法控制iframe播放，请手动点击播放
-						</div>
+					<div className='flex items-center justify-end border-t border-border p-4'>
 						<motion.button
 							onClick={playNextRandom}
 							className='flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-secondary px-4 py-2 text-white shadow-lg hover:shadow-xl transition-all'
@@ -135,6 +147,54 @@ export default function RandomMusicPlayer() {
 							<span className='text-sm font-medium'>随机下一首</span>
 						</motion.button>
 					</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+
+			{/* 最小化的iframe悬浮窗 */}
+			<AnimatePresence>
+				{isPlaying && currentSong && isMinimized && (
+					<motion.div
+						className='fixed bottom-20 right-6 w-[385px] rounded-xl border border-border bg-card/95 backdrop-blur-md shadow-2xl'
+						initial={{ opacity: 0, scale: 0.8, y: 20 }}
+						animate={{ opacity: 1, scale: 1, y: 0 }}
+						exit={{ opacity: 0, scale: 0.8, y: 20 }}
+						transition={{ duration: 0.3, ease: 'easeOut' }}>
+						<div className='flex items-center justify-between border-b border-border p-3'>
+							<div className='flex items-center gap-3'>
+								<MusicIcon className='h-4 w-4 text-brand' />
+								<span className='text-sm font-medium text-primary truncate max-w-48'>{currentSong.name}</span>
+							</div>
+							<div className='flex items-center gap-2'>
+								<motion.button
+									onClick={playNextRandom}
+									className='flex h-6 w-6 items-center justify-center rounded text-secondary hover:text-brand transition-colors'
+									whileHover={{ scale: 1.1 }}
+									whileTap={{ scale: 0.9 }}>
+									<ShuffleIcon className='h-4 w-4' />
+								</motion.button>
+								<motion.button
+									onClick={restorePlayer}
+									className='flex h-6 w-6 items-center justify-center rounded text-secondary hover:text-brand transition-colors'
+									whileHover={{ scale: 1.1 }}
+									whileTap={{ scale: 0.9 }}>
+									<PlayIcon className='h-4 w-4' />
+								</motion.button>
+								<motion.button
+									onClick={closePlayer}
+									className='flex h-6 w-6 items-center justify-center rounded text-secondary hover:text-red-500 transition-colors'
+									whileHover={{ scale: 1.1 }}
+									whileTap={{ scale: 0.9 }}>
+									<XIcon className='h-4 w-4' />
+								</motion.button>
+							</div>
+						</div>
+						<div className='relative overflow-hidden flex items-center justify-center' style={{ height: '112px' }}>
+							<div 
+								style={{ width: '330px', height: '86px' }}
+								dangerouslySetInnerHTML={{ __html: currentSong.iframe }}
+							/>
+						</div>
 					</motion.div>
 				)}
 			</AnimatePresence>

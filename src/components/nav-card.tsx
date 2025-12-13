@@ -56,12 +56,6 @@ const list = [
 		label: '优秀博客',
 		href: '/bloggers'
 	},
-	{
-		icon: MusicSVG,
-		iconActive: MusicSVG,
-		label: '音乐播放',
-		href: '/music'
-	}
 ]
 
 const extraSize = 8
