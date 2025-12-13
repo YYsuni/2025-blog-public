@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'motion/react'
-import { Play, Pause, RotateCcw, Plus, X } from 'lucide-react'
+import { Play, Pause, RotateCcw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type TimerMode = 'stopwatch' | 'timer' | 'worldclock'
@@ -15,9 +15,17 @@ interface WorldClock {
 
 const DEFAULT_TIMEZONES: WorldClock[] = [
     { id: '1', timezone: 'Asia/Shanghai', city: '上海' },
-    { id: '2', timezone: 'America/New_York', city: '纽约' },
-    { id: '3', timezone: 'Europe/London', city: '伦敦' },
-    { id: '4', timezone: 'Asia/Tokyo', city: '东京' }
+    { id: '2', timezone: 'Asia/Tokyo', city: '东京' },
+    { id: '3', timezone: 'Asia/Hong_Kong', city: '香港' },
+    { id: '4', timezone: 'Asia/Singapore', city: '新加坡' },
+    { id: '5', timezone: 'Asia/Dubai', city: '迪拜' },
+    { id: '6', timezone: 'Europe/London', city: '伦敦' },
+    { id: '7', timezone: 'Europe/Paris', city: '巴黎' },
+    { id: '8', timezone: 'Europe/Moscow', city: '莫斯科' },
+    { id: '9', timezone: 'America/New_York', city: '纽约' },
+    { id: '10', timezone: 'America/Los_Angeles', city: '洛杉矶' },
+    { id: '11', timezone: 'America/Chicago', city: '芝加哥' },
+    { id: '12', timezone: 'Australia/Sydney', city: '悉尼' }
 ]
 
 export default function ClockPage() {
@@ -176,10 +184,6 @@ export default function ClockPage() {
         }
     }
 
-    const removeWorldClock = (id: string) => {
-        setWorldClocks(prev => prev.filter(clock => clock.id !== id))
-    }
-
     return (
         <div className='flex flex-col items-center px-6 pt-32 pb-12'>
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className='w-full max-w-[600px] space-y-8'>
@@ -219,64 +223,35 @@ export default function ClockPage() {
 
                 {/* World Clock Mode */}
                 {mode === 'worldclock' ? (
-                    <div className='space-y-4'>
-                        {worldClocks.map(clock => (
+                    <div className='grid grid-cols-2 gap-4'>
+                        {worldClocks.map((clock, index) => (
                             <motion.div
                                 key={clock.id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className='card relative p-6'>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex-1'>
-                                        <h3 className='text-2xl font-bold mb-1'>{clock.city}</h3>
-                                        <p className='text-secondary text-sm'>{clock.timezone}</p>
+                                transition={{ delay: index * 0.05 }}
+                                className='card relative p-5'>
+                                <div className='space-y-2'>
+                                    <h3 className='text-xl font-bold'>{clock.city}</h3>
+                                    <div className='text-3xl font-bold tabular-nums'>
+                                        {currentTime.toLocaleTimeString('zh-CN', {
+                                            timeZone: clock.timezone,
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            hour12: false
+                                        })}
                                     </div>
-                                    <div className='flex items-center gap-4'>
-                                        <div className='text-right'>
-                                            <div className='text-3xl font-bold tabular-nums'>
-                                                {currentTime.toLocaleTimeString('zh-CN', {
-                                                    timeZone: clock.timezone,
-                                                    hour: '2-digit',
-                                                    minute: '2-digit',
-                                                    second: '2-digit',
-                                                    hour12: false
-                                                })}
-                                            </div>
-                                            <div className='text-secondary text-sm'>
-                                                {currentTime.toLocaleDateString('zh-CN', {
-                                                    timeZone: clock.timezone,
-                                                    month: 'long',
-                                                    day: 'numeric'
-                                                })}
-                                            </div>
-                                        </div>
-                                        <motion.button
-                                            whileHover={{ scale: 1.1 }}
-                                            whileTap={{ scale: 0.9 }}
-                                            onClick={() => removeWorldClock(clock.id)}
-                                            className='text-secondary hover:text-red-500 transition-colors'>
-                                            <X className='h-5 w-5' />
-                                        </motion.button>
+                                    <div className='text-secondary text-xs'>
+                                        {currentTime.toLocaleDateString('zh-CN', {
+                                            timeZone: clock.timezone,
+                                            month: 'long',
+                                            day: 'numeric',
+                                            weekday: 'short'
+                                        })}
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
-
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => {
-                                const newClock: WorldClock = {
-                                    id: Date.now().toString(),
-                                    timezone: 'America/Los_Angeles',
-                                    city: '洛杉矶'
-                                }
-                                setWorldClocks(prev => [...prev, newClock])
-                            }}
-                            className='card w-full flex items-center justify-center gap-2 py-4 text-secondary hover:text-brand transition-colors'>
-                            <Plus className='h-5 w-5' />
-                            <span>添加时区</span>
-                        </motion.button>
                     </div>
                 ) : (
                     <>
@@ -382,76 +357,183 @@ interface ScrollPickerProps {
 }
 
 function ScrollPicker({ value, onChange, max }: ScrollPickerProps) {
+    const [offset, setOffset] = useState(0)
     const [isDragging, setIsDragging] = useState(false)
     const [startY, setStartY] = useState(0)
-    const [startValue, setStartValue] = useState(0)
+    const [lastY, setLastY] = useState(0)
+    const [velocity, setVelocity] = useState(0)
+    const [lastTime, setLastTime] = useState(0)
     const containerRef = useRef<HTMLDivElement>(null)
+    const animationRef = useRef<number | null>(null)
+    const velocityRef = useRef(0)
+    const offsetRef = useRef(0)
+
+    const itemHeight = 44
+    const visibleItems = 5
+
+    // 同步 ref 和 state
+    velocityRef.current = velocity
+    offsetRef.current = offset
+
+    // 惯性滚动
+    useEffect(() => {
+        if (!isDragging && Math.abs(velocityRef.current) > 0.1) {
+            const animate = () => {
+                velocityRef.current *= 0.95 // 阻尼
+
+                if (Math.abs(velocityRef.current) < 0.1) {
+                    velocityRef.current = 0
+                    // 对齐到最近的项
+                    snapToNearest()
+                    return
+                }
+
+                const newOffset = offsetRef.current + velocityRef.current
+                setOffset(newOffset)
+                animationRef.current = requestAnimationFrame(animate)
+            }
+
+            animationRef.current = requestAnimationFrame(animate)
+
+            return () => {
+                if (animationRef.current) {
+                    cancelAnimationFrame(animationRef.current)
+                }
+            }
+        }
+    }, [isDragging, velocity])
+
+    const snapToNearest = () => {
+        const index = Math.round(-offsetRef.current / itemHeight)
+        const snappedIndex = ((index % (max + 1)) + (max + 1)) % (max + 1)
+        onChange(snappedIndex)
+        setOffset(-snappedIndex * itemHeight)
+        setVelocity(0)
+    }
 
     const handlePointerDown = (e: React.PointerEvent) => {
+        if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current)
+        }
         setIsDragging(true)
         setStartY(e.clientY)
-        setStartValue(value)
+        setLastY(e.clientY)
+        setLastTime(performance.now())
+        setVelocity(0)
         e.currentTarget.setPointerCapture(e.pointerId)
     }
 
     const handlePointerMove = (e: React.PointerEvent) => {
         if (!isDragging) return
 
-        const delta = startY - e.clientY
-        const step = Math.floor(delta / 30)
-        let newValue = startValue + step
+        const currentY = e.clientY
+        const currentTime = performance.now()
+        const deltaY = currentY - lastY
+        const deltaTime = currentTime - lastTime
 
-        if (newValue < 0) newValue = 0
-        if (newValue > max) newValue = max
+        if (deltaTime > 0) {
+            const newVelocity = deltaY / deltaTime * 16
+            setVelocity(newVelocity)
+        }
 
-        onChange(newValue)
+        const newOffset = offset + deltaY
+        setOffset(newOffset)
+        setLastY(currentY)
+        setLastTime(currentTime)
+
+        // 实时更新值
+        const index = Math.round(-newOffset / itemHeight)
+        const wrappedIndex = ((index % (max + 1)) + (max + 1)) % (max + 1)
+        onChange(wrappedIndex)
     }
 
     const handlePointerUp = (e: React.PointerEvent) => {
         setIsDragging(false)
         e.currentTarget.releasePointerCapture(e.pointerId)
+
+        // 如果速度很小，直接对齐
+        if (Math.abs(velocityRef.current) < 1) {
+            snapToNearest()
+        }
     }
 
     const handleWheel = (e: React.WheelEvent) => {
         e.preventDefault()
-        const delta = e.deltaY > 0 ? -1 : 1
-        let newValue = value + delta
-
-        if (newValue < 0) newValue = 0
-        if (newValue > max) newValue = max
-
+        const delta = e.deltaY > 0 ? 1 : -1
+        const newValue = (value + delta + (max + 1)) % (max + 1)
         onChange(newValue)
+        setOffset(-newValue * itemHeight)
+    }
+
+    // 当外部值改变时，更新偏移
+    useEffect(() => {
+        if (!isDragging) {
+            setOffset(-value * itemHeight)
+        }
+    }, [value, isDragging])
+
+    // 渲染多个循环的项目
+    const renderItems = () => {
+        const items = []
+        const totalItems = max + 1
+        const repeatCount = 3 // 渲染3组以支持循环
+
+        for (let repeat = 0; repeat < repeatCount; repeat++) {
+            for (let i = 0; i <= max; i++) {
+                const index = repeat * totalItems + i
+                const yPosition = index * itemHeight + offset
+
+                // 只渲染可见区域附近的项
+                if (Math.abs(yPosition) < itemHeight * 10) {
+                    const distance = Math.abs(yPosition / itemHeight)
+                    const opacity = Math.max(0.2, 1 - distance * 0.3)
+                    const scale = Math.max(0.7, 1 - distance * 0.15)
+
+                    items.push(
+                        <div
+                            key={`${repeat}-${i}`}
+                            className='absolute flex items-center justify-center w-full transition-all duration-100'
+                            style={{
+                                height: `${itemHeight}px`,
+                                transform: `translateY(${yPosition + itemHeight * 2}px) scale(${scale})`,
+                                opacity: opacity,
+                                pointerEvents: 'none'
+                            }}>
+                            <span className='text-3xl font-bold tabular-nums'>{i.toString().padStart(2, '0')}</span>
+                        </div>
+                    )
+                }
+            }
+        }
+
+        return items
     }
 
     return (
         <div
             ref={containerRef}
-            className='relative w-20 h-32 overflow-hidden rounded-xl border bg-white/60 backdrop-blur-sm select-none'
+            className='relative w-24 overflow-hidden rounded-xl border bg-white/60 backdrop-blur-sm select-none'
+            style={{ height: `${itemHeight * visibleItems}px`, touchAction: 'none' }}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
-            onWheel={handleWheel}
-            style={{ touchAction: 'none', cursor: isDragging ? 'grabbing' : 'grab' }}>
-            <div className='absolute inset-0 flex flex-col items-center justify-center pointer-events-none'>
-                <div className='absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white/80 to-transparent z-10' />
-                <div className='absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white/80 to-transparent z-10' />
+            onWheel={handleWheel}>
+            {/* 渐变遮罩 */}
+            <div className='absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/90 via-white/50 to-transparent z-10 pointer-events-none' />
+            <div className='absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/90 via-white/50 to-transparent z-10 pointer-events-none' />
 
-                <div className='flex flex-col items-center' style={{ transform: `translateY(${(2 - value) * 40}px)` }}>
-                    {Array.from({ length: max + 1 }, (_, i) => i).map(num => {
-                        const distance = Math.abs(num - value)
-                        const opacity = distance === 0 ? 1 : distance === 1 ? 0.5 : 0.25
-                        const scale = distance === 0 ? 1 : 0.8
+            {/* 选中指示器 */}
+            <div
+                className='absolute inset-x-0 border-y-2 border-brand/20 bg-brand/5 pointer-events-none z-10'
+                style={{
+                    top: `${itemHeight * 2}px`,
+                    height: `${itemHeight}px`
+                }}
+            />
 
-                        return (
-                            <div
-                                key={num}
-                                className='flex items-center justify-center h-10 w-full transition-all duration-150'
-                                style={{ opacity, transform: `scale(${scale})` }}>
-                                <span className='text-2xl font-bold'>{num.toString().padStart(2, '0')}</span>
-                            </div>
-                        )
-                    })}
-                </div>
+            {/* 数字 */}
+            <div className='relative w-full h-full' style={{ cursor: isDragging ? 'grabbing' : 'grab' }}>
+                {renderItems()}
             </div>
         </div>
     )
