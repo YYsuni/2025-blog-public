@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "laoqian303",
-		"description": "laoqian303 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "laoqian303"
+		"title": "YYsuni",
+		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
+		"username": "Suni"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -44,9 +44,16 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/uqayiyufog07-eng",
+			"value": "https://github.com/yysuni",
 			"label": "Github",
 			"order": 3
+		},
+		{
+			"id": "juejin",
+			"type": "juejin",
+			"value": "https://juejin.cn/user/2427311675422382",
+			"label": "稀土掘金",
+			"order": 2
 		},
 		{
 			"id": "email",
@@ -61,6 +68,6 @@
 	"isCachePem": false,
 	"hideEditButton": false,
 	"enableCategories": true,
-	"currentHatIndex": 2,
+	"currentHatIndex": 3,
 	"hatFlipped": false
 }
