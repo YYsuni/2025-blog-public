@@ -1,0 +1,33 @@
+{
+  "songs": [
+    {
+      "name": "国家",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=106024&auto=1&height=66\"></iframe>"
+    },
+    {
+      "name": "祖国不会忘记",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=5266159&auto=1&height=66\"></iframe>"
+    },
+    {
+      "name": "爱军习武歌",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=33410968&auto=1&height=66\"></iframe>"
+    },
+    {
+      "name": "强军战歌",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=34516734&auto=1&height=66\"></iframe>"
+    },
+    {
+      "name": "中国人民解放军军歌",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=1914679871&auto=1&height=66\"></iframe>"
+    },
+    {
+      "name": "当那一天来临",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=32166485&auto=1&height=66\"></iframe>"
+    },
+    {
+      "name": "当祖国召唤的时候",
+      "iframe": "<iframe frameborder=\"no\" border=\"0\" marginwidth=\"0\" marginheight=\"0\" width=330 height=86 src=\"//music.163.com/outchain/player?type=2&id=32166494&auto=1&height=66\"></iframe>"
+    }
+  ],
+  "lastUpdated": "2025-12-13T08:54:47.209Z"
+}
