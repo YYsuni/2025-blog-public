@@ -7,6 +7,8 @@ export type AboutData = {
 	title: string
 	description: string
 	content: string
+	githubUrl?: string
+	skills?: Array<{ name: string; color: string }>
 }
 
 export async function pushAbout(data: AboutData): Promise<void> {

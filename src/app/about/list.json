@@ -1,5 +1,16 @@
 {
 	"title": "关于本站",
 	"description": "一个基于 Github 的现代化博客系统",
-	"content": "📦网站基于 Github 仓库完全存储，所有内容版本可控\n\n🚀无后端，无 serverless function，纯静态站点\n\n✏️文章通过可视化 UI 直接编辑并提交到 Github 仓库\n\n🔑所有用户都可以编辑，提交需要 Owner 的 Private Key\n\n## 技术栈\n\n- Next.js\n- React\n- TypeScript\n- Tailwind CSS\n- Motion\n- Github API"
+	"content": "📦网站基于 Github 仓库完全存储，所有内容版本可控\n\n🚀无后端，无 serverless function，纯静态站点\n\n✏️文章通过可视化 UI 直接编辑并提交到 Github 仓库\n\n🔑所有用户都可以编辑，提交需要 Owner 的 Private Key\n\n## 技术栈\n\n- Next.js\n- React\n- TypeScript\n- Tailwind CSS\n- Motion\n- Github API",
+	"githubUrl": "https://github.com/YYsuni/2025-blog-public",
+	"skills": [
+		{ "name": "Next.js", "color": "#000000" },
+		{ "name": "React", "color": "#61DAFB" },
+		{ "name": "TypeScript", "color": "#3178C6" },
+		{ "name": "Tailwind CSS", "color": "#06B6D4" },
+		{ "name": "Motion", "color": "#FF0080" },
+		{ "name": "Github API", "color": "#181717" },
+		{ "name": "Node.js", "color": "#339933" },
+		{ "name": "JavaScript", "color": "#F7DF1E" }
+	]
 }
