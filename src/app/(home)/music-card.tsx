@@ -5,7 +5,6 @@ import { useConfigStore } from './stores/config-store'
 import { CARD_SPACING } from '@/consts'
 import MusicSVG from '@/svgs/music.svg'
 import PlaySVG from '@/svgs/play.svg'
-import PauseSVG from '@/svgs/pause.svg'
 import { HomeDraggableLayer } from './home-draggable-layer'
 
 const API_URL = 'https://api.milorapart.top/apis/random'
@@ -18,67 +17,49 @@ export default function MusicCard() {
 	const clockCardStyles = cardStyles.clockCard
 	const calendarCardStyles = cardStyles.calendarCard
 
-	const x = styles.offsetX !== null
-		? center.x + styles.offsetX
-		: center.x + CARD_SPACING + hiCardStyles.width / 2 - styles.offset
+	const x =
+		styles.offsetX !== null
+			? center.x + styles.offsetX
+			: center.x + CARD_SPACING + hiCardStyles.width / 2 - styles.offset
 
-	const y = styles.offsetY !== null
-		? center.y + styles.offsetY
-		: center.y - clockCardStyles.offset + CARD_SPACING + calendarCardStyles.height + CARD_SPACING
+	const y =
+		styles.offsetY !== null
+			? center.y + styles.offsetY
+			: center.y -
+			  clockCardStyles.offset +
+			  CARD_SPACING +
+			  calendarCardStyles.height +
+			  CARD_SPACING
 
 	const audioRef = useRef<HTMLAudioElement | null>(null)
 
-	const [audioSrc, setAudioSrc] = useState('')
 	const [title, setTitle] = useState('音乐')
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [duration, setDuration] = useState(0)
 	const [currentTime, setCurrentTime] = useState(0)
 
-	/** 获取随机音乐 */
-	const loadRandomMusic = async (autoPlay = true) => {
-		try {
-			const res = await fetch(API_URL)
-			const json = await res.json()
-			const data = json?.data
+	const loadRandomMusic = async () => {
+		const res = await fetch(API_URL)
+		const json = await res.json()
+		const data = json?.data
+		if (!data?.audiosrc) return
 
-			if (!data?.audiosrc) return
+		const audio = audioRef.current!
+		audio.src = data.audiosrc
+		audio.load()
 
-			const audio = audioRef.current
-			if (!audio) return
+		setTitle(data.lyrics?.split('\n')[0] || '随机音乐')
+		setCurrentTime(0)
 
-			audio.src = data.audiosrc
-			audio.load()
-
-			setAudioSrc(data.audiosrc)
-			setCurrentTime(0)
-			setDuration(0)
-
-			// 音乐名：取歌词第一行
-			if (data.lyrics) {
-				const firstLine = data.lyrics.split('\n')[0]
-				setTitle(firstLine || '随机音乐')
-			} else {
-				setTitle('随机音乐')
-			}
-
-			if (autoPlay) {
-				await audio.play()
-				setIsPlaying(true)
-			}
-		} catch (e) {
-			console.error('获取随机音乐失败', e)
-		}
+		await audio.play()
+		setIsPlaying(true)
 	}
 
-	/** 播放 / 暂停 */
 	const togglePlay = async () => {
-		const audio = audioRef.current
-		if (!audio) return
-
+		const audio = audioRef.current!
 		if (audio.paused) {
 			await audio.play()
 			setIsPlaying(true)
-			setTitle(prev => prev === '音乐' ? '随机音乐' : prev)
 		} else {
 			audio.pause()
 			setIsPlaying(false)
@@ -86,16 +67,6 @@ export default function MusicCard() {
 		}
 	}
 
-	/** 进度条拖动 */
-	const onSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const audio = audioRef.current
-		if (!audio) return
-		const time = Number(e.target.value)
-		audio.currentTime = time
-		setCurrentTime(time)
-	}
-
-	/** 初始化 */
 	useEffect(() => {
 		const audio = new Audio()
 		audioRef.current = audio
@@ -108,66 +79,46 @@ export default function MusicCard() {
 			setCurrentTime(audio.currentTime)
 		})
 
-		audio.addEventListener('ended', () => {
-			setIsPlaying(false)
-			loadRandomMusic(true)
-		})
+		audio.addEventListener('ended', loadRandomMusic)
 
-		// 页面打开 2 秒后自动播放
-		const timer = setTimeout(() => {
-			loadRandomMusic(true)
-		}, 2000)
+		setTimeout(loadRandomMusic, 2000)
 
-		return () => {
-			clearTimeout(timer)
-			audio.pause()
-		}
+		return () => audio.pause()
 	}, [])
 
-	const progress = duration ? (currentTime / duration) * 100 : 0
-
 	return (
-		<HomeDraggableLayer cardKey='musicCard' x={x} y={y} width={styles.width} height={styles.height}>
-			<Card
-				order={styles.order}
-				width={styles.width}
-				height={styles.height}
-				x={x}
-				y={y}
-				className='flex items-center gap-3'
-			>
-				<MusicSVG className='h-8 w-8' />
+		<HomeDraggableLayer cardKey="musicCard" x={x} y={y} width={styles.width} height={styles.height}>
+			<Card className="flex items-center gap-3" width={styles.width} height={styles.height}>
+				<MusicSVG className="h-8 w-8" />
 
-				<div className='flex-1'>
-					<div className='text-secondary text-sm truncate'>
-						{title}
-					</div>
+				<div className="flex-1">
+					<div className="text-secondary text-sm truncate">{title}</div>
 
-					<div className='mt-1'>
-						<input
-							type='range'
-							min={0}
-							max={duration || 0}
-							step={0.1}
-							value={currentTime}
-							onChange={onSeek}
-							className='w-full h-2 appearance-none rounded-full bg-white/60 cursor-pointer'
-						/>
-						<div
-							className='pointer-events-none relative -mt-2 h-2 rounded-full bg-linear'
-							style={{ width: `${progress}%` }}
-						/>
-					</div>
+					<input
+						type="range"
+						min={0}
+						max={duration}
+						value={currentTime}
+						onChange={e => {
+							const t = Number(e.target.value)
+							audioRef.current!.currentTime = t
+							setCurrentTime(t)
+						}}
+						className="mt-1 w-full"
+					/>
 				</div>
 
 				<button
 					onClick={togglePlay}
-					className='flex h-10 w-10 items-center justify-center rounded-full bg-white'
+					className="flex h-10 w-10 items-center justify-center rounded-full bg-white"
 				>
 					{isPlaying ? (
-						<PauseSVG className='text-brand h-4 w-4' />
+						<div className="flex gap-1">
+							<span className="h-4 w-1 bg-brand rounded" />
+							<span className="h-4 w-1 bg-brand rounded" />
+						</div>
 					) : (
-						<PlaySVG className='text-brand ml-1 h-4 w-4' />
+						<PlaySVG className="ml-1 h-4 w-4 text-brand" />
 					)}
 				</button>
 			</Card>
