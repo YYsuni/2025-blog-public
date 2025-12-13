@@ -7,7 +7,7 @@ import MusicSVG from '@/svgs/music.svg'
 import PlaySVG from '@/svgs/play.svg'
 import { HomeDraggableLayer } from './home-draggable-layer'
 
-const API_URL = 'https://api.milorapart.top/apis/random'
+const API_URL = 'https://api.jkyai.top/API/cy.php'
 const NEXT_DELAY = 300
 
 export default function MusicCard() {
@@ -37,7 +37,8 @@ export default function MusicCard() {
 	const loadingRef = useRef(false)
 	const draggingRef = useRef(false)
 
-	const [title, setTitle] = useState('音乐')
+	const [songName, setSongName] = useState('')
+	const [songSinger, setSongSinger] = useState('')
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [duration, setDuration] = useState(0)
@@ -54,18 +55,25 @@ export default function MusicCard() {
 		try {
 			const res = await fetch(API_URL)
 			const json = await res.json()
-			const data = json?.data
-			if (!data?.audiosrc) return
 
+			if (json.code !== 1 || !json.data?.song_url) {
+				console.error('Failed to load music:', json)
+				return
+			}
+
+			const data = json.data
 			const audio = audioRef.current
-			audio.src = data.audiosrc
+			audio.src = data.song_url
 			audio.load()
 
-			setTitle(data.nickname || '随机音乐')
+			setSongName(data.song_name || '未知歌曲')
+			setSongSinger(data.song_singer || '未知歌手')
 			setCurrentTime(0)
 
 			await audio.play()
 			setIsPlaying(true)
+		} catch (error) {
+			console.error('Error loading music:', error)
 		} finally {
 			setIsLoading(false)
 			loadingRef.current = false
@@ -80,10 +88,13 @@ export default function MusicCard() {
 		if (isPlaying) {
 			audio.pause()
 			setIsPlaying(false)
-			setTitle('音乐')
 		} else {
-			await audio.play()
-			setIsPlaying(true)
+			if (!audio.src) {
+				await loadAndPlay()
+			} else {
+				await audio.play()
+				setIsPlaying(true)
+			}
 		}
 	}
 
@@ -145,12 +156,17 @@ export default function MusicCard() {
 			>
 				<MusicSVG className="h-8 w-8" />
 
-				<div className="flex-1">
-					<div className="text-secondary text-sm truncate">
-						{isLoading ? '加载中…' : title}
+				<div className="flex-1 overflow-hidden">
+					<div className="text-sm font-medium truncate">
+						{isLoading ? '加载中…' : songName || '随机音乐'}
 					</div>
+					{songSinger && !isLoading && (
+						<div className="text-secondary text-xs truncate">
+							{songSinger}
+						</div>
+					)}
 
-					{/* 原进度条结构 + 可拖动 */}
+					{/* 进度条 + 可拖动 */}
 					<div
 						ref={barRef}
 						className="mt-1 h-2 rounded-full bg-white/60 overflow-hidden cursor-pointer"
