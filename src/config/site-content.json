@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
+		"title": "Blog",
 		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"username": "ChenWoods"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -30,9 +30,13 @@
 		{
 			"id": "a46372ff45bc5524",
 			"url": "/images/art/a46372ff45bc5524.jpg"
+		},
+		{
+			"id": "85d2431cc8ea5031",
+			"url": "/images/art/85d2431cc8ea5031.png"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "85d2431cc8ea5031",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -44,27 +48,27 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://github.com/MrWoods1692",
 			"label": "Github",
 			"order": 3
 		},
 		{
 			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
+			"type": "qq",
+			"value": "1692138502",
 			"label": "稀土掘金",
 			"order": 2
 		},
 		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "1692138502@qq.com",
 			"label": "",
 			"order": 1
 		}
 	],
 	"clockShowSeconds": false,
-	"summaryInContent": false,
+	"summaryInContent": true,
 	"isCachePem": false,
 	"hideEditButton": false,
 	"enableCategories": true,
