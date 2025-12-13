@@ -8,7 +8,7 @@ import PlaySVG from '@/svgs/play.svg'
 import { HomeDraggableLayer } from './home-draggable-layer'
 
 const API_URL = 'https://api.milorapart.top/apis/random'
-const NEXT_DELAY = 800 // 播放结束后延迟拉取，避免死循环
+const NEXT_DELAY = 300
 
 export default function MusicCard() {
 	const center = useCenterStore()
@@ -33,7 +33,9 @@ export default function MusicCard() {
 			  CARD_SPACING
 
 	const audioRef = useRef<HTMLAudioElement | null>(null)
+	const barRef = useRef<HTMLDivElement | null>(null)
 	const loadingRef = useRef(false)
+	const draggingRef = useRef(false)
 
 	const [title, setTitle] = useState('音乐')
 	const [isPlaying, setIsPlaying] = useState(false)
@@ -41,7 +43,7 @@ export default function MusicCard() {
 	const [duration, setDuration] = useState(0)
 	const [currentTime, setCurrentTime] = useState(0)
 
-	/** 拉取并播放随机音乐（防并发） */
+	/** 拉取并播放随机音乐 */
 	const loadAndPlay = async () => {
 		if (loadingRef.current || !audioRef.current) return
 
@@ -64,8 +66,6 @@ export default function MusicCard() {
 
 			await audio.play()
 			setIsPlaying(true)
-		} catch (err) {
-			console.error('音乐加载失败', err)
 		} finally {
 			setIsLoading(false)
 			loadingRef.current = false
@@ -77,7 +77,6 @@ export default function MusicCard() {
 		if (isLoading || !audioRef.current) return
 
 		const audio = audioRef.current
-
 		if (isPlaying) {
 			audio.pause()
 			setIsPlaying(false)
@@ -86,6 +85,18 @@ export default function MusicCard() {
 			await audio.play()
 			setIsPlaying(true)
 		}
+	}
+
+	/** 计算并设置播放进度 */
+	const seekByEvent = (e: React.MouseEvent) => {
+		if (!barRef.current || !audioRef.current || !duration) return
+
+		const rect = barRef.current.getBoundingClientRect()
+		const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1)
+		const time = ratio * duration
+
+		audioRef.current.currentTime = time
+		setCurrentTime(time)
 	}
 
 	/** 初始化 Audio */
@@ -98,7 +109,9 @@ export default function MusicCard() {
 		})
 
 		audio.addEventListener('timeupdate', () => {
-			setCurrentTime(audio.currentTime)
+			if (!draggingRef.current) {
+				setCurrentTime(audio.currentTime)
+			}
 		})
 
 		audio.addEventListener('ended', () => {
@@ -106,8 +119,11 @@ export default function MusicCard() {
 			setTimeout(loadAndPlay, NEXT_DELAY)
 		})
 
-		// 打开页面 2 秒后自动播放
 		const timer = setTimeout(loadAndPlay, 2000)
+
+		window.addEventListener('mouseup', () => {
+			draggingRef.current = false
+		})
 
 		return () => {
 			clearTimeout(timer)
@@ -133,9 +149,17 @@ export default function MusicCard() {
 					<div className="text-secondary text-sm truncate">
 						{isLoading ? '加载中…' : title}
 					</div>
-
-					{/* 原进度条结构，未改 */}
-					<div className="mt-1 h-2 rounded-full bg-white/60 overflow-hidden">
+					<div
+						ref={barRef}
+						className="mt-1 h-2 rounded-full bg-white/60 overflow-hidden cursor-pointer"
+						onMouseDown={e => {
+							draggingRef.current = true
+							seekByEvent(e)
+						}}
+						onMouseMove={e => {
+							if (draggingRef.current) seekByEvent(e)
+						}}
+					>
 						<div
 							className="bg-linear h-full rounded-full transition-[width]"
 							style={{ width: `${progress}%` }}
