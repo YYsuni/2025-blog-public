@@ -124,11 +124,11 @@ export default function Page() {
 								{data.skills && data.skills.length > 0 && (
 									<div className='mt-12'>
 										<h2 className='mb-6 text-center text-2xl font-bold'>技能标签</h2>
-										<div className='flex flex-wrap items-center justify-center -m-2'>
+										<div className='flex flex-wrap items-center justify-center -m-3'>
 											{data.skills.map(skill => (
 												<div
 													key={skill.name}
-													className='card m-2 rounded-full px-6 py-3 text-sm font-medium shadow-sm'
+													className='m-3 rounded-full border px-6 py-3 text-sm font-medium shadow-sm'
 													style={{
 														borderColor: skill.color + '40',
 														color: skill.color,
@@ -158,14 +158,10 @@ export default function Page() {
 										value={data.description}
 										onChange={e => setData({ ...data, description: e.target.value })}
 									/>
-								</div>
-
-								<div className='card p-4'>
-									<label className='mb-2 block text-sm font-bold text-gray-700'>GitHub 链接</label>
 									<input
 										type='url'
-										placeholder='https://github.com/username/repo'
-										className='w-full rounded-lg border px-4 py-3 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200'
+										placeholder='GitHub 链接'
+										className='w-full px-4 py-3 text-center text-sm'
 										value={data.githubUrl || ''}
 										onChange={e => setData({ ...data, githubUrl: e.target.value })}
 									/>
@@ -246,7 +242,7 @@ export default function Page() {
 							{data.skills && data.skills.length > 0 && (
 								<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className='mt-12'>
 									<h2 className='mb-6 text-center text-2xl font-bold'>技能标签</h2>
-									<div className='flex flex-wrap items-center justify-center -m-2'>
+									<div className='flex flex-wrap items-center justify-center -m-3'>
 										{data.skills.map((skill, index) => (
 											<motion.div
 												key={skill.name}
@@ -254,7 +250,7 @@ export default function Page() {
 												animate={{ opacity: 1, scale: 1 }}
 												transition={{ delay: 0.3 + index * 0.05 }}
 												whileHover={{ scale: 1.1, y: -2 }}
-												className='card m-2 rounded-full px-6 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md'
+												className='m-3 rounded-full border px-6 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md'
 												style={{
 													borderColor: skill.color + '40',
 													color: skill.color,
