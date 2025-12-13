@@ -7,6 +7,7 @@ export type AboutData = {
 	title: string
 	description: string
 	content: string
+	githubUrl?: string
 	skills?: Array<{ name: string; color: string }>
 }
 
