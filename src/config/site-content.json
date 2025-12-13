@@ -1,11 +1,11 @@
 {
 	"meta": {
-		"title": "YYsuni",
+		"title": "秋",
 		"description": "秋的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
 		"username": "秋"
 	},
 	"theme": {
-		"colorBrand": "#35bfab",
+		"colorBrand": "#FE73C4",
 		"colorPrimary": "#334f52",
 		"colorSecondary": "#7b888e",
 		"colorBrandSecondary": "#1fc9e7",
@@ -15,12 +15,12 @@
 		"colorArticle": "#ffffffcc"
 	},
 	"backgroundColors": [
-		"#EDDD62",
-		"#9EE7D1",
-		"#84D68A",
-		"#EDDD62",
-		"#88E6E5",
-		"#a7f3d0"
+		"#1BA4BD",
+		"#1752B0",
+		"#7B7B99",
+		"#544BDF",
+		"#826461",
+		"#427E01"
 	],
 	"artImages": [
 		{
