@@ -124,11 +124,11 @@ export default function Page() {
 								{data.skills && data.skills.length > 0 && (
 									<div className='mt-12'>
 										<h2 className='mb-6 text-center text-2xl font-bold'>技能标签</h2>
-										<div className='flex flex-wrap items-center justify-center gap-4'>
+										<div className='flex flex-wrap items-center justify-center gap-x-6 gap-y-4'>
 											{data.skills.map(skill => (
 												<div
 													key={skill.name}
-													className='card rounded-full px-5 py-2.5 text-sm font-medium shadow-sm'
+													className='card rounded-full px-6 py-3 text-sm font-medium shadow-sm'
 													style={{
 														borderColor: skill.color + '40',
 														color: skill.color,
@@ -157,6 +157,13 @@ export default function Page() {
 										className='w-full px-4 py-3 text-center text-lg'
 										value={data.description}
 										onChange={e => setData({ ...data, description: e.target.value })}
+									/>
+									<input
+										type='url'
+										placeholder='GitHub 链接 (例如: https://github.com/username/repo)'
+										className='w-full px-4 py-3 text-center text-sm'
+										value={data.githubUrl || ''}
+										onChange={e => setData({ ...data, githubUrl: e.target.value })}
 									/>
 								</div>
 
@@ -235,7 +242,7 @@ export default function Page() {
 							{data.skills && data.skills.length > 0 && (
 								<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className='mt-12'>
 									<h2 className='mb-6 text-center text-2xl font-bold'>技能标签</h2>
-									<div className='flex flex-wrap items-center justify-center gap-4'>
+									<div className='flex flex-wrap items-center justify-center gap-x-6 gap-y-4'>
 										{data.skills.map((skill, index) => (
 											<motion.div
 												key={skill.name}
@@ -243,7 +250,7 @@ export default function Page() {
 												animate={{ opacity: 1, scale: 1 }}
 												transition={{ delay: 0.3 + index * 0.05 }}
 												whileHover={{ scale: 1.1, y: -2 }}
-												className='card rounded-full px-5 py-2.5 text-sm font-medium shadow-sm transition-all hover:shadow-md'
+												className='card rounded-full px-6 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md'
 												style={{
 													borderColor: skill.color + '40',
 													color: skill.color,
@@ -260,7 +267,7 @@ export default function Page() {
 
 					<div className='mt-8 flex items-center justify-center gap-6'>
 						<motion.a
-							href='https://github.com/YYsuni/2025-blog-public'
+							href={data.githubUrl || 'https://github.com'}
 							target='_blank'
 							rel='noreferrer'
 							initial={{ opacity: 0, scale: 0.6 }}
