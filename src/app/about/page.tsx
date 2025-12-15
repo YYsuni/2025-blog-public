@@ -120,6 +120,26 @@ export default function Page() {
 										<div className='prose prose-sm max-w-none'>{content}</div>
 									</div>
 								)}
+
+								{data.skills && data.skills.length > 0 && (
+									<div className='mt-12'>
+										<h2 className='mb-6 text-center text-2xl font-bold'>技能标签</h2>
+										<div className='flex flex-wrap items-center justify-center -m-3'>
+											{data.skills.map(skill => (
+												<div
+													key={skill.name}
+													className='m-3 rounded-full border px-6 py-3 text-sm font-medium shadow-sm'
+													style={{
+														borderColor: skill.color + '40',
+														color: skill.color,
+														backgroundColor: skill.color + '08'
+													}}>
+													{skill.name}
+												</div>
+											))}
+										</div>
+									</div>
+								)}
 							</div>
 						) : (
 							<div className='space-y-6'>
@@ -138,6 +158,13 @@ export default function Page() {
 										value={data.description}
 										onChange={e => setData({ ...data, description: e.target.value })}
 									/>
+									<input
+										type='url'
+										placeholder='GitHub 链接'
+										className='w-full px-4 py-3 text-center text-sm'
+										value={data.githubUrl || ''}
+										onChange={e => setData({ ...data, githubUrl: e.target.value })}
+									/>
 								</div>
 
 								<div className='card relative'>
@@ -147,6 +174,53 @@ export default function Page() {
 										value={data.content}
 										onChange={e => setData({ ...data, content: e.target.value })}
 									/>
+								</div>
+
+								<div className='card relative p-6'>
+									<h3 className='mb-4 text-lg font-bold'>技能标签</h3>
+									<div className='mb-4 space-y-3'>
+										{data.skills?.map((skill, index) => (
+											<div key={index} className='flex items-center gap-3'>
+												<input
+													type='text'
+													placeholder='技能名称'
+													className='flex-1 px-3 py-2 text-sm'
+													value={skill.name}
+													onChange={e => {
+														const newSkills = [...(data.skills || [])]
+														newSkills[index] = { ...skill, name: e.target.value }
+														setData({ ...data, skills: newSkills })
+													}}
+												/>
+												<input
+													type='color'
+													className='h-10 w-20 cursor-pointer rounded border'
+													value={skill.color}
+													onChange={e => {
+														const newSkills = [...(data.skills || [])]
+														newSkills[index] = { ...skill, color: e.target.value }
+														setData({ ...data, skills: newSkills })
+													}}
+												/>
+												<button
+													onClick={() => {
+														const newSkills = data.skills?.filter((_, i) => i !== index)
+														setData({ ...data, skills: newSkills })
+													}}
+													className='rounded-lg border bg-red-50 px-3 py-2 text-sm text-red-600 hover:bg-red-100'>
+													删除
+												</button>
+											</div>
+										))}
+									</div>
+									<button
+										onClick={() => {
+											const newSkills = [...(data.skills || []), { name: '', color: '#3178C6' }]
+											setData({ ...data, skills: newSkills })
+										}}
+										className='w-full rounded-lg border border-dashed px-4 py-2 text-sm hover:bg-gray-50'>
+										+ 添加技能标签
+									</button>
 								</div>
 							</div>
 						)
@@ -164,12 +238,36 @@ export default function Page() {
 									<div className='prose prose-sm max-w-none'>{content}</div>
 								</motion.div>
 							)}
+
+							{data.skills && data.skills.length > 0 && (
+								<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className='mt-12'>
+									<h2 className='mb-6 text-center text-2xl font-bold'>技能标签</h2>
+									<div className='flex flex-wrap items-center justify-center -m-3'>
+										{data.skills.map((skill, index) => (
+											<motion.div
+												key={skill.name}
+												initial={{ opacity: 0, scale: 0 }}
+												animate={{ opacity: 1, scale: 1 }}
+												transition={{ delay: 0.3 + index * 0.05 }}
+												whileHover={{ scale: 1.1, y: -2 }}
+												className='m-3 rounded-full border px-6 py-3 text-sm font-medium shadow-sm transition-all hover:shadow-md'
+												style={{
+													borderColor: skill.color + '40',
+													color: skill.color,
+													backgroundColor: skill.color + '08'
+												}}>
+												{skill.name}
+											</motion.div>
+										))}
+									</div>
+								</motion.div>
+							)}
 						</>
 					)}
 
 					<div className='mt-8 flex items-center justify-center gap-6'>
 						<motion.a
-							href='https://github.com/YYsuni/2025-blog-public'
+							href={data.githubUrl || 'https://github.com'}
 							target='_blank'
 							rel='noreferrer'
 							initial={{ opacity: 0, scale: 0.6 }}
