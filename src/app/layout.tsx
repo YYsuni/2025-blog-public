@@ -41,6 +41,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 			<Head />
 
 			<body>
+				<script src="/script.js"></script>
 				<script
 					dangerouslySetInnerHTML={{
 						__html: `
