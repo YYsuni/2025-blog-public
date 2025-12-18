@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "星云博客",
+		"description": "Nebula 的个人博客。",
+		"username": "Nebula"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -58,7 +58,7 @@
 		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "1348011708@qq.com",
 			"label": "",
 			"order": 1
 		}
