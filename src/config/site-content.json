@@ -61,6 +61,13 @@
 			"value": "ifivor",
 			"label": "",
 			"order": 3
+		},
+		{
+			"id": "button-1766316651653",
+			"type": "zhihu",
+			"value": "https://www.zhihu.com/people/hu-zhu-87",
+			"label": "知乎",
+			"order": 4
 		}
 	],
 	"clockShowSeconds": false,
