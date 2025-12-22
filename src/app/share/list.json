@@ -11,7 +11,7 @@
 	},
 	{
 		"name": "n8n by claw cloud",
-		"url": "https://8n-kphhkwkm.us-east-1.clawcloudrun.com",
+		"url": "https://n8n-lvtbthiu.eu-central-1.clawcloudrun.com",
 		"logo": "/images/share/n8n-color.svg",
 		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
 		"tags": [
