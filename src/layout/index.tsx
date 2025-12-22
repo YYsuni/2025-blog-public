@@ -2,6 +2,7 @@
 import { PropsWithChildren } from 'react'
 import { useCenterInit } from '@/hooks/use-center'
 import BlurredBubblesBackground from './backgrounds/blurred-bubbles'
+import SnowfallBackground from './backgrounds/snowfall'
 import NavCard from '@/components/nav-card'
 import { Toaster } from 'sonner'
 import { CircleCheckIcon, InfoIcon, Loader2Icon, OctagonXIcon, TriangleAlertIcon } from 'lucide-react'
@@ -18,9 +19,7 @@ export default function Layout({ children }: PropsWithChildren) {
 	const backgroundImages = (siteContent.backgroundImages ?? []) as Array<{ id: string; url: string }>
 	const currentBackgroundImageId = siteContent.currentBackgroundImageId
 	const currentBackgroundImage =
-		currentBackgroundImageId && currentBackgroundImageId.trim()
-			? backgroundImages.find(item => item.id === currentBackgroundImageId)
-			: null
+		currentBackgroundImageId && currentBackgroundImageId.trim() ? backgroundImages.find(item => item.id === currentBackgroundImageId) : null
 
 	return (
 		<>
@@ -52,6 +51,7 @@ export default function Layout({ children }: PropsWithChildren) {
 				/>
 			)}
 			<BlurredBubblesBackground colors={siteContent.backgroundColors} regenerateKey={regenerateKey} />
+
 			<main className='relative z-10 h-full'>
 				{children}
 				<NavCard />

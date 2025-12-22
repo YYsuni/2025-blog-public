@@ -96,5 +96,13 @@
 		"offsetX": null,
 		"offsetY": null,
 		"enabled": false
+	},
+	"beianCard": {
+		"width": 200,
+		"height": 60,
+		"order": 11,
+		"offsetX": null,
+		"offsetY": null,
+		"enabled": false
 	}
 }

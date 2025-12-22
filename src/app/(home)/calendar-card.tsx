@@ -11,7 +11,7 @@ dayjs.locale('zh-cn')
 
 export default function CalendarCard() {
 	const center = useCenterStore()
-	const { cardStyles } = useConfigStore()
+	const { cardStyles, siteContent } = useConfigStore()
 	const now = dayjs()
 	const currentDate = now.date()
 	const firstDayOfMonth = now.startOf('month')
@@ -28,6 +28,17 @@ export default function CalendarCard() {
 	return (
 		<HomeDraggableLayer cardKey='calendarCard' x={x} y={y} width={styles.width} height={styles.height}>
 			<Card order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className='flex flex-col'>
+				{siteContent.enableChristmas && (
+					<>
+						<img
+							src='/images/christmas/snow-7.webp'
+							alt='Christmas decoration'
+							className='pointer-events-none absolute'
+							style={{ width: 150, right: -12, top: -12, opacity: 0.8 }}
+						/>
+					</>
+				)}
+
 				<h3 className='text-secondary text-sm'>
 					{now.format('YYYY/M/D')} {now.format('ddd')}
 				</h3>

@@ -11,7 +11,7 @@ import { HomeDraggableLayer } from './home-draggable-layer'
 
 export default function WriteButton() {
 	const center = useCenterStore()
-	const { cardStyles, setConfigDialogOpen } = useConfigStore()
+	const { cardStyles, setConfigDialogOpen, siteContent } = useConfigStore()
 	const { maxSM } = useSize()
 	const router = useRouter()
 	const styles = cardStyles.writeButtons
@@ -42,6 +42,17 @@ export default function WriteButton() {
 					whileTap={{ scale: 0.95 }}
 					style={{ boxShadow: 'inset 0 0 12px rgba(255, 255, 255, 0.4)' }}
 					className='brand-btn whitespace-nowrap'>
+					{siteContent.enableChristmas && (
+						<>
+							<img
+								src='/images/christmas/snow-8.webp'
+								alt='Christmas decoration'
+								className='pointer-events-none absolute'
+								style={{ width: 60, left: -2, top: -4, opacity: 0.95 }}
+							/>
+						</>
+					)}
+
 					<PenSVG />
 					<span>写文章</span>
 				</motion.button>
