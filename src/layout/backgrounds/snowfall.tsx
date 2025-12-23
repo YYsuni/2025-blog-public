@@ -15,15 +15,14 @@ interface Snowflake {
 
 const SNOWFLAKE_IMAGES = ['/images/christmas/snowflake/1.webp', '/images/christmas/snowflake/2.webp', '/images/christmas/snowflake/3.webp']
 const DOT_RATIO = 0.8
-const SNOWFLAKE_COUNT = 125
 
-export default function SnowfallBackground({ zIndex }: { zIndex: number }) {
+export default function SnowfallBackground({ zIndex, count = 125 }: { zIndex: number; count?: number }) {
 	const [snowflakes, setSnowflakes] = useState<Snowflake[]>([])
 
 	useEffect(() => {
 		const generateSnowflakes = () => {
 			const newSnowflakes: Snowflake[] = []
-			for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
+			for (let i = 0; i < count; i++) {
 				const isDot = Math.random() < DOT_RATIO
 				const size = isDot ? Math.random() * 10 + 5 : Math.random() * 40 + 20
 				const duration = Math.random() * 20 + 20
@@ -47,7 +46,7 @@ export default function SnowfallBackground({ zIndex }: { zIndex: number }) {
 		}
 
 		generateSnowflakes()
-	}, [])
+	}, [count])
 
 	return (
 		<motion.div
