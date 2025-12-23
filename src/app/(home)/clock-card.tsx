@@ -38,13 +38,29 @@ export default function ClockCard() {
 	return (
 		<HomeDraggableLayer cardKey='clockCard' x={x} y={y} width={styles.width} height={styles.height}>
 			<Card order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className='p-2'>
+				{siteContent.enableChristmas && (
+					<>
+						<img
+							src='/images/christmas/snow-5.webp'
+							alt='Christmas decoration'
+							className='pointer-events-none absolute'
+							style={{ width: 60, left: 2, bottom: 2, opacity: 0.6 }}
+						/>
+						<img
+							src='/images/christmas/snow-6.webp'
+							alt='Christmas decoration'
+							className='pointer-events-none absolute'
+							style={{ width: 80, right: -4, top: -10, opacity: 0.6 }}
+						/>
+					</>
+				)}
 				<div
 					onClick={() => {
 						if (!editing) {
 							router.push('/clock')
 						}
 					}}
-					className='bg-secondary/20 flex h-full w-full cursor-pointer items-center justify-center gap-1.5 rounded-4xl p-2'>
+					className='bg-secondary/20 card-rounded flex h-full w-full cursor-pointer items-center justify-center gap-1.5 p-2'>
 					<SevenSegmentDigit value={parseInt(hours[0])} />
 					<SevenSegmentDigit value={parseInt(hours[1])} />
 					<Colon />

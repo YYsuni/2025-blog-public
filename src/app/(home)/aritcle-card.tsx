@@ -9,7 +9,7 @@ import { HomeDraggableLayer } from './home-draggable-layer'
 
 export default function ArticleCard() {
 	const center = useCenterStore()
-	const { cardStyles } = useConfigStore()
+	const { cardStyles, siteContent } = useConfigStore()
 	const { blog, loading } = useLatestBlog()
 	const styles = cardStyles.articleCard
 	const hiCardStyles = cardStyles.hiCard
@@ -21,6 +21,17 @@ export default function ArticleCard() {
 	return (
 		<HomeDraggableLayer cardKey='articleCard' x={x} y={y} width={styles.width} height={styles.height}>
 			<Card order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className='space-y-2 max-sm:static'>
+				{siteContent.enableChristmas && (
+					<>
+						<img
+							src='/images/christmas/snow-9.webp'
+							alt='Christmas decoration'
+							className='pointer-events-none absolute'
+							style={{ width: 140, left: -12, top: -16, opacity: 0.8 }}
+						/>
+					</>
+				)}
+
 				<h2 className='text-secondary text-sm'>最新文章</h2>
 
 				{loading ? (

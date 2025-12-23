@@ -329,7 +329,7 @@ export default function BlogPage() {
 					<motion.div
 						initial={{ opacity: 0, scale: 0.6 }}
 						animate={{ opacity: 1, scale: 1 }}
-						className='card relative mx-auto flex items-center gap-1 rounded-xl p-1 max-sm:hidden'>
+						className='card btn-rounded relative mx-auto flex items-center gap-1 p-1 max-sm:hidden'>
 						{[
 							{ value: 'day', label: '日' },
 							{ value: 'week', label: '周' },
@@ -343,7 +343,7 @@ export default function BlogPage() {
 								whileTap={{ scale: 0.95 }}
 								onClick={() => setDisplayMode(option.value as DisplayMode)}
 								className={cn(
-									'rounded-lg px-3 py-1.5 text-xs font-medium transition-all',
+									'btn-rounded px-3 py-1.5 text-xs font-medium transition-all',
 									displayMode === option.value ? 'bg-brand text-white shadow-sm' : 'text-secondary hover:text-brand hover:bg-white/60'
 								)}>
 								{option.label}

@@ -96,6 +96,19 @@
 		0 40px 50px -32px rgba(0, 0, 0, 0.05),
 		inset 0 0 20 rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(4px);
+
+	@supports (corner-shape: squircle) {
+		corner-shape: squircle;
+		@apply rounded-[64px];
+	}
+}
+
+@utility card-rounded {
+	@apply rounded-[40px];
+	@supports (corner-shape: squircle) {
+		corner-shape: squircle;
+		@apply rounded-[64px];
+	}
 }
 
 @utility text-linear {
@@ -114,8 +127,15 @@
 	box-shadow: 0 40px 50px -32px rgba(0, 0, 0, 0.05);
 }
 
+@utility btn-rounded {
+	@apply rounded-xl;
+	@supports (corner-shape: squircle) {
+		corner-shape: squircle;
+		@apply rounded-2xl;
+	}
+}
 @utility brand-btn {
-	@apply bg-brand flex items-center gap-2 rounded-xl border-[1.5px] px-4 py-2 text-sm font-medium text-white;
+	@apply bg-brand btn-rounded flex items-center gap-2 border-[1.5px] px-4 py-2 text-sm font-medium text-white;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
