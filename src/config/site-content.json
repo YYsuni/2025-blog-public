@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "laoqian303",
+		"description": "laoqian303 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
+		"username": "laoqian303"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -32,7 +32,7 @@
 			"url": "/images/art/a46372ff45bc5524.jpg"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "cat",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -42,32 +42,34 @@
 	"currentBackgroundImageId": "",
 	"socialButtons": [
 		{
-			"id": "github",
-			"type": "github",
-			"value": "https://github.com/yysuni",
-			"label": "Github",
-			"order": 3
-		},
-		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
 			"id": "email",
 			"type": "email",
 			"value": "yysuni1001@gmail.com",
 			"label": "",
 			"order": 1
+		},
+		{
+			"id": "github",
+			"type": "github",
+			"value": "https://github.com/uqayiyufog07-eng",
+			"label": "Github",
+			"order": 2
+		},
+		{
+			"id": "button-1765680059131",
+			"type": "tg",
+			"value": "https://t.me/laoqian303",
+			"label": "Telegram",
+			"order": 3
 		}
 	],
-	"clockShowSeconds": false,
+	"clockShowSeconds": true,
 	"summaryInContent": false,
 	"isCachePem": false,
 	"hideEditButton": false,
 	"enableCategories": true,
+	"currentHatIndex": 12,
+	"hatFlipped": false
 	"currentHatIndex": 3,
 	"hatFlipped": false,
 	"enableChristmas": true,
