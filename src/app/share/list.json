@@ -1,7 +1,17 @@
 [
 	{
+		"name": "n8n by zeabur",
+		"url": "https://fann8n.zeabur.app/",
+		"logo": "/images/share/n8n-color.svg",
+		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
+		"tags": [
+			"AI"
+		],
+		"stars": 5
+	},
+	{
 		"name": "n8n by huggingface",
-		"url": "https://https://richffan-n8n.hf.space/",
+		"url": "https://richffan-n8n.hf.space/",
 		"logo": "/images/share/n8n-color.svg",
 		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
 		"tags": [
@@ -11,7 +21,7 @@
 	},
 	{
 		"name": "n8n by claw cloud",
-		"url": "https://n8n-lvtbthiu.eu-central-1.clawcloudrun.com",
+		"url": "https://n8n-oaafciin.us-west-1.clawcloudrun.com/",
 		"logo": "/images/share/n8n-color.svg",
 		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
 		"tags": [
@@ -20,8 +30,8 @@
 		"stars": 5
 	},
 	{
-		"name": "n8n by zeabur",
-		"url": "https://fann8n.zeabur.app/",
+		"name": "n8n by claw cloud",
+		"url": "https://n8n-vbtutgsd.us-west-1.clawcloudrun.com/",
 		"logo": "/images/share/n8n-color.svg",
 		"description": "构建时既能精确如代码，也能像拖拽一样快速。托管本地控制或云端便利。N8N 比其他工具更自由地实现多步 AI 代理和集成应用。",
 		"tags": [
@@ -75,8 +85,7 @@
 		"logo": "/images/share/859bfb2ef1c6a503.svg",
 		"description": "AI 抠图工具，特点是界面简洁，效果比 windows 自带的去除背景会更好一些，缺点是有免费有导出大小限制",
 		"tags": [
-			"图片",
-			"AI"
+			"图片"
 		],
 		"stars": 3
 	},
