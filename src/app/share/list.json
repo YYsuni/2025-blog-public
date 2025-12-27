@@ -69,5 +69,15 @@
 			"软件"
 		],
 		"stars": 5
+	},
+	{
+		"name": "OFD爱好者的免费在线工具",
+		"logo": "https://iloveofd.cn/logo/logo.png",
+		"url": "https://iloveofd.cn/",
+		"description": "一站式在线文档处理工具，快速便捷！",
+		"tags": [
+			"在线工具"
+		],
+		"stars": 5
 	}
 ]
