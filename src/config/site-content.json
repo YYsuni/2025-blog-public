@@ -5,22 +5,17 @@
 		"username": "laoqian303"
 	},
 	"theme": {
-		"colorBrand": "#35bfab",
-		"colorPrimary": "#334f52",
-		"colorSecondary": "#7b888e",
-		"colorBrandSecondary": "#1fc9e7",
-		"colorBg": "#eeeeee",
-		"colorBorder": "#ffffff",
-		"colorCard": "#ffffff66",
-		"colorArticle": "#ffffffcc"
+		"colorBrand": "#2a48f3",
+		"colorPrimary": "#e6e8e8",
+		"colorSecondary": "#acadae",
+		"colorBrandSecondary": "#51d0b9",
+		"colorBg": "#0a051f",
+		"colorBorder": "#8a8a8a5e",
+		"colorCard": "#ffffff0e",
+		"colorArticle": "#6f6f6f33"
 	},
 	"backgroundColors": [
-		"#EDDD62",
-		"#9EE7D1",
-		"#84D68A",
-		"#EDDD62",
-		"#88E6E5",
-		"#a7f3d0"
+		"#16007b"
 	],
 	"artImages": [
 		{
