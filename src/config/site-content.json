@@ -42,18 +42,18 @@
 	"currentBackgroundImageId": "",
 	"socialButtons": [
 		{
-			"id": "github",
-			"type": "github",
-			"value": "https://github.com/yingshen-hk",
-			"label": "Github",
-			"order": 2
+			"id": "button-1767184134926",
+			"type": "juejin",
+			"value": "",
+			"label": "联系方式：",
+			"order": 1
 		},
 		{
 			"id": "email",
 			"type": "email",
 			"value": "1654201@qq.com",
 			"label": "",
-			"order": 1
+			"order": 2
 		},
 		{
 			"id": "button-1766055971759",
@@ -61,6 +61,13 @@
 			"value": "1654201",
 			"label": "",
 			"order": 3
+		},
+		{
+			"id": "github",
+			"type": "github",
+			"value": "https://github.com/yingshen-hk",
+			"label": "Github",
+			"order": 4
 		}
 	],
 	"clockShowSeconds": false,
