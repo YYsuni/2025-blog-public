@@ -42,10 +42,10 @@
 	"currentBackgroundImageId": "",
 	"socialButtons": [
 		{
-			"id": "button-1767184134926",
-			"type": "juejin",
-			"value": "",
-			"label": "联系方式：",
+			"id": "github",
+			"type": "github",
+			"value": "https://github.com/yingshen-hk",
+			"label": "Github",
 			"order": 1
 		},
 		{
@@ -63,10 +63,10 @@
 			"order": 3
 		},
 		{
-			"id": "github",
-			"type": "github",
-			"value": "https://github.com/yingshen-hk",
-			"label": "Github",
+			"id": "button-1767184134926",
+			"type": "juejin",
+			"value": "",
+			"label": "联系方式：",
 			"order": 4
 		}
 	],
