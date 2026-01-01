@@ -1,236 +1,333 @@
 [
 	{
-		"name": "iLoveIMG",
-		"url": "https://www.iloveimg.com/zh-cn",
-		"logo": "/images/share/7e91e93e3cdd586b.svg",
-		"description": "免费图片处理网站，我经常用来压缩图片，压缩效果会比 Tinypng 更好。链式处理功能非常好用。",
+		"name": "新大陆见闻录",
+		"logo": "/images/share/e7e95d5106aff7b6.png",
+		"url": "https://ff14.org/",
+		"description": "「新大陆见闻录」网站为最终幻想14超实用萌新手册豆芽站，为FF14中文玩家提供涵盖广泛、清晰易懂的新人基础攻略指引。",
 		"tags": [
-			"图片"
-		],
-		"stars": 4
-	},
-	{
-		"name": "TinyPNG",
-		"url": "https://tinypng.com/",
-		"logo": "https://tinypng.com/static/images/george-anim/large_george_x2.webp",
-		"description": "国际上比较出名的压缩图片工具，过去的书本中知晓的这个网站，但是有图片大小限制，也有数量限制。挺好的压缩图片替代品。",
-		"tags": [
-			"图片"
-		],
-		"stars": 3
-	},
-	{
-		"name": "removebg",
-		"url": "https://www.remove.bg/zh",
-		"logo": "/images/share/859bfb2ef1c6a503.svg",
-		"description": "AI 抠图工具，特点是界面简洁，效果比 windows 自带的去除背景会更好一些，缺点是有免费有导出大小限制",
-		"tags": [
-			"图片",
-			"AI"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Neumorphism",
-		"url": "https://neumorphism.io/",
-		"logo": "https://neumorphism.io/apple-touch-icon.png",
-		"description": "Neumorphism 是一种极具鲜明特色的设计风格，总能给新人一种惊叹感。但是应用并不广泛，实际开发也会有很多不好的点。更多是做一个留念。",
-		"tags": [
-			"CSS",
-			"Github"
-		],
-		"stars": 2
-	},
-	{
-		"name": "Nucleo",
-		"url": "https://nucleoapp.com/app/?library=core",
-		"logo": "/images/share/7e720f35557fa9de.svg",
-		"description": "图标库，网站整体很干净。独特的是，它有一类像素风格的图标，很有意思。它的 icon 也很多，还有 grass 风格的。",
-		"tags": [
-			"Icons"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Loadership",
-		"url": "https://www.loadership.com/",
-		"logo": "https://www.loadership.com/loadership_logo_round.svg",
-		"description": "13种 Loader 样式，在线调整使用。在 AI 时代可能意义小很多了。",
-		"tags": [
-			"CSS",
-			"Github"
-		],
-		"stars": 3
-	},
-	{
-		"name": "CSS Buttons",
-		"url": "https://cssbuttons.io/",
-		"logo": "/images/share/2b8118a3645967ee.svg",
-		"description": "有不少按钮样式。跟 Neumorphism 有一些关系。",
-		"tags": [
-			"CSS"
-		],
-		"stars": 2
-	},
-	{
-		"name": "Uiverse",
-		"url": "https://uiverse.io/",
-		"logo": "/images/share/5e7b29cb1a84be80.png",
-		"description": "不可错过的参考库，有很多交互效果，包括热门的 Button、Loader 设计，内容丰富，还在不断更新。",
-		"tags": [
-			"CSS"
-		],
-		"stars": 4
-	},
-	{
-		"name": "Magic UI",
-		"url": "https://magicui.design/",
-		"logo": "https://magicui.design/favicon.ico",
-		"description": "shadcn/ui 伴生库，有很多实用设计。取用也很方便，可以自己复制独立的代码。",
-		"tags": [
-			"组件",
-			"Github"
-		],
-		"stars": 4
-	},
-	{
-		"name": "Ai lman",
-		"url": "https://aliimam.in/docs/backgrounds/shader-rgb",
-		"logo": "https://aliimam.in/_next/image?url=%2Fai-logo-black.png&w=128&q=75",
-		"description": "类 Magic UI，但是感觉差点意思。可作为看完 Magic 意犹未尽时闲看。",
-		"tags": [
-			"组件"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Awwwards",
-		"url": "https://www.awwwards.com/",
-		"logo": "https://assets.awwwards.com/assets/images/favicon.svg",
-		"description": "网站评选网站，你总能从这里发现惊艳的网站",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
-		"name": "CSS Design Awards",
-		"url": "https://www.cssdesignawards.com/",
-		"logo": "/images/share/aaae2bf4f74c8eb1.svg",
-		"description": "网站评选网站，跟 Awwwards 类似，可以看到每期的优秀网站。观感上会好些。",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
-		"name": "404s.design",
-		"logo": "/images/share/5c9a8b7deb717c5f.svg",
-		"url": "https://www.404s.design/",
-		"description": "收集 404 设计的网站，无聊的时候可以看下。",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
-		"name": "Igloo Inc.",
-		"logo": "https://www.igloo.inc/assets/favicon32-af94112f.png",
-		"url": "https://www.igloo.inc/",
-		"description": "abeto 作品，非常酷炫",
-		"tags": [
-			"3D"
-		],
-		"stars": 4
-	},
-	{
-		"name": "abeto 官网",
-		"logo": "https://abeto.co/assets/favicon32-11fb90a3.png",
-		"url": "https://abeto.co/",
-		"description": "无限绽开的花，飘荡的树叶，复古风格化",
-		"tags": [
-			"3D"
-		],
-		"stars": 4
-	},
-	{
-		"name": "Messenger",
-		"logo": "https://messenger.abeto.co/assets/favicon32-BC0QIL61.png",
-		"url": "https://messenger.abeto.co/",
-		"description": "abeto 作品，卡通送信员在地球小镇上奔跑，联机在线，可换装",
-		"tags": [
-			"3D"
-		],
-		"stars": 4
-	},
-	{
-		"name": "Summer Afternoon",
-		"logo": "https://summer-afternoon.vlucendo.com/assets/favicon32-e817b074.png",
-		"url": "https://summer-afternoon.vlucendo.com/",
-		"description": "夏日午后，小男孩在乡村公路上上游玩",
-		"tags": [
-			"3D"
-		],
-		"stars": 4
-	},
-	{
-		"name": "The Monolith Project",
-		"logo": "https://themonolithproject.net/assets/images-next/nose_logo.webp",
-		"url": "https://themonolithproject.net/",
-		"description": "奇幻宇宙的动画演绎，像看电影一样。“跨越多星之际，一座沉默的巨石碑悄然苏醒。“巨石碑计划”：每一次触碰，皆可重写现实。”",
-		"tags": [
-			"3D"
+			"最终幻想14",
+			"FF14",
+			"FFXIV",
+			"新人指南",
+			"豆芽站",
+			"萌新手册",
+			"入门攻略",
+			"新手教程",
+			"职业选择",
+			"攻略",
+			"副本",
+			"任务",
+			"练级",
+			"装备",
+			"PVP",
+			"生产",
+			"采集",
+			"钓鱼",
+			"海钓",
+			"优雷卡",
+			"ULK",
+			"博兹雅",
+			"BZY",
+			"古武",
+			"魂武",
+			"优武",
+			"义武"
 		],
 		"stars": 5
 	},
 	{
-		"name": "Making Software",
-		"logo": "https://www.makingsoftware.com/favicon.ico",
-		"url": "https://www.makingsoftware.com/",
-		"description": "面向软件设计和开发人员的参考手册。样式很棒的学习网站。",
+		"name": "最终幻想XIV中文维基",
+		"logo": "https://av.huijiwiki.com/site_avatar_ff14_l.png",
+		"url": "https://ff14.huijiwiki.com/wiki/",
+		"description": "MMORPG最终幻想XIV的游戏资料站。\n为了艾欧泽亚！国服最大的数据库，内含游戏里的一切",
 		"tags": [
-			"学习"
+			"最终幻想XIV中文维基",
+			"维基",
+			"百科",
+			"wiki"
 		],
-		"stars": 4
+		"stars": 5
 	},
 	{
-		"name": "Ease 函数参考",
-		"logo": "https://easings.net/96.8aa68ac4.png",
-		"url": "https://easings.net/",
-		"description": "当你在调整动画节奏时，这个 ease 表能帮助直观感受 ease 表现出的效果",
+		"name": "XivStrat | 最终幻想14中文攻略站",
+		"logo": "https://cos.xivstrat.cn/public/favicon.png",
+		"url": "https://xivstrat.cn/",
+		"description": "从7.2开始的最终幻想14中文攻略站",
 		"tags": [
-			"Github"
+			"FF14",
+			"最终幻想14",
+			"FFXIV",
+			"FF14攻略",
+			"最终幻想14攻略",
+			"FF14端游",
+			"最终幻想14端游",
+			"FF14攻略站",
+			"FF14中文攻略站",
+			"FF14零式",
+			"FF14副本",
+			"FF14机制图解",
+			"最终幻想14零式",
+			"副本机制图解",
+			"FF14战术",
+			"苏帕酱噗",
+			"xivstrat",
+			"莫古力工坊",
+			"MMW攻略组",
+			"高难副本",
+			"中文游戏攻略",
+			"玩家社区",
+			"艾欧泽亚",
+			"零式开荒",
+			"绝本攻略",
+			"FF14高难",
+			"副本时间轴",
+			"时间轴攻略",
+			"零式副本",
+			"零式首周",
+			"FF14国服",
+			"国际服攻略",
+			"FF14攻略组",
+			"攻略协作",
+			"副本攻略",
+			"机制教学",
+			"FF14宏",
+			"副本站位",
+			"时间轴练习",
+			"零式通关",
+			"阿卡狄亚"
 		],
-		"stars": 3
+		"stars": 5
 	},
 	{
-		"name": "Isocons",
-		"logo": "/images/share/97859f1c57799dd2.png",
-		"url": "https://www.isocons.app/",
-		"description": "3D icons 网站，酷酷的，免费。",
+		"name": "光之泥头车时间发布站",
+		"logo": "/images/share/e7e95d5106aff7b6.png",
+		"url": "https://www.ffxivhunt.cn/",
+		"description": "国服每个大区的狩猎时间表",
 		"tags": [
-			"Icons"
+			"狩猎"
 		],
-		"stars": 3
+		"stars": 5
 	},
 	{
-		"name": "Webp 转换压缩",
-		"logo": "https://www.yysuni.com/images/avatar.png",
-		"url": "https://www.yysuni.com/image-toolbox",
-		"description": "无限压缩，快且方便，可以直接对比效果",
+		"name": "石之家 -《最终幻想14》官方社区",
+		"logo": "https://ff14risingstones.web.sdo.com/pc/favicon.ico",
+		"url": "https://ff14risingstones.web.sdo.com/pc/index.html#/",
+		"description": "国服官网的玩家社区",
 		"tags": [
-			"图片"
+			"玩家社区",
+			"石之家",
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
 		],
-		"stars": 3
+		"stars": 5
 	},
 	{
-		"name": "WoraWork",
-		"logo": "https://worawork.vercel.app/Icons/worawork.webp",
-		"url": "https://worawork.vercel.app/",
-		"description": "方格世界的 Web3D，场景渲染非常棒，非常值得体验",
+		"name": "艾欧泽亚 NGA玩家社区",
+		"logo": "https://bbs.nga.cn/favicon.ico",
+		"url": "https://bbs.nga.cn/thread.php?fid=-362960&rand=142",
+		"description": "活跃的艾欧泽亚主题论坛,资讯/攻略/即时交流",
 		"tags": [
-			"3D"
+			"艾欧泽亚",
+			"玩家社区"
 		],
-		"stars": 3
+		"stars": 5
+	},
+	{
+		"name": "《最终幻想14》官方网站",
+		"logo": "https://adsrff.web.sdo.com/favicon.ico",
+		"url": "https://adsrff.web.sdo.com/web1/#/index",
+		"description": "唯一指定的国服官网",
+		"tags": [
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
+		],
+		"stars": 5
+	},
+	{
+		"name": "国服-道具商城",
+		"logo": "https://qu.sdo.com/favicon.ico",
+		"url": "https://qu.sdo.com/tools-shop?merchantId=1",
+		"description": "艾欧泽亚的冒险更加丰富多彩",
+		"tags": [
+			"道具商城",
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
+		],
+		"stars": 5
+	},
+	{
+		"name": "大国防联军后勤补给站",
+		"logo": "https://adsrff.web.sdo.com/favicon.ico",
+		"url": "https://actff1.web.sdo.com/project/141028dgf/index.html",
+		"description": "角色转移、改名、额外雇员购买服务",
+		"tags": [
+			"角色转移",
+			"改名",
+			"额外雇员",
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
+		],
+		"stars": 5
+	},
+	{
+		"name": "萌新招待 -《最终幻想14》官方网站",
+		"logo": "https://actff1.web.sdo.com/favicon.ico",
+		"url": "https://actff1.web.sdo.com/20250713_ZhaoDaiNew/index.html#/index",
+		"description": "绑定你的灵魂导师",
+		"tags": [
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
+		],
+		"stars": 5
+	},
+	{
+		"name": "超域传送",
+		"logo": "https://ff14bjz.sdo.com/favicon.ico",
+		"url": "https://ff14bjz.sdo.com/RegionKanTelepo",
+		"description": "不怎么方便的跨大区功能，将您某一个游戏大区中的角色临时传送至另一个游戏大区中进行游玩。",
+		"tags": [
+			"超域传送",
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
+		],
+		"stars": 5
+	},
+	{
+		"name": "最终幻想-陆行鸟礼物站",
+		"logo": "https://ffpay.sdo.com/favicon.ico",
+		"url": "https://ffpay.sdo.com/pc/giftsStation/index.html#/index",
+		"description": "回馈充值活动，充值或消耗时长可领取超值冲销奖励",
+		"tags": [
+			"陆行鸟礼物站",
+			"最终幻想14",
+			"FF14",
+			"盛趣游戏",
+			"FFXIV",
+			"最终幻想14官网",
+			"FF14官网",
+			"太空战士",
+			"太空战士14",
+			"最终幻想OL，FF14资料片",
+			"FF14下载",
+			"FF14购买",
+			"FF14国服",
+			"FF",
+			"FinalFantasyXIV",
+			"FFXIV",
+			"ファイナルファンタジーXIV",
+			"晓月之终途",
+			"吉田直树",
+			"WeGame",
+			"网络游戏"
+		],
+		"stars": 5
 	}
 ]

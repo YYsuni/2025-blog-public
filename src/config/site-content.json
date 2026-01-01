@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "樱花院|meigui",
+		"description": "你的旅途是一个令人满意的旅途吗？\n猫璃儿的假如幻想日记，FFIXIV，最终幻想XIV，记录美好生活\n樱花院|为了美好的明天",
+		"username": "Maolier"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -30,9 +30,13 @@
 		{
 			"id": "a46372ff45bc5524",
 			"url": "/images/art/a46372ff45bc5524.jpg"
+		},
+		{
+			"id": "fd9086f78b75717b",
+			"url": "/images/art/fd9086f78b75717b.PNG"
 		}
 	],
-	"currentArtImageId": "a46372ff45bc5524",
+	"currentArtImageId": "fd9086f78b75717b",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -44,23 +48,23 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://github.com/yingshen-hk",
 			"label": "Github",
+			"order": 1
+		},
+		{
+			"id": "button-1766055971759",
+			"type": "qq",
+			"value": "1654201",
+			"label": "",
 			"order": 3
 		},
 		{
-			"id": "juejin",
+			"id": "button-1767184134926",
 			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
-			"id": "email",
-			"type": "email",
-			"value": "yysuni1001@gmail.com",
-			"label": "",
-			"order": 1
+			"value": "",
+			"label": "联系方式：",
+			"order": 4
 		}
 	],
 	"clockShowSeconds": false,
@@ -72,7 +76,7 @@
 	"hatFlipped": false,
 	"enableChristmas": false,
 	"beian": {
-		"text": "",
-		"link": ""
+		"text": "萌ICP备20264200号",
+		"link": "https://icp.gov.moe/?keyword=20264200"
 	}
 }
