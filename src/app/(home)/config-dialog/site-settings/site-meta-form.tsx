@@ -41,6 +41,15 @@ export function SiteMetaForm({ formData, setFormData }: SiteMetaFormProps) {
 					className='bg-secondary/10 w-full rounded-lg border px-4 py-2 text-sm'
 				/>
 			</div>
+			<div>
+				<label className='mb-2 block text-sm font-medium'>简介><label>
+				<textarea
+					value={formData.meta.Introduction}
+					onChange={e => setFormData({ ...formData, meta: { ...formData.meta, Introduction: e.target.value } })}
+					rows={3}
+					className='bg-secondary/10 w-full rounded-lg border px-4 py-2 text-sm'
+				/>
+			</div>
 		</>
 	)
 }
