@@ -49,9 +49,6 @@ export default function HiCard() {
 				)}
 				<img src='/images/avatar.png' className='mx-auto rounded-full' style={{ width: 120, height: 120, boxShadow: ' 0 16px 32px -5px #E2D9CE' }} />
 				<h1 className='font-averia mt-3 text-2xl'>
-                     <span className='text-linear text-[32px]'>{Introduction}</span>
-                </h1>
-				<h1 className='font-averia mt-3 text-2xl'>
                     <span className='text-linear text-[32px]'>{username}</span>
 					<br />
 					<span className='text-linear text-[30px]'>{Introduction}</span>
