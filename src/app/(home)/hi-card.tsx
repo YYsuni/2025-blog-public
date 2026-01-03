@@ -2,7 +2,6 @@ import { useCenterStore } from '@/hooks/use-center'
 import Card from '@/components/card'
 import { useConfigStore } from './stores/config-store'
 import { HomeDraggableLayer } from './home-draggable-layer'
-import {Introduction} from '@/app/(home)/config-dialog/site-settings/site-meta-form'
 
 function getGreeting() {
 	const hour = new Date().getHours()
@@ -48,7 +47,9 @@ export default function HiCard() {
 					</>
 				)}
 				<img src='/images/avatar.png' className='mx-auto rounded-full' style={{ width: 120, height: 120, boxShadow: ' 0 16px 32px -5px #E2D9CE' }} />
-				{Introduction}
+				<h1 className='font-averia mt-3 text-2xl'>
+                    {greeting} <br /> I'm <span className='text-linear text-[32px]'>{username}{Introduction}</span> , Nice to <br /> meet you!
+                </h1>
 			</Card>
 		</HomeDraggableLayer>
 	)
