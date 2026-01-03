@@ -22,7 +22,6 @@ export default function HiCard() {
 	const { cardStyles, siteContent } = useConfigStore()
 	const greeting = getGreeting()
 	const styles = cardStyles.hiCard
-	const username = siteContent.meta.username || 'Suni'
 	const Introduction = siteContent.meta.Introduction || ''
 
 	const x = styles.offsetX !== null ? center.x + styles.offsetX : center.x - styles.width / 2
