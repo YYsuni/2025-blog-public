@@ -23,6 +23,7 @@ export default function HiCard() {
 	const greeting = getGreeting()
 	const styles = cardStyles.hiCard
 	const username = siteContent.meta.username || 'Suni'
+	const Introduction = siteContent.meta.Introduction || '你的旅途是一个令人满意的旅途吗？'
 
 	const x = styles.offsetX !== null ? center.x + styles.offsetX : center.x - styles.width / 2
 	const y = styles.offsetY !== null ? center.y + styles.offsetY : center.y - styles.height / 2
