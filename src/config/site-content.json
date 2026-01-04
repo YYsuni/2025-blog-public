@@ -42,9 +42,13 @@
 		{
 			"id": "",
 			"url": ""
+		},
+		{
+			"id": "url-1767539001349",
+			"url": "https://www.loliapi.com/acg/"
 		}
 	],
-	"currentBackgroundImageId": "",
+	"currentBackgroundImageId": "url-1767539001349",
 	"socialButtons": [
 		{
 			"id": "github",
