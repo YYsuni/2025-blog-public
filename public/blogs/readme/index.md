@@ -151,6 +151,8 @@ QQ 群：[https://qm.qq.com/q/spdpenr4k2](https://qm.qq.com/q/spdpenr4k2)
 微信群：刚建好了一个微信群，没有 qq 的可以用这个微信群
 ![](/blogs/readme/1e38ea817ede4f75.webp)
 
+tg 群：1月1号，才创建的 tg 群 https://t.me/public_blog_2025
+
 应该主要是我自己亲自帮助你们遇到问题怎么办。（后续看看有没有好心人）
 
 希望多多的非程序员加入 blogger 行列，web blog 还是很好玩的，属于自己的 blog 世界。
