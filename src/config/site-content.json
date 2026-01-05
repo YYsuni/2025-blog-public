@@ -1,6 +1,6 @@
 {
 	"meta": {
-		"title": "Fivor",
+		"title": "Fivor的小站",
 		"description": "Fivor 的个人博客",
 		"username": "Fivor"
 	},
@@ -41,17 +41,14 @@
 		{
 			"id": "",
 			"url": ""
+		},
+		{
+			"id": "f102b56d3a2373fa",
+			"url": "/images/background/f102b56d3a2373fa.jpg"
 		}
 	],
-	"currentBackgroundImageId": "",
+	"currentBackgroundImageId": "f102b56d3a2373fa",
 	"socialButtons": [
-		{
-			"id": "github",
-			"type": "github",
-			"value": "https://github.com/fivor",
-			"label": "",
-			"order": 2
-		},
 		{
 			"id": "button-1766313803413",
 			"type": "wechat",
