@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "Matthew-blog",
+		"description": "record whatever I want",
+		"username": "Matthew"
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -46,13 +46,6 @@
 			"type": "github",
 			"value": "https://github.com/yysuni",
 			"label": "Github",
-			"order": 3
-		},
-		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
 			"order": 2
 		},
 		{
@@ -65,7 +58,7 @@
 	],
 	"clockShowSeconds": false,
 	"summaryInContent": false,
-	"isCachePem": false,
+	"isCachePem": true,
 	"hideEditButton": false,
 	"enableCategories": true,
 	"currentHatIndex": 3,
