@@ -1,5 +1,17 @@
 [
   {
+    "slug": "driving-tour",
+    "title": "年底的自驾游",
+    "tags": [
+      "旅游"
+    ],
+    "date": "2026-01-05T11:50",
+    "summary": "琐碎的自驾游回忆",
+    "cover": "https://www.yysuni.com/images/pictures/474f9e7a4c63084a.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "fix-screen",
     "title": "解决电脑屏幕帧数问题",
     "tags": [

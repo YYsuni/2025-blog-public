@@ -76,7 +76,7 @@ export default function Page() {
 				tags={tags}
 				date={date}
 				summary={blog.config.summary}
-				cover={blog.cover ? `${origin}${blog.cover}` : undefined}
+				cover={blog.cover ? (blog.cover.startsWith('http') ? blog.cover : `${origin}${blog.cover}`) : undefined}
 				slug={slug}
 			/>
 

@@ -243,5 +243,12 @@
 		"url": "https://blog.dhbxs.top/",
 		"description": "群友，JAVAR，干净blog，让我看到几个人的影子。",
 		"stars": 3
+	},
+	{
+		"name": "23朵毒蘑菇",
+		"avatar": "https://blog.dumogu.top/web-assets/v-last/public/user.jpg",
+		"url": "https://blog.dumogu.top/",
+		"description": "前端开发，页面小巧，结构简单，寻常记录",
+		"stars": 3
 	}
 ]
