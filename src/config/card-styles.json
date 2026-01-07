@@ -3,16 +3,16 @@
 		"width": 360,
 		"height": 200,
 		"order": 3,
-		"offsetX": null,
-		"offsetY": null,
+		"offsetX": -180,
+		"offsetY": -318,
 		"enabled": true
 	},
 	"hiCard": {
 		"width": 360,
 		"height": 288,
 		"order": 1,
-		"offsetX": null,
-		"offsetY": null,
+		"offsetX": -183,
+		"offsetY": -96,
 		"enabled": true
 	},
 	"clockCard": {
@@ -38,15 +38,15 @@
 		"offset": 120,
 		"order": 6,
 		"offsetX": -185,
-		"offsetY": 167,
+		"offsetY": 216,
 		"enabled": true
 	},
 	"socialButtons": {
 		"width": 214,
 		"height": 50,
 		"order": 6,
-		"offsetX": -126,
-		"offsetY": 262,
+		"offsetX": -132,
+		"offsetY": 302,
 		"enabled": true
 	},
 	"shareCard": {
