@@ -7,18 +7,5 @@
     "summary": "",
     "hidden": false,
     "category": ""
-  },
-  {
-    "slug": "ink-effect",
-    "title": "YYsuni-2025-blog-public 本地部署（宝塔面板...）+ 使用Webhook实现本地实时同步Github仓库",
-    "tags": [
-      "组件",
-      "尝试"
-    ],
-    "date": "2023-12-29T08:00",
-    "summary": "鼠标移动效果",
-    "cover": "/blogs/ink-effect/e946bc3b7be05fad.jpg",
-    "hidden": false,
-    "category": ""
   }
 ]
