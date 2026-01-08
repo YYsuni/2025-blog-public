@@ -44,7 +44,7 @@ export default function ClockCard() {
 							router.push('/clock')
 						}
 					}}
-					className='bg-secondary/20 flex h-full w-full cursor-pointer items-center justify-center gap-1.5 rounded-4xl'>
+					className='bg-secondary/20 flex h-full w-full cursor-pointer items-center justify-center gap-1.5 rounded-4xl p-2'>
 					<SevenSegmentDigit value={parseInt(hours[0])} />
 					<SevenSegmentDigit value={parseInt(hours[1])} />
 					<Colon />

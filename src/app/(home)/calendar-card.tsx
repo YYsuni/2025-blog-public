@@ -27,11 +27,11 @@ export default function CalendarCard() {
 
 	return (
 		<HomeDraggableLayer cardKey='calendarCard' x={x} y={y} width={styles.width} height={styles.height}>
-			<Card order={styles.order} width={styles.width} height={styles.height} x={x} y={y}>
+			<Card order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className='flex flex-col'>
 				<h3 className='text-secondary text-sm'>
 					{now.format('YYYY/M/D')} {now.format('ddd')}
 				</h3>
-				<ul className='text-secondary mt-3 grid h-[206px] grid-cols-7 gap-2 text-sm'>
+				<ul className={cn('text-secondary mt-3 grid h-[206px] flex-1 grid-cols-7 gap-2 text-sm', (styles.height < 240 || styles.width < 240) && 'text-xs')}>
 					{new Array(7).fill(0).map((_, index) => {
 						const isCurrentWeekday = index === currentWeekday
 						return (

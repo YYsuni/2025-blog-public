@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion } from 'motion/react'
 import { toast } from 'sonner'
 import { hashFileSHA256 } from '@/lib/file-utils'
 import type { FileItem } from './types'
@@ -47,20 +46,6 @@ export function FaviconAvatarUpload({ faviconItem, setFaviconItem, avatarItem, s
 		if (e.currentTarget) e.currentTarget.value = ''
 	}
 
-	const handleRemoveFavicon = () => {
-		if (faviconItem?.type === 'file') {
-			URL.revokeObjectURL(faviconItem.previewUrl)
-		}
-		setFaviconItem(null)
-	}
-
-	const handleRemoveAvatar = () => {
-		if (avatarItem?.type === 'file') {
-			URL.revokeObjectURL(avatarItem.previewUrl)
-		}
-		setAvatarItem(null)
-	}
-
 	return (
 		<div className='grid grid-cols-2 gap-4'>
 			<div>
@@ -75,20 +60,7 @@ export function FaviconAvatarUpload({ faviconItem, setFaviconItem, avatarItem, s
 					<div className='pointer-events-none absolute inset-0 flex items-center justify-center rounded-lg bg-black/40 opacity-0 transition-opacity group-hover:opacity-100'>
 						<span className='text-xs text-white'>{faviconItem ? '更换' : '上传'}</span>
 					</div>
-					{faviconItem && (
-						<div className='absolute top-1 right-1 hidden group-hover:block'>
-							<motion.button
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={e => {
-									e.stopPropagation()
-									handleRemoveFavicon()
-								}}
-								className='rounded-md bg-white/90 px-2 py-1 text-xs text-red-500 shadow hover:bg-white'>
-								清除
-							</motion.button>
-						</div>
-					)}
+
 					<div className='absolute inset-0' onClick={() => faviconInputRef.current?.click()} />
 				</div>
 			</div>
@@ -105,20 +77,6 @@ export function FaviconAvatarUpload({ faviconItem, setFaviconItem, avatarItem, s
 					<div className='pointer-events-none absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100'>
 						<span className='text-xs text-white'>{avatarItem ? '更换' : '上传'}</span>
 					</div>
-					{avatarItem && (
-						<div className='absolute top-1 right-1 hidden group-hover:block'>
-							<motion.button
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={e => {
-									e.stopPropagation()
-									handleRemoveAvatar()
-								}}
-								className='rounded-md bg-white/90 px-2 py-1 text-xs text-red-500 shadow hover:bg-white'>
-								清除
-							</motion.button>
-						</div>
-					)}
 					<div className='absolute inset-0' onClick={() => avatarInputRef.current?.click()} />
 				</div>
 			</div>

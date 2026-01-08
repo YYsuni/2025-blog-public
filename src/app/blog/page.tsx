@@ -11,23 +11,27 @@ import { toast } from 'sonner'
 import { ANIMATION_DELAY, INIT_DELAY } from '@/consts'
 import ShortLineSVG from '@/svgs/short-line.svg'
 import { useBlogIndex, type BlogIndexItem } from '@/hooks/use-blog-index'
+import { useCategories } from '@/hooks/use-categories'
 import { useReadArticles } from '@/hooks/use-read-articles'
 import JuejinSVG from '@/svgs/juejin.svg'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { readFileAsText } from '@/lib/file-utils'
 import { cn } from '@/lib/utils'
-import { batchDeleteBlogs } from './services/batch-delete-blogs'
+import { saveBlogEdits } from './services/save-blog-edits'
 import { Check } from 'lucide-react'
+import { CategoryModal } from './components/category-modal'
 
-type DisplayMode = 'day' | 'week' | 'month' | 'year'
+type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
 
 export default function BlogPage() {
 	const { items, loading } = useBlogIndex()
+	const { categories: categoriesFromServer } = useCategories()
 	const { isRead } = useReadArticles()
 	const { isAuth, setPrivateKey } = useAuthStore()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
+	const enableCategories = siteContent.enableCategories ?? false
 
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const [editMode, setEditMode] = useState(false)
@@ -35,12 +39,19 @@ export default function BlogPage() {
 	const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set())
 	const [saving, setSaving] = useState(false)
 	const [displayMode, setDisplayMode] = useState<DisplayMode>('year')
+	const [categoryModalOpen, setCategoryModalOpen] = useState(false)
+	const [categoryList, setCategoryList] = useState<string[]>([])
+	const [newCategory, setNewCategory] = useState('')
 
 	useEffect(() => {
 		if (!editMode) {
 			setEditableItems(items)
 		}
 	}, [items, editMode])
+
+	useEffect(() => {
+		setCategoryList(categoriesFromServer || [])
+	}, [categoriesFromServer])
 
 	const displayItems = editMode ? editableItems : items
 
@@ -54,6 +65,10 @@ export default function BlogPage() {
 				const date = dayjs(item.date)
 
 				switch (displayMode) {
+					case 'category':
+						key = item.category || '未分类'
+						label = key
+						break
 					case 'day':
 						key = date.format('YYYY-MM-DD')
 						label = date.format('YYYY年MM月DD日')
@@ -84,6 +99,13 @@ export default function BlogPage() {
 		)
 
 		const keys = Object.keys(grouped).sort((a, b) => {
+			if (displayMode === 'category') {
+				const categoryOrder = new Map(categoryList.map((c, index) => [c, index]))
+				const aOrder = categoryOrder.has(a) ? categoryOrder.get(a)! : Number.MAX_SAFE_INTEGER
+				const bOrder = categoryOrder.has(b) ? categoryOrder.get(b)! : Number.MAX_SAFE_INTEGER
+				if (aOrder !== bOrder) return aOrder - bOrder
+				return a.localeCompare(b)
+			}
 			// 按时间倒序排序
 			if (displayMode === 'week') {
 				// 周格式：YYYY-WW
@@ -100,7 +122,7 @@ export default function BlogPage() {
 			groupKeys: keys,
 			getGroupLabel: (key: string) => grouped[key]?.label || key
 		}
-	}, [displayItems, displayMode])
+	}, [displayItems, displayMode, categoryList])
 
 	const selectedCount = selectedSlugs.size
 	const buttonText = isAuth ? '保存' : '导入密钥'
@@ -185,6 +207,36 @@ export default function BlogPage() {
 		setSelectedSlugs(new Set())
 	}, [selectedCount, selectedSlugs])
 
+	const handleAssignCategory = useCallback((slug: string, category?: string) => {
+		setEditableItems(prev =>
+			prev.map(item => {
+				if (item.slug !== slug) return item
+				const nextCategory = category?.trim()
+				if (!nextCategory) return { ...item, category: undefined }
+				return { ...item, category: nextCategory }
+			})
+		)
+	}, [])
+
+	const handleAddCategory = useCallback(() => {
+		const value = newCategory.trim()
+		if (!value) {
+			toast.info('请输入分类名称')
+			return
+		}
+		setCategoryList(prev => (prev.includes(value) ? prev : [...prev, value]))
+		setNewCategory('')
+	}, [newCategory])
+
+	const handleRemoveCategory = useCallback((category: string) => {
+		setCategoryList(prev => prev.filter(item => item !== category))
+		setEditableItems(prev => prev.map(item => (item.category === category ? { ...item, category: undefined } : item)))
+	}, [])
+
+	const handleReorderCategories = useCallback((nextList: string[]) => {
+		setCategoryList(nextList)
+	}, [])
+
 	const handleCancel = useCallback(() => {
 		setEditableItems(items)
 		setSelectedSlugs(new Set())
@@ -193,24 +245,34 @@ export default function BlogPage() {
 
 	const handleSave = useCallback(async () => {
 		const removedSlugs = items.filter(item => !editableItems.some(editItem => editItem.slug === item.slug)).map(item => item.slug)
+		const normalizedCategoryList = categoryList.map(c => c.trim()).filter(Boolean)
+		const categoryListChanged = JSON.stringify(normalizedCategoryList) !== JSON.stringify((categoriesFromServer || []).map(c => c.trim()).filter(Boolean))
+		const categoryAssignmentChanged = items.some(origin => {
+			const next = editableItems.find(editItem => editItem.slug === origin.slug)
+			const originCategory = origin.category || ''
+			const nextCategory = next?.category || ''
+			return originCategory !== nextCategory
+		})
+		const hasChanges = removedSlugs.length > 0 || categoryListChanged || categoryAssignmentChanged
 
-		if (removedSlugs.length === 0) {
+		if (!hasChanges) {
 			toast.info('没有需要保存的改动')
 			return
 		}
 
 		try {
 			setSaving(true)
-			await batchDeleteBlogs(removedSlugs)
+			await saveBlogEdits(items, editableItems, normalizedCategoryList)
 			setEditMode(false)
 			setSelectedSlugs(new Set())
+			setCategoryModalOpen(false)
 		} catch (error: any) {
 			console.error(error)
 			toast.error(error?.message || '保存失败')
 		} finally {
 			setSaving(false)
 		}
-	}, [editableItems, items])
+	}, [items, editableItems, categoryList, categoriesFromServer])
 
 	const handleSaveClick = useCallback(() => {
 		if (!isAuth) {
@@ -268,17 +330,23 @@ export default function BlogPage() {
 						initial={{ opacity: 0, scale: 0.6 }}
 						animate={{ opacity: 1, scale: 1 }}
 						className='card relative mx-auto flex items-center gap-1 rounded-xl p-1 max-sm:hidden'>
-						{(['day', 'week', 'month', 'year'] as DisplayMode[]).map(mode => (
+						{[
+							{ value: 'day', label: '日' },
+							{ value: 'week', label: '周' },
+							{ value: 'month', label: '月' },
+							{ value: 'year', label: '年' },
+							...(enableCategories ? ([{ value: 'category', label: '分类' }] as const) : [])
+						].map(option => (
 							<motion.button
-								key={mode}
+								key={option.value}
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
-								onClick={() => setDisplayMode(mode)}
+								onClick={() => setDisplayMode(option.value as DisplayMode)}
 								className={cn(
 									'rounded-lg px-3 py-1.5 text-xs font-medium transition-all',
-									displayMode === mode ? 'bg-brand text-white shadow-sm' : 'text-secondary hover:text-brand hover:bg-white/60'
+									displayMode === option.value ? 'bg-brand text-white shadow-sm' : 'text-secondary hover:text-brand hover:bg-white/60'
 								)}>
-								{mode === 'day' ? '日' : mode === 'week' ? '周' : mode === 'month' ? '月' : '年'}
+								{option.label}
 							</motion.button>
 						))}
 					</motion.div>
@@ -403,6 +471,16 @@ export default function BlogPage() {
 				className='absolute top-4 right-6 flex items-center gap-3 max-sm:hidden'>
 				{editMode ? (
 					<>
+						{enableCategories && (
+							<motion.button
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								onClick={() => setCategoryModalOpen(true)}
+								disabled={saving}
+								className='rounded-xl border bg-white/60 px-4 py-2 text-sm transition-colors hover:bg-white/80'>
+								分类
+							</motion.button>
+						)}
 						<motion.button
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
@@ -442,6 +520,19 @@ export default function BlogPage() {
 					)
 				)}
 			</motion.div>
+
+			<CategoryModal
+				open={categoryModalOpen}
+				onClose={() => setCategoryModalOpen(false)}
+				categoryList={categoryList}
+				newCategory={newCategory}
+				onNewCategoryChange={setNewCategory}
+				onAddCategory={handleAddCategory}
+				onRemoveCategory={handleRemoveCategory}
+				onReorderCategories={handleReorderCategories}
+				editableItems={editableItems}
+				onAssignCategory={handleAssignCategory}
+			/>
 		</>
 	)
 }

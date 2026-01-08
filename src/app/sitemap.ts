@@ -1,15 +1,6 @@
 import { MetadataRoute } from 'next'
 import blogIndex from '@/../public/blogs/index.json'
-
-// 定义文章索引的结构
-type BlogIndexItem = {
-	slug: string
-	title: string
-	date: string
-	summary?: string
-	cover?: string
-	tags?: string[]
-}
+import type { BlogIndexItem } from '@/app/blog/types'
 
 export const dynamic = 'force-static'
 

@@ -13,6 +13,7 @@ export default function HatCard() {
 	const styles = cardStyles.hatCard
 
 	const [show, setShow] = useState(false)
+	const [number, setNumber] = useState(1)
 
 	useEffect(() => {
 		setTimeout(() => setShow(true), styles.order * ANIMATION_DELAY * 1000)
@@ -35,13 +36,29 @@ export default function HatCard() {
 				animate={{ opacity: 1, scale: 1, left: x, top: y, width: styles.width, height: styles.height }}
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
+				onClick={() => setNumber(number + 1)}
 				className='absolute flex h-full w-full items-center justify-center'>
-				<img
-					src={`/images/hats/${hatIndex}.webp`}
-					alt='hat'
-					className='h-full w-full object-contain'
-					style={{ width: styles.width, height: styles.height, transform: hatFlipped ? 'scaleX(-1)' : 'none' }}
-				/>
+				{new Array(number)
+					.fill(0)
+					.map((_, index) =>
+						index === 0 ? (
+							<img
+								key={index}
+								src={`/images/hats/${hatIndex}.webp`}
+								alt='hat'
+								className='h-full w-full object-contain'
+								style={{ width: styles.width, height: styles.height, transform: hatFlipped ? 'scaleX(-1)' : 'none' }}
+							/>
+						) : (
+							<img
+								key={index}
+								src={`/images/hats/${hatIndex}.webp`}
+								alt='hat'
+								className='absolute h-full w-full object-contain'
+								style={{ width: styles.width, height: styles.height, transform: hatFlipped ? 'scaleX(-1)' : 'none', bottom: index * 16 }}
+							/>
+						)
+					)}
 			</motion.div>
 		</HomeDraggableLayer>
 	)

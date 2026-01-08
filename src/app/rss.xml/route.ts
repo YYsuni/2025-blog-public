@@ -3,21 +3,13 @@ import path from 'node:path'
 
 import siteContent from '@/config/site-content.json'
 import blogIndex from '@/../public/blogs/index.json'
+import type { BlogIndexItem } from '@/app/blog/types'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yysuni.com'
 const FEED_PATH = '/rss.xml'
 const SITE_ORIGIN = SITE_URL.replace(/\/$/, '')
 const FEED_URL = `${SITE_ORIGIN}${FEED_PATH}`
 const PUBLIC_DIR = path.join(process.cwd(), 'public')
-
-type BlogIndexItem = {
-	slug: string
-	title: string
-	tags?: string[]
-	date: string
-	summary?: string
-	cover?: string
-}
 
 const blogs = blogIndex as BlogIndexItem[]
 

@@ -1,7 +1,9 @@
 import { motion } from 'motion/react'
 import { useWriteStore } from '../../stores/write-store'
 import { TagInput } from '../ui/tag-input'
-import { Switch } from '@/components/ui/switch'
+import { useCategories } from '@/hooks/use-categories'
+import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { Select } from '@/components/select'
 
 type MetaSectionProps = {
 	delay?: number
@@ -9,6 +11,14 @@ type MetaSectionProps = {
 
 export function MetaSection({ delay = 0 }: MetaSectionProps) {
 	const { form, updateForm } = useWriteStore()
+	console.log(form.date)
+
+	const { categories } = useCategories()
+	const { siteContent } = useConfigStore()
+	const enableCategories = siteContent.enableCategories ?? false
+
+	const categoryOptions = [{ value: '', label: '未分类' }, ...categories.map(cat => ({ value: cat, label: cat }))]
+
 	return (
 		<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay }} className='card relative'>
 			<h2 className='text-sm'>元信息</h2>
@@ -23,22 +33,28 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 				/>
 
 				<TagInput tags={form.tags} onChange={tags => updateForm({ tags })} />
+				{enableCategories && (
+					<Select className='w-full text-sm' value={form.category || ''} onChange={value => updateForm({ category: value })} options={categoryOptions} />
+				)}
 				<input
-					type='date'
+					type='datetime-local'
 					placeholder='日期'
 					className='bg-card w-full rounded-lg border px-3 py-2 text-sm'
 					value={form.date}
-					onChange={e => updateForm({ date: e.target.value })}
+					onChange={e => {
+						updateForm({ date: e.target.value })
+					}}
 				/>
-				<div className="flex items-center gap-2">
+
+				<div className='flex items-center gap-2'>
 					<input
-						type="checkbox"
-						id="hidden-check"
+						type='checkbox'
+						id='hidden-check'
 						checked={form.hidden || false}
-						onChange={(e) => updateForm({ hidden: e.target.checked })}
-						className="h-4 w-4 rounded border-gray-300"
+						onChange={e => updateForm({ hidden: e.target.checked })}
+						className='h-4 w-4 rounded border-gray-300'
 					/>
-					<label htmlFor="hidden-check" className="text-sm text-gray-600 select-none cursor-pointer">
+					<label htmlFor='hidden-check' className='cursor-pointer text-sm text-gray-600 select-none'>
 						隐藏此文章（仅管理员可见）
 					</label>
 				</div>
