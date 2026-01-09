@@ -1,20 +1,8 @@
 {
 	"meta": {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 		"title": "Expself",
 		"description": "轻体验",
 		"username": "Expself"
-=======
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
->>>>>>> Stashed changes
-=======
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
->>>>>>> Stashed changes
 	},
 	"theme": {
 		"colorBrand": "#de4331",
@@ -59,26 +47,6 @@
 			"value": "https://github.com/yysuni",
 			"label": "Github",
 			"order": 3
-<<<<<<< Updated upstream
-=======
-		},
-		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
-			"id": "email",
-			"type": "email",
-			"value": "yysuni1001@gmail.com",
-			"label": "",
-			"order": 1
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 		}
 	],
 	"clockShowSeconds": false,
@@ -86,14 +54,5 @@
 	"isCachePem": false,
 	"hideEditButton": false,
 	"currentHatIndex": 3,
-<<<<<<< Updated upstream
 	"hatFlipped": false
-=======
-	"hatFlipped": false,
-	"enableChristmas": false,
-	"beian": {
-		"text": "",
-		"link": ""
-	}
->>>>>>> Stashed changes
 }
