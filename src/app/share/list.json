@@ -89,5 +89,15 @@
 			"在线工具"
 		],
 		"stars": 5
+	},
+	{
+		"name": "Excalidraw",
+		"logo": "https://plus.excalidraw.com/images/logo.svg",
+		"url": "https://excalidraw.com/",
+		"description": "可以在线绘图，支持很多图案，个人认为画出来的东西很美观。实际上这个项目支持自己部署，感兴趣可以去尝试。 ",
+		"tags": [
+			"在线工具"
+		],
+		"stars": 5
 	}
 ]
