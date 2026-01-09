@@ -3,23 +3,32 @@
 'use client'
 
 import { useState, useRef, useEffect, useMemo } from 'react'
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:src/components/music-card.tsx
+=======
+>>>>>>> Stashed changes
 import Card from '@/components/card'
 import { useCenterStore } from '@/hooks/use-center'
 import { useConfigStore } from '../app/(home)/stores/config-store'
 import { CARD_SPACING } from '@/consts'
 import MusicSVG from '@/svgs/music.svg'
 import PlaySVG from '@/svgs/play.svg'
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:src/app/(home)/music-card.tsx
 import { HomeDraggableLayer } from './home-draggable-layer'
 =======
+=======
+>>>>>>> Stashed changes
 import { HomeDraggableLayer } from '../app/(home)/home-draggable-layer'
 import { Pause } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
 const MUSIC_FILES = ['/music/close-to-you.mp3']
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:src/components/music-card.tsx
+=======
+>>>>>>> Stashed changes
 
 export default function MusicCard() {
 	const pathname = usePathname()
@@ -178,7 +187,10 @@ export default function MusicCard() {
 
 				<div className='flex-1'>
 					<div className='text-secondary text-sm'>Close To You</div>
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes:src/components/music-card.tsx
+=======
+>>>>>>> Stashed changes
 
 					<div className='mt-1 h-2 rounded-full bg-white/60'>
 						<div className='bg-linear h-full w-1/2 rounded-full' />

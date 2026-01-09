@@ -1,6 +1,7 @@
 [
 	{
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		"name": "Blog 网站",
 		"year": 2023,
 		"description": "最开始是觉得掘金这种网站写文章挺好的。后面还是想写一个自己网站，体现自己的风格。MDX 还可以自己写组件到 blog，直接交互，多好。。。没想到为以后埋下了坑。",
@@ -10,6 +11,8 @@
 			"体验"
 		]
 =======
+=======
+>>>>>>> Stashed changes
 		"name": "Pixel Motion",
 		"year": 2025,
 		"description": "网页端像素绘画工具，支持组件化画布，多画布同时绘画，色彩变量",
@@ -87,6 +90,9 @@
 			"Library"
 		],
 		"github": "https://github.com/YYsuni/archive-suni"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	}
 ]

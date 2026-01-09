@@ -8,6 +8,7 @@
 	},
 	{
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		"name": "YYsuni.com",
 		"url": "https://www.yysuni.com/",
 		"avatar": "https://enji.dev/_next/image?url=%2Fassets%2Fimages%2Fme.png&w=1080&q=100",
@@ -37,6 +38,29 @@
 		"stars": 5
 	},
 	{
+=======
+		"name": "Enji Kusnadi",
+		"url": "https://enji.dev/",
+		"avatar": "https://enji.dev/_next/image?url=%2Fassets%2Fimages%2Fme.png&w=1080&q=100",
+		"description": "第一个在设计样式上惊艳我的人，那时每逢推荐别人blog，我都会提这么一嘴。但这个不算她的blog 网站，只算它的线上简历，没有持续的内容，比较可惜。",
+		"stars": 3
+	},
+	{
+		"name": "Josh W. Comeau",
+		"url": "https://www.joshwcomeau.com/",
+		"avatar": "https://www.joshwcomeau.com/favicon.png",
+		"description": "John blog 更像是一个课程网站，每一篇文章都书写的很好，每次阅读都能吸收到新的东西。网站设计也恰到好处，工整、有趣。",
+		"stars": 5
+	},
+	{
+		"name": "nanda",
+		"url": "https://www.nan.fyi/",
+		"avatar": "https://www.nan.fyi/favicon.ico",
+		"description": "设计大师，nanda 。页面只用灰色加线条，都让我觉得叹为观止，内容不多，每篇都精雕细琢。跟 Josh 一样，属于技术网站，但它的教程引导更加出神入化，可称为程序艺术家。",
+		"stars": 5
+	},
+	{
+>>>>>>> Stashed changes
 		"name": "Emil Kowalski",
 		"url": "https://emilkowal.ski/",
 		"avatar": "https://emilkowal.ski/favicon.ico",
@@ -142,6 +166,9 @@
 		"stars": 4
 	},
 	{
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 		"name": "Niracler 的博物志",
 		"url": "https://niracler.com/",
@@ -149,7 +176,10 @@
 		"description": "小透明，偶尔更新一篇blog。但是网站风格还是有特点的，可作为设计 blog 时的参考。",
 		"stars": 2
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	},
 	{
 		"name": "講評世界",
@@ -262,6 +292,9 @@
 		"url": "https://blog.dumogu.top/",
 		"description": "前端开发，页面小巧，结构简单，寻常记录",
 		"stars": 3
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	}
 ]
