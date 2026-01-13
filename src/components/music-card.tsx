@@ -118,8 +118,6 @@ const MUSIC_LIST = [
   }
 ];
 
-// 为了方便获取URL的数组（保持向后兼容）
-const MUSIC_FILES = MUSIC_LIST.map(music => music.url);
 
 export default function MusicCard() {
 	const pathname = usePathname()
