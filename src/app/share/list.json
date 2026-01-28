@@ -119,5 +119,15 @@
 			"视频"
 		],
 		"stars": 5
+	},
+	{
+		"name": "马克思主义文库",
+		"logo": "blob:https://xy-tau.vercel.app/0c7ac00c-aece-442d-8ea0-35d11ecb8c48",
+		"url": "https://www.marxists.org/chinese/index.html",
+		"description": "马克思主义者相关代表文章",
+		"tags": [
+			"书籍"
+		],
+		"stars": 5
 	}
 ]
