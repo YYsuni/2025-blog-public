@@ -71,7 +71,7 @@
 		"order": 8,
 		"offsetX": 205,
 		"offsetY": -382,
-		"enabled": true
+		"enabled": false
 	},
 	"navCard": {
 		"width": 280,
@@ -87,7 +87,7 @@
 		"order": 8,
 		"offsetX": null,
 		"offsetY": null,
-		"enabled": false
+		"enabled": true
 	},
 	"hatCard": {
 		"width": 99,
