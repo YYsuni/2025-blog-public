@@ -11,5 +11,29 @@
 			"Linux"
 		],
 		"github": "https://github.com/ayakaOS/ayakaOS"
+	},
+	{
+		"name": "ayakaOS-Calamares-Config",
+		"year": 2026,
+		"image": "blob:https://ayakaos.de5.net/5963ac11-cb1b-4e95-bc66-03fef871f2e9",
+		"url": "ayakaos,asia",
+		"description": "ayakaOS安装器配置",
+		"tags": [
+			"ayakaOS",
+			"ayakaOS-Calamares-Config"
+		],
+		"github": "https://github.com/ayakaOS/ayakaOS-Calamares-Config"
+	},
+	{
+		"name": "ayakaOS-repo",
+		"year": 2026,
+		"image": "blob:https://ayakaos.de5.net/92bf4941-ae03-4af7-9fc9-42e5cef81ebe",
+		"url": "ayakaos.asia",
+		"description": "ayakaOS的自建软件源仓库",
+		"tags": [
+			"ayakaOS-repo",
+			"ayakaOS"
+		],
+		"github": "https://github.com/ayakaOS/ayakaOS-repo"
 	}
 ]
