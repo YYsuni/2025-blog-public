@@ -1,1 +1,15 @@
-[]
+[
+	{
+		"name": "ayakaOS",
+		"year": 2026,
+		"image": "blob:https://ayakaos.de5.net/29e80237-5cb8-444b-8355-d1be92c9344c",
+		"url": "ayakaos.asia",
+		"description": "做,简单的事。\nayakaOS 是一个基于 Arch Linux 的 GNU/Linux发行版。",
+		"tags": [
+			"Arch Linux",
+			"ayakaOS",
+			"Linux"
+		],
+		"github": "https://github.com/ayakaOS/ayakaOS"
+	}
+]
