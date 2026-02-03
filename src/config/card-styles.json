@@ -33,20 +33,20 @@
 		"enabled": true
 	},
 	"musicCard": {
-		"width": 382,
-		"height": 61,
+		"width": 293,
+		"height": 66,
 		"offset": 120,
 		"order": 6,
-		"offsetX": 177,
-		"offsetY": 239,
+		"offsetX": 260,
+		"offsetY": 236,
 		"enabled": true
 	},
 	"socialButtons": {
-		"width": 312,
-		"height": 52,
+		"width": 313,
+		"height": 50,
 		"order": 6,
-		"offsetX": -164,
-		"offsetY": 245,
+		"offsetX": -183,
+		"offsetY": 243,
 		"enabled": true
 	},
 	"shareCard": {
@@ -71,7 +71,7 @@
 		"order": 8,
 		"offsetX": 205,
 		"offsetY": -382,
-		"enabled": false
+		"enabled": true
 	},
 	"navCard": {
 		"width": 322,
