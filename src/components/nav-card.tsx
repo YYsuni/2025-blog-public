@@ -43,18 +43,6 @@ const list = [
 		label: '关于网站',
 		href: '/about'
 	},
-	{
-		icon: ShareOutlineSVG,
-		iconActive: ShareFilledSVG,
-		label: '推荐分享',
-		href: '/share'
-	},
-	{
-		icon: WebsiteOutlineSVG,
-		iconActive: WebsiteFilledSVG,
-		label: '优秀博客',
-		href: '/bloggers'
-	}
 ]
 
 const extraSize = 8
