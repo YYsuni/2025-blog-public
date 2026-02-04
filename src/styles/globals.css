@@ -98,11 +98,9 @@
 		inset 0 0 20 rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(4px);
 
-	&.squircle {
-		@supports (corner-shape: squircle) {
-			corner-shape: squircle;
-			@apply rounded-[64px];
-		}
+	@supports (corner-shape: squircle) {
+		corner-shape: squircle;
+		@apply rounded-[64px];
 	}
 }
 

@@ -7,7 +7,7 @@ import { motion } from 'motion/react'
 import { BlogPreview } from '@/components/blog-preview'
 import { loadBlog, type BlogConfig } from '@/lib/load-blog'
 import { useReadArticles } from '@/hooks/use-read-articles'
-import LiquidGrass from '@/components/liquid-grass'
+
 
 export default function Page() {
 	const params = useParams() as { id?: string | string[] }

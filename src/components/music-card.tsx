@@ -13,6 +13,111 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
 const MUSIC_FILES = ['/music/close-to-you.mp3']
+const MUSIC_LIST = [
+  { 
+    id: 1, 
+    url: '/music/Il aurait suffit Le Rouge Et Le Noir.flac', 
+    title: 'Il aurait suffi', 
+    artist: 'Le Rouge Et Le Noir' 
+  },
+  { 
+    id: 2, 
+    url: '/music/Lassasymphonie Florent Mothe.mp3', 
+    title: "L'assasymphonie", 
+    artist: 'Florent Mothe' 
+  },
+  { 
+    id: 3, 
+    url: '/music/La fête des fous Bruno Pelletier.flac', 
+    title: 'La fête des fous', 
+    artist: 'Bruno Pelletier' 
+  },
+  { 
+    id: 4, 
+    url: '/music/Le Temps Des Cathédrales Bruno Pelletier.flac', 
+    title: 'Le Temps Des Cathédrales', 
+    artist: 'Bruno Pelletier' 
+  },
+  { 
+    id: 5, 
+    url: '/music/SNEAKERS ITZY.flac', 
+    title: 'SNEAKERS', 
+    artist: 'ITZY' 
+  },
+  { 
+    id: 6, 
+    url: '/music/カタオモイ Aimer.flac', 
+    title: 'カタオモイ', 
+    artist: 'Aimer' 
+  },
+  { 
+    id: 7, 
+    url: '/music/下一站天后 Twins.flac', 
+    title: '下一站天后', 
+    artist: 'Twins' 
+  },
+  { 
+    id: 8, 
+    url: '/music/囍帖街谢安琪.flac', 
+    title: '囍帖街', 
+    artist: '谢安琪' 
+  },
+  { 
+    id: 9, 
+    url: '/music/小城谣Cover胡碧乔双笙ai.mp3', 
+    title: '小城谣', 
+    artist: '双笙' 
+  },
+  { 
+    id: 10, 
+    url: '/music/故梦双笙(陈元汐).m4a', 
+    title: '故梦', 
+    artist: '双笙(陈元汐)' 
+  },
+  { 
+    id: 11, 
+    url: '/music/春风吹方大同.flac', 
+    title: '春风吹', 
+    artist: '方大同' 
+  },
+  { 
+    id: 12, 
+    url: '/music/月出双笙(陈元汐).mp3', 
+    title: '月出', 
+    artist: '双笙(陈元汐)' 
+  },
+  { 
+    id: 13, 
+    url: '/music/死别(中文填词洛天依) 纸屑超级屑.mp3', 
+    title: '死别', 
+    artist: '纸屑超级屑' 
+  },
+  { 
+    id: 14, 
+    url: '/music/烟雨行舟司南.flac', 
+    title: '烟雨行舟', 
+    artist: '司南' 
+  },
+  { 
+    id: 15, 
+    url: '/music/琴师双笙(陈元汐).mp3', 
+    title: '琴师', 
+    artist: '双笙(陈元汐)' 
+  },
+  { 
+    id: 16, 
+    url: '/music/苏丽珍方大同.flac', 
+    title: '苏丽珍', 
+    artist: '方大同' 
+  },
+  { 
+    id: 17, 
+    url: '/music/谁家池鱼.flac', 
+    title: '谁家池鱼', 
+    artist: '未知' 
+  }
+];
+
 
 export default function MusicCard() {
 	const pathname = usePathname()
@@ -158,7 +263,7 @@ export default function MusicCard() {
 				<MusicSVG className='h-8 w-8' />
 
 				<div className='flex-1'>
-					<div className='text-secondary text-sm'>Close To You</div>
+					<div className='text-secondary text-sm'>{MUSIC_LIST[currentIndex].name} - {MUSIC_LIST[currentIndex].singer}</div>
 
 					<div className='mt-1 h-2 rounded-full bg-white/60'>
 						<div className='bg-linear h-full rounded-full transition-all duration-300' style={{ width: `${progress}%` }} />
