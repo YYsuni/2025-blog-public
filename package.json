@@ -19,6 +19,7 @@
     "dayjs": "^1.11.18",
     "html-react-parser": "^5.2.8",
     "jsrsasign": "^11.1.0",
+    "katex": "^0.16.27",
     "lucide-react": "^0.553.0",
     "marked": "^17.0.0",
     "motion": "^12.23.24",
