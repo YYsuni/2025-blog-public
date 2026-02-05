@@ -129,5 +129,15 @@
 			"网站"
 		],
 		"stars": 5
+	},
+	{
+		"name": "文件扫描",
+		"logo": "blob:https://xy-tau.vercel.app/6afc779c-328a-48e7-98e6-86778ed8dc5a",
+		"url": "https://www.camscanner.com/file/recent",
+		"description": "用来把 PDF 搞成 Word ，其它功能也免费，只是有些限制，但是可以处理",
+		"tags": [
+			"网站"
+		],
+		"stars": 5
 	}
 ]
