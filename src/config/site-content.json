@@ -75,7 +75,7 @@
 	"enableCategories": true,
 	"currentHatIndex": 3,
 	"hatFlipped": false,
-	"enableChristmas": true,
+	"enableChristmas": false,
 	"beian": {
 		"text": "萌ICP备20264200号",
 		"link": "https://icp.gov.moe/?keyword=20264200"
