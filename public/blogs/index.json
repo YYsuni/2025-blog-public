@@ -1,5 +1,17 @@
 [
   {
+    "slug": "watch-bloggers",
+    "title": "新年观察",
+    "tags": [
+      "总结"
+    ],
+    "date": "2026-02-25T16:40",
+    "summary": "新的一年，看看其它的技术博主最近在干嘛",
+    "cover": "/blogs/watch-bloggers/ff9a6df88fc0bbb4.webp",
+    "hidden": false,
+    "category": "总结"
+  },
+  {
     "slug": "3d-scene-note",
     "title": "3D 场景搭建笔记",
     "tags": [
