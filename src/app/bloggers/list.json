@@ -256,7 +256,8 @@
 		"avatar": "https://file.dhbxs.top/ylvwvjjs.jpg",
 		"url": "https://blog.dhbxs.top/",
 		"description": "群友，JAVAR，干净blog，让我看到几个人的影子。",
-		"stars": 3
+		"stars": 3,
+		"status": "disconnected"
 	},
 	{
 		"name": "23朵毒蘑菇",
