@@ -13,7 +13,7 @@ export async function batchDeleteBlogs(slugs: string[]): Promise<void> {
 	const token = await getAuthToken()
 
 	toast.info('正在获取分支信息...')
-	const refData = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`)
+	const refData = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, GITHUB_CONFIG.BRANCH)
 	const latestCommitSha = refData.sha
 
 	const treeItems: TreeItem[] = []
@@ -49,7 +49,7 @@ export async function batchDeleteBlogs(slugs: string[]): Promise<void> {
 	const commitData = await createCommit(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, commitLabel, treeData.sha, [latestCommitSha])
 
 	toast.info('正在更新分支...')
-	await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`, commitData.sha)
+	await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, GITHUB_CONFIG.BRANCH, commitData.sha)
 
 	toast.success('删除成功！请等待页面部署后刷新')
 }

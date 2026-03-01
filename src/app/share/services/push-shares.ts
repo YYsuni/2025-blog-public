@@ -19,7 +19,7 @@ export async function pushShares(params: PushSharesParams): Promise<void> {
 	const token = await getAuthToken()
 
 	toast.info('正在获取分支信息...')
-	const refData = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`)
+	const refData = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, GITHUB_CONFIG.BRANCH)
 	const latestCommitSha = refData.sha
 
 	const commitMessage = `更新分享列表`
@@ -79,7 +79,7 @@ export async function pushShares(params: PushSharesParams): Promise<void> {
 
 	// Update branch reference
 	toast.info('正在更新分支...')
-	await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`, commitData.sha)
+	await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, GITHUB_CONFIG.BRANCH, commitData.sha)
 
 	toast.success('发布成功！')
 }
