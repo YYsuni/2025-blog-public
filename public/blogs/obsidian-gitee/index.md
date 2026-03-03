@@ -16,7 +16,7 @@
     - 勾选Auto pull on startup
 11. 在仓库目录中新建.gitignore文件，填写同步时需要忽略的项（也可在obsidian里面同步前在插件中进行设置，还更清楚格式）
     - 强烈建议！！！在配置好.gitignore前不要进行任何一次同步
-    - .gitignore配置可参考已经弄好的，总之就是直接标的是忽略，前面加个!是保活
+    - .gitignore配置参考[.gitignore](https://blog.charrider.dpdns.org/blog/.gitignore)
 
 ---
 
@@ -41,8 +41,6 @@
      ```
 
 ---
-
-# 参考
 
 [^1]: https://www.bilibili.com/video/BV1mmUPB2EEQ/
 [^2]: https://www.bilibili.com/video/BV1qCh9zrEKq/
