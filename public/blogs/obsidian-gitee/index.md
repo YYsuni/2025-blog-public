@@ -1,4 +1,5 @@
-# Windows端[^1]
+# Windows端
+[^1]
 
 1. 下载并安装[git](https://blog.csdn.net/2301_80035882/article/details/155000175)
 2. ~~注册Gitee账号~~（已注册，不用管）
@@ -20,7 +21,8 @@
 
 ---
 
-# Android端[^2]
+# Android端
+[^2]
 
 把Windows端obsidian整个仓库打包压缩，发到手机，解压到Android/data/md.obsidian里面的地址，然后按需开关插件
 
