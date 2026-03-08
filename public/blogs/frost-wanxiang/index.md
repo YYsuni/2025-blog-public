@@ -1,4 +1,4 @@
-将这一段内容放在方案文件（rime_frost_double_pinyin_flypy.custom.yaml）中，[下载模型](https://github.com/amzxyz/RIME-LMDG/releases) 到rime的用户目录，将language:amz-v2n3m1-zh-hans 改成下载的文件名（不包含后缀）,重新部署即可使用！
+将这一段内容放在方案文件（rime_frost_double_pinyin_flypy.schema.yaml）中，[下载模型](https://github.com/amzxyz/RIME-LMDG/releases) 到rime的用户目录，将language:amz-v2n3m1-zh-hans 改成下载的文件名（不包含后缀）,重新部署即可使用！
 
 ```
 __include: octagram   #启用语法模型
