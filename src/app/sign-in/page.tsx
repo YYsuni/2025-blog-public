@@ -10,34 +10,16 @@ export default async function SignInPage() {
   }
 
   return (
-    <main
-      style={{
-        minHeight: "100dvh",
-        display: "grid",
-        placeItems: "center",
-        padding: 24,
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 420,
-          border: "1px solid rgba(127,127,127,.2)",
-          borderRadius: 16,
-          padding: 24,
-        }}
-      >
-        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 12 }}>
-          先验证 GitHub 身份
-        </h1>
-        <p style={{ lineHeight: 1.7, opacity: 0.8, marginBottom: 20 }}>
+    <main className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-6">
+      <div className="w-full rounded-2xl border p-8 text-center shadow-sm">
+        <h1 className="text-2xl font-semibold">先验证 GitHub 身份</h1>
+        <p className="mt-3 text-sm opacity-80">
           只有被允许的 GitHub 账号登录后，才能进入应用。
         </p>
 
-        <SignInButton
-          className="inline-flex items-center justify-center rounded-md px-4 py-2 border"
-          callbackUrl="/"
-        />
+        <div className="mt-6">
+          <SignInButton />
+        </div>
       </div>
     </main>
   );
