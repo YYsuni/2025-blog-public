@@ -71,29 +71,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.githubLogin =
           typeof token.githubLogin === "string" ? token.githubLogin : undefined;
       }
-
       return session;
     },
 
     async authorized({ auth, request }) {
       const { pathname } = request.nextUrl;
 
-      const publicPaths = [
-        "/sign-in",
-        "/forbidden",
-      ];
-
+      const publicPaths = ["/sign-in", "/forbidden"];
       const isPublicPath = publicPaths.some(
         (path) => pathname === path || pathname.startsWith(`${path}/`)
       );
 
       const isAuthApi = pathname.startsWith("/api/auth");
+
       const isPublicAsset =
         pathname.startsWith("/_next") ||
-        pathname.startsWith("/blogs") ||
         pathname === "/favicon.ico" ||
         pathname === "/robots.txt" ||
-        pathname === "/sitemap.xml";
+        pathname === "/sitemap.xml" ||
+        /\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map)$/i.test(pathname);
 
       if (isAuthApi || isPublicAsset || isPublicPath) {
         return true;
@@ -103,7 +99,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
 });
-
 
 function getTokenFromCache(): string | null {
 	if (typeof sessionStorage === 'undefined') return null
