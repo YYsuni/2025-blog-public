@@ -2,31 +2,21 @@ import Link from "next/link";
 
 export default function ForbiddenPage() {
   return (
-    <main
-      style={{
-        minHeight: "100dvh",
-        display: "grid",
-        placeItems: "center",
-        padding: 24,
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 520,
-          border: "1px solid rgba(127,127,127,.2)",
-          borderRadius: 16,
-          padding: 24,
-        }}
-      >
-        <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 12 }}>
-          访问被拒绝
-        </h1>
-        <p style={{ lineHeight: 1.7, opacity: 0.85, marginBottom: 20 }}>
+    <main className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-6">
+      <div className="w-full rounded-2xl border p-8 text-center shadow-sm">
+        <h1 className="text-2xl font-semibold">访问被拒绝</h1>
+        <p className="mt-3 text-sm opacity-80">
           当前 GitHub 账号不在允许列表中，无法进入此应用。
         </p>
 
-        <Link href="/sign-in">返回登录页</Link>
+        <div className="mt-6">
+          <Link
+            href="/sign-in"
+            className="inline-flex h-11 items-center justify-center rounded-xl border px-5 text-sm font-medium transition hover:opacity-90"
+          >
+            返回登录页
+          </Link>
+        </div>
       </div>
     </main>
   );
