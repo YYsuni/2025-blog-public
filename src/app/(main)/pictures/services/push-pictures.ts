@@ -88,7 +88,7 @@ export async function pushPictures(params: PushPicturesParams): Promise<void> {
 		token,
 		GITHUB_CONFIG.OWNER,
 		GITHUB_CONFIG.REPO,
-		'src/app/pictures/list.json',
+		'src/app/(main)/pictures/list.json',
 		GITHUB_CONFIG.BRANCH
 	)
 
@@ -128,7 +128,7 @@ export async function pushPictures(params: PushPicturesParams): Promise<void> {
 	const picturesJson = JSON.stringify(updatedPictures, null, '\t')
 	const picturesBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(picturesJson), 'base64')
 	treeItems.push({
-		path: 'src/app/pictures/list.json',
+		path: 'src/app/(main)/pictures/list.json',
 		mode: '100644',
 		type: 'blob',
 		sha: picturesBlob.sha

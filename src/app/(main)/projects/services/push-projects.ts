@@ -59,7 +59,7 @@ export async function pushProjects(params: PushProjectsParams): Promise<void> {
 	const projectsJson = JSON.stringify(updatedProjects, null, '\t')
 	const projectsBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(projectsJson), 'base64')
 	treeItems.push({
-		path: 'src/app/projects/list.json',
+		path: 'src/app/(main)/projects/list.json',
 		mode: '100644',
 		type: 'blob',
 		sha: projectsBlob.sha

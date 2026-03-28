@@ -3,7 +3,7 @@ import path from 'node:path'
 
 import siteContent from '@/config/site-content.json'
 import blogIndex from '@/../public/blogs/index.json'
-import type { BlogIndexItem } from '@/app/blog/types'
+import type { BlogIndexItem } from '@/app/(main)/blog/types'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yysuni.com'
 const FEED_PATH = '/rss.xml'

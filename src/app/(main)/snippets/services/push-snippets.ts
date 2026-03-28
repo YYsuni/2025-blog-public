@@ -25,7 +25,7 @@ export async function pushSnippets(params: PushSnippetsParams): Promise<void> {
 	const snippetsJson = JSON.stringify(snippets, null, '\t')
 	const snippetsBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(snippetsJson), 'base64')
 	treeItems.push({
-		path: 'src/app/snippets/list.json',
+		path: 'src/app/(main)/snippets/list.json',
 		mode: '100644',
 		type: 'blob',
 		sha: snippetsBlob.sha

@@ -63,7 +63,7 @@ export async function pushBloggers(params: PushBloggersParams): Promise<void> {
 	const bloggersJson = JSON.stringify(updatedBloggers, null, '\t')
 	const bloggersBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(bloggersJson), 'base64')
 	treeItems.push({
-		path: 'src/app/bloggers/list.json',
+		path: 'src/app/(main)/bloggers/list.json',
 		mode: '100644',
 		type: 'blob',
 		sha: bloggersBlob.sha

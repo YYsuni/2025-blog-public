@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 import blogIndex from '@/../public/blogs/index.json'
-import type { BlogIndexItem } from '@/app/blog/types'
+import type { BlogIndexItem } from '@/app/(main)/blog/types'
 
 export const dynamic = 'force-static'
 

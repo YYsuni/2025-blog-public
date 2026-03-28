@@ -63,7 +63,7 @@ export async function pushShares(params: PushSharesParams): Promise<void> {
 	const sharesJson = JSON.stringify(updatedShares, null, '\t')
 	const sharesBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(sharesJson), 'base64')
 	treeItems.push({
-		path: 'src/app/share/list.json',
+		path: 'src/(main)/app/(main)/share/list.json',
 		mode: '100644',
 		type: 'blob',
 		sha: sharesBlob.sha

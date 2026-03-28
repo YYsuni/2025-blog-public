@@ -1,6 +1,6 @@
-import type { BlogConfig } from '@/app/blog/types'
+import type { BlogConfig } from '@/app/(main)/blog/types'
 
-export type { BlogConfig } from '@/app/blog/types'
+export type { BlogConfig } from '@/app/(main)/blog/types'
 
 export type LoadedBlog = {
 	slug: string

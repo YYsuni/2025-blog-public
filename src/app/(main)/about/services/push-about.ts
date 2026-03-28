@@ -25,7 +25,7 @@ export async function pushAbout(data: AboutData): Promise<void> {
 	const aboutJson = JSON.stringify(data, null, '\t')
 	const aboutBlob = await createBlob(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, toBase64Utf8(aboutJson), 'base64')
 	treeItems.push({
-		path: 'src/app/about/list.json',
+		path: 'src/(main)/app/about/list.json',
 		mode: '100644',
 		type: 'blob',
 		sha: aboutBlob.sha
