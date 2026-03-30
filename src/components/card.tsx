@@ -17,9 +17,9 @@ interface Props {
 }
 
 export default function Card({ children, order, width, height, x, y, className }: Props) {
-	const { maxSM, init } = useSize()
+	const { isPortrait, init } = useSize()
 	let [show, setShow] = useState(false)
-	if (maxSM && init) order = 0
+	if (isPortrait && init) order = 0
 
 	useEffect(() => {
 		if (show) return

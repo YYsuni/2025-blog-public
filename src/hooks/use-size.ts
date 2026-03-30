@@ -5,6 +5,7 @@ import { create } from 'zustand'
 
 type SizeState = {
 	init: boolean
+	isPortrait: boolean
 	maxXL: boolean
 	maxLG: boolean
 	maxMD: boolean
@@ -15,24 +16,27 @@ type SizeState = {
 
 const initState = {
 	init: false,
+	isPortrait: false,
 	maxXL: false,
 	maxLG: false,
 	maxMD: false,
 	maxSM: false,
-	maxXS: false
+	maxXS: false,
 }
 
 const computeSize = (): Omit<SizeState, 'recalc'> => {
 	if (typeof window !== 'undefined') {
 		const width = window.innerWidth
+		const height = window.innerHeight
 
 		return {
 			init: true,
+			isPortrait: height > width,
 			maxXL: width < 1280,
 			maxLG: width < 1024,
 			maxMD: width < 768,
 			maxSM: width < 640,
-			maxXS: width < 360
+			maxXS: width < 360,
 		}
 	}
 
@@ -43,15 +47,21 @@ export const useSizeStore = create<SizeState>(set => ({
 	...initState,
 	recalc: () => {
 		set(computeSize())
-	}
+	},
 }))
 
 export function useSizeInit() {
 	useEffect(() => {
 		const update = () => useSizeStore.getState().recalc()
+
 		update()
 		window.addEventListener('resize', update)
-		return () => window.removeEventListener('resize', update)
+		window.addEventListener('orientationchange', update)
+
+		return () => {
+			window.removeEventListener('resize', update)
+			window.removeEventListener('orientationchange', update)
+		}
 	}, [])
 }
 
