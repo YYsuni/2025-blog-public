@@ -1,108 +1,95 @@
 {
-	"artCard": {
-		"width": 360,
-		"height": 200,
-		"order": 3,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"hiCard": {
-		"width": 360,
-		"height": 288,
-		"order": 1,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"clockCard": {
-		"width": 232,
-		"height": 132,
-		"offset": 92,
-		"order": 4,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"calendarCard": {
-		"width": 350,
-		"height": 286,
-		"order": 5,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"musicCard": {
-		"width": 293,
-		"height": 66,
-		"offset": 120,
-		"order": 6,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"socialButtons": {
-		"width": 315,
-		"height": 48,
-		"order": 6,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"shareCard": {
-		"width": 200,
-		"height": 180,
-		"order": 7,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"articleCard": {
-		"width": 266,
-		"height": 160,
-		"order": 8,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"writeButtons": {
-		"height": 42,
-		"width": 180,
-		"order": 8,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"navCard": {
-		"width": 280,
-		"height": 434,
-		"order": 2,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"likePosition": {
-		"width": 54,
-		"height": 54,
-		"order": 8,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": true
-	},
-	"hatCard": {
-		"width": 99,
-		"height": 105,
-		"order": 10,
-		"offsetX": -48,
-		"offsetY": -168,
-		"enabled": false
-	},
-	"beianCard": {
-		"width": 200,
-		"height": 60,
-		"order": 11,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": false
-	}
+  "artCard": {
+    "order": 3,
+    "enabled": true,
+    "desktop": { "width": 360, "height": 200, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 220, "height": 128, "offsetX": -308, "offsetY": -140 },
+    "tabletLandscape": { "width": 280, "height": 156, "offsetX": -360, "offsetY": -188 }
+  },
+  "hiCard": {
+    "order": 1,
+    "enabled": true,
+    "desktop": { "width": 360, "height": 288, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 250, "height": 190, "offsetX": -44, "offsetY": -140 },
+    "tabletLandscape": { "width": 320, "height": 240, "offsetX": -160, "offsetY": -140 }
+  },
+  "clockCard": {
+    "order": 4,
+    "enabled": true,
+    "offset": 92,
+    "desktop": { "width": 232, "height": 132, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 150, "height": 88, "offsetX": 124, "offsetY": -138 },
+    "tabletLandscape": { "width": 190, "height": 108, "offsetX": 190, "offsetY": -198 }
+  },
+  "calendarCard": {
+    "order": 5,
+    "enabled": true,
+    "desktop": { "width": 350, "height": 286, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 250, "height": 210, "offsetX": 66, "offsetY": -28 },
+    "tabletLandscape": { "width": 300, "height": 244, "offsetX": 190, "offsetY": -62 }
+  },
+  "musicCard": {
+    "order": 6,
+    "enabled": true,
+    "offset": 120,
+    "desktop": { "width": 293, "height": 66, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 220, "height": 56, "offsetX": -308, "offsetY": 82 },
+    "tabletLandscape": { "width": 260, "height": 60, "offsetX": -360, "offsetY": 92 }
+  },
+  "socialButtons": {
+    "order": 6,
+    "enabled": true,
+    "desktop": { "width": 315, "height": 48, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 220, "height": 44, "offsetX": -308, "offsetY": 20 },
+    "tabletLandscape": { "width": 260, "height": 46, "offsetX": -360, "offsetY": 28 }
+  },
+  "shareCard": {
+    "order": 7,
+    "enabled": true,
+    "desktop": { "width": 200, "height": 180, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 180, "height": 136, "offsetX": 138, "offsetY": 198 },
+    "tabletLandscape": { "width": 190, "height": 156, "offsetX": 298, "offsetY": 214 }
+  },
+  "articleCard": {
+    "order": 8,
+    "enabled": true,
+    "desktop": { "width": 266, "height": 160, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 220, "height": 130, "offsetX": -308, "offsetY": 140 },
+    "tabletLandscape": { "width": 260, "height": 150, "offsetX": -360, "offsetY": 150 }
+  },
+  "writeButtons": {
+    "order": 8,
+    "enabled": true,
+    "desktop": { "width": 180, "height": 42, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 160, "height": 38, "offsetX": 72, "offsetY": 198 },
+    "tabletLandscape": { "width": 170, "height": 40, "offsetX": 190, "offsetY": -138 }
+  },
+  "navCard": {
+    "order": 2,
+    "enabled": true,
+    "desktop": { "width": 280, "height": 434, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 220, "height": 320, "offsetX": 0, "offsetY": 0 },
+    "tabletLandscape": { "width": 260, "height": 360, "offsetX": 0, "offsetY": 0 }
+  },
+  "likePosition": {
+    "order": 8,
+    "enabled": true,
+    "desktop": { "width": 54, "height": 54, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 48, "height": 48, "offsetX": 274, "offsetY": 198 },
+    "tabletLandscape": { "width": 54, "height": 54, "offsetX": 510, "offsetY": 214 }
+  },
+  "hatCard": {
+    "order": 10,
+    "enabled": false,
+    "desktop": { "width": 99, "height": 105, "offsetX": -48, "offsetY": -168 },
+    "mobileLandscape": { "width": 80, "height": 86, "offsetX": 120, "offsetY": -230 },
+    "tabletLandscape": { "width": 90, "height": 96, "offsetX": 160, "offsetY": -220 }
+  },
+  "beianCard": {
+    "order": 11,
+    "enabled": false,
+    "desktop": { "width": 200, "height": 60, "offsetX": null, "offsetY": null },
+    "mobileLandscape": { "width": 180, "height": 52, "offsetX": -90, "offsetY": 276 },
+    "tabletLandscape": { "width": 200, "height": 56, "offsetX": -100, "offsetY": 310 }
+  }
 }
