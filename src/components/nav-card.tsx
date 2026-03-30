@@ -21,8 +21,8 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { cn } from '@/lib/utils'
 import { useSize } from '@/hooks/use-size'
-import { useConfigStore } from '@/app/(home)/stores/config-store'
-import { HomeDraggableLayer } from '@/app/(home)/home-draggable-layer'
+import { useConfigStore } from '@/app/(main)/(home)/stores/config-store'
+import { HomeDraggableLayer } from '@/app/(main)/(home)/home-draggable-layer'
 
 const list = [
 	{
@@ -63,7 +63,7 @@ export default function NavCard() {
 	const pathname = usePathname()
 	const center = useCenterStore()
 	const [show, setShow] = useState(false)
-	const { maxSM } = useSize()
+	const { isPortrait } = useSize()
 	const [hoveredIndex, setHoveredIndex] = useState<number>(0)
 	const { siteContent, cardStyles } = useConfigStore()
 	const styles = cardStyles.navCard
@@ -83,7 +83,7 @@ export default function NavCard() {
 		else if (pathname == '/write') return 'mini'
 		else return 'icons'
 	}, [pathname])
-	if (maxSM) form = 'icons'
+	if (isPortrait) form = 'icons'
 
 	const itemHeight = form === 'full' ? 52 : 28
 
@@ -115,7 +115,7 @@ export default function NavCard() {
 		}
 	}, [hoveredIndex, activeIndex, form])
 
-	if (maxSM) position = { x: center.x - size.width / 2, y: 16 }
+	if (isPortrait) position = { x: center.x - size.width / 2, y: 16 }
 
 	if (show)
 		return (

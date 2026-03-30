@@ -3,9 +3,102 @@ import { GITHUB_CONFIG } from '@/consts'
 import { useAuthStore } from '@/hooks/use-auth'
 import { toast } from 'sonner'
 import { decrypt,encrypt } from './aes256-util'
-
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
 const GITHUB_TOKEN_CACHE_KEY = 'github_token'
 const GITHUB_PEM_CACHE_KEY = 'p_info'
+
+function getAllowedGitHubIds() {
+  return (process.env.AUTH_GITHUB_ALLOWED_IDS ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+const allowedGitHubIds = getAllowedGitHubIds();
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
+  session: {
+    strategy: "jwt",
+  },
+  providers: [
+    GitHub({
+      profile(profile) {
+        return {
+          id: String(profile.id),
+          name: profile.name ?? profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+          githubLogin: profile.login,
+        };
+      },
+    }),
+  ],
+  pages: {
+    signIn: "/sign-in",
+    error: "/forbidden",
+  },
+  callbacks: {
+    async signIn({ account, profile }) {
+      if (account?.provider !== "github") return false;
+      if (!profile) return false;
+
+      const githubId =
+  		typeof (profile as { id?: unknown }).id === "number"
+    		? String((profile as { id: number }).id)
+    		: "";
+
+		if (!githubId) return false;
+
+		return allowedGitHubIds.includes(githubId);
+    },
+
+    async jwt({ token, user, profile }) {
+      if (user && "githubLogin" in user) {
+        token.githubLogin = String(user.githubLogin);
+      }
+
+      if (profile && typeof (profile as { login?: unknown }).login === "string") {
+        token.githubLogin = (profile as { login: string }).login;
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.githubLogin =
+          typeof token.githubLogin === "string" ? token.githubLogin : undefined;
+      }
+      return session;
+    },
+
+    async authorized({ auth, request }) {
+      const { pathname } = request.nextUrl;
+
+      const publicPaths = ["/sign-in", "/forbidden"];
+      const isPublicPath = publicPaths.some(
+        (path) => pathname === path || pathname.startsWith(`${path}/`)
+      );
+
+      const isAuthApi = pathname.startsWith("/api/auth");
+
+      const isPublicAsset =
+        pathname.startsWith("/_next") ||
+        pathname === "/favicon.ico" ||
+        pathname === "/robots.txt" ||
+        pathname === "/sitemap.xml" ||
+        /\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map)$/i.test(pathname);
+
+      if (isAuthApi || isPublicAsset || isPublicPath) {
+        return true;
+      }
+
+      return !!auth;
+    },
+  },
+});
 
 function getTokenFromCache(): string | null {
 	if (typeof sessionStorage === 'undefined') return null
