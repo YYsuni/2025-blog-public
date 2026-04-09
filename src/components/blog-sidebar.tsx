@@ -5,7 +5,7 @@ import { ANIMATION_DELAY, INIT_DELAY } from '@/consts'
 import LikeButton from '@/components/like-button'
 import { BlogToc } from '@/components/blog-toc'
 import { ScrollTopButton } from '@/components/scroll-top-button'
-import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { useConfigStore } from '@/app/(main)/(home)/stores/config-store'
 
 type TocItem = {
 	id: string

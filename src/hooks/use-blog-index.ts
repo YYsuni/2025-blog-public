@@ -1,8 +1,8 @@
 import useSWR from 'swr'
 import { useAuthStore } from '@/hooks/use-auth'
-import type { BlogIndexItem } from '@/app/blog/types'
+import type { BlogIndexItem } from '@/app/(main)/blog/types'
 
-export type { BlogIndexItem } from '@/app/blog/types'
+export type { BlogIndexItem } from '@/app/(main)/blog/types'
 
 // 改进 fetcher，抛出状态码以便处理 404
 const fetcher = async (url: string) => {
