@@ -46,7 +46,7 @@
 		"height": 48,
 		"order": 6,
 		"offsetX": null,
-		"offsetY": null,
+		"offsetY": 170,
 		"enabled": true
 	},
 	"shareCard": {
@@ -54,7 +54,7 @@
 		"height": 180,
 		"order": 7,
 		"offsetX": null,
-		"offsetY": null,
+		"offsetY": 250,
 		"enabled": true
 	},
 	"articleCard": {
