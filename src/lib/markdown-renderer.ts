@@ -126,6 +126,31 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 	marked.use({
 		renderer,
 		extensions: [
+			// Block math: [ ... ]  （要求 [ 和 ] 各自单独成行）
+			{
+			  name: 'mathBracketBlock',
+			  level: 'block',
+			  start(src: string) {
+			    // 快速定位，减少扫描成本
+			    const idx = src.indexOf('[')
+			    return idx === -1 ? undefined : idx
+			  },
+			  tokenizer(src: string) {
+			    // 仅匹配：可缩进空格 + "[" + 换行 ... 换行 + "]"
+			    // 注意：避免把 `[xxx]: url` 这类 link reference 当成公式
+			    const match = src.match(/^(?: {0,3})\[\s*\n([\s\S]+?)\n(?: {0,3})\]\s*(?:\n+|$)/)
+			    if (!match) return
+			
+			    return {
+			      type: 'mathBracketBlock',
+			      raw: match[0],
+			      text: match[1].trim(),
+			    } as any
+			  },
+			  renderer(token: any) {
+			    return `${renderMath(token.text || '', true)}\n`
+			  },
+			},
 			// Block math: $$ ... $$
 			{
 				name: 'mathBlock',
