@@ -41,7 +41,7 @@
      ```
      git remote set-url origin https://你的Gitee用户名:你的PAT@gitee.com/你的用户名/obsidian-main.git
      ```
-
+（PS：如果是新建则输入：git clone https://charrider:388815f54c725ac987023e866d41437a@gitee.com/charrider/life-wiki.git）
 ---
 
 [^1]: https://www.bilibili.com/video/BV1mmUPB2EEQ/
