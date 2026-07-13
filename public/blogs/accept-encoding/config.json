@@ -1,9 +1,0 @@
-{
-  "title": "前端设置不了 Accept-Encoding Header",
-  "tags": [
-    "尝试"
-  ],
-  "date": "2023-06-30",
-  "summary": "网站资源一般采用 gzip 压缩后返回，这样会使文件大大减小。那么平常的 API 接口呢？",
-  "cover": "/blogs/accept-encoding/dae2219a32e22957.jpg"
-}

@@ -1,0 +1,23 @@
+/* src/styles/waline.css */
+.waline-comments {
+  /* 确保 Waline 容器有合适的最小高度 */
+  min-height: 300px;
+}
+
+/* 自定义 Waline 样式以匹配您的博客主题 */
+:root {
+  --waline-theme-color: #3b82f6;
+  --waline-active-color: #1d4ed8;
+  --waline-bgcolor: #ffffff;
+  --waline-bgcolor-light: #f8fafc;
+  --waline-border-color: #e5e7eb;
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --waline-bgcolor: #1f2937;
+    --waline-bgcolor-light: #374151;
+    --waline-border-color: #4b5563;
+  }
+}

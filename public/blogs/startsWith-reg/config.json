@@ -1,9 +1,0 @@
-{
-  "title": "用 startsWith 会比用正则更快吗",
-  "tags": [
-    "测试"
-  ],
-  "date": "2023-07-04",
-  "summary": "正常认为，startsWith 处理会更好，事实却有所不同。",
-  "cover": "/blogs/startsWith-reg/72d2e45348d26b91.jpg"
-}

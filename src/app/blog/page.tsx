@@ -544,3 +544,10 @@ export default function BlogPage() {
 		</>
 	)
 }
+import WalineComments from '@/components/WalineComments';
+
+// 在页面 return 的 JSX 中，文章正文结束后：
+<div className="mt-12">
+  <WalineComments path={post.slug} /> 
+  {/* 或 path={`/blog/${post.slug}`}，确保每篇文章唯一 */}
+</div>

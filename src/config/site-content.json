@@ -1,8 +1,8 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "ciallo~",
+		"description": "哇这个好可爱呀",
+		"username": "badragon"
 	},
 	"theme": {
 		"colorBrand": "#2fcbe7",
@@ -21,50 +21,46 @@
 	],
 	"artImages": [
 		{
-			"id": "cat",
-			"url": "/images/art/cat.png"
-		},
-		{
-			"id": "a46372ff45bc5524",
-			"url": "/images/art/a46372ff45bc5524.jpg"
-		},
-		{
-			"id": "1c7b726fe720679b",
-			"url": "/images/art/1c7b726fe720679b.jpg"
+			"id": "662ccbb998bc026d",
+			"url": "/images/art/662ccbb998bc026d.gif"
 		}
 	],
-	"currentArtImageId": "1c7b726fe720679b",
+	"currentArtImageId": "662ccbb998bc026d",
 	"backgroundImages": [
 		{
 			"id": "",
 			"url": ""
+		},
+		{
+			"id": "4d8b6ef3c6ae788d",
+			"url": "/images/background/4d8b6ef3c6ae788d.png"
 		}
 	],
-	"currentBackgroundImageId": "",
+	"currentBackgroundImageId": "4d8b6ef3c6ae788d",
 	"socialButtons": [
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://https://github.com/badragonQAQ",
 			"label": "Github",
 			"order": 3
 		},
 		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "badragon20100413@163.com",
 			"label": "",
 			"order": 1
+		},
+		{
+			"id": "button-1783777536274",
+			"type": "link",
+			"value": "https://2b-creator.github.io/LKM-official-website/",
+			"label": "理科迷",
+			"order": 3
 		}
 	],
-	"clockShowSeconds": false,
+	"clockShowSeconds": true,
 	"summaryInContent": false,
 	"isCachePem": false,
 	"hideEditButton": false,
