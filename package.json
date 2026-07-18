@@ -10,7 +10,11 @@
     "build:cf": "opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "docker:nocompose": "node scripts/docker-run.mjs",
+    "docker:up": "docker compose --env-file .env.docker up -d",
+    "docker:down": "docker compose down",
+    "docker:rebuild": "docker compose --env-file .env.docker up -d --build"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.14.4",

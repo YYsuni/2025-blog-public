@@ -1,0 +1,35 @@
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 2025-blog:latest
+    restart: unless-stopped
+    ports:
+      - "${PORT:-2025}:2025"
+    environment:
+      - PORT=2025
+    env_file:
+      - .env.docker
+    healthcheck:
+      test:
+        - "CMD"
+        - "node"
+        - "-e"
+        - "require('http').get('http://127.0.0.1:'+(process.env.PORT||2025)+'/sitemap.xml',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      # Cap log size so a chatty container cannot fill the disk.
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - blog-net
+
+networks:
+  blog-net:
+    driver: bridge

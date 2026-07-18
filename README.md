@@ -19,6 +19,20 @@ export const GITHUB_CONFIG = {
 
 也可以自己手动先调整安装，可自行 `pnpm i`
 
+### Docker 部署
+
+项目带了 Dockerfile 和 docker-compose，本地跑也行。环境变量统一走 `.env.docker` 这个文件，改 PORT 能控制宿主机端口，改其它变量会传进容器里面。
+
+```bash
+# 容器编排模式（容器里面端口固定 2025，宿主机端口跟 .env.docker 走）
+pnpm docker:up
+
+# 如果不想用容器编排，直接 docker run
+pnpm docker:nocompose
+```
+
+这两个命令跨平台的，你要在 windows 还是 linux 跑都一样。改端口只需要改 `.env.docker` 第一行 `PORT=xxx`，然后重新跑一次 `pnpm docker:up` 就行。
+
 ## 2. 部署
 
 我这里熟悉 Vercel 部署，就以 Vercel 部署为例子。创建 Project => Import 这个项目
