@@ -1,83 +1,35 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { motion } from 'motion/react'
-import { toast } from 'sonner'
+import { useState } from 'react'
 import { Plus, X } from 'lucide-react'
+import { toast } from 'sonner'
 import { DialogModal } from '@/components/dialog-modal'
-import { useAuthStore } from '@/hooks/use-auth'
-import { useConfigStore } from '@/app/(home)/stores/config-store'
 import initialList from './list.json'
 import { pushSnippets } from './services/push-snippets'
+import { useEditPage } from '@/hooks/use-edit-page'
+import { EditToolbar, EditToolbarActionButton } from '@/components/edit-toolbar'
 
 const getRandomSnippet = (list: string[]) => (list.length === 0 ? '' : list[Math.floor(Math.random() * list.length)])
 
 export default function Page() {
 	const [snippets, setSnippets] = useState<string[]>(initialList as string[])
 	const [originalSnippets, setOriginalSnippets] = useState<string[]>(initialList as string[])
-	const [currentSnippet, setCurrentSnippet] = useState<string>(getRandomSnippet(initialList as string[]))
-	const [isEditMode, setIsEditMode] = useState(false)
-	const [isSaving, setIsSaving] = useState(false)
+	const [currentSnippet] = useState<string>(getRandomSnippet(initialList as string[]))
 	const [isManageOpen, setIsManageOpen] = useState(false)
 	const [draftSnippets, setDraftSnippets] = useState<string[]>([])
 	const [newSnippet, setNewSnippet] = useState('')
-	const keyInputRef = useRef<HTMLInputElement>(null)
 
-	const { isAuth, setPrivateKey } = useAuthStore()
-	const { siteContent } = useConfigStore()
-	const hideEditButton = siteContent.hideEditButton ?? false
+	const { isEditMode, setIsEditMode, enterEditMode, isSaving, hideEditButton, keyInputRef, buttonText, handleSaveClick, handlePemChange } =
+		useEditPage()
 
-	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (!isEditMode && (e.ctrlKey || e.metaKey) && e.key === ',') {
-				e.preventDefault()
-				setIsEditMode(true)
-			}
-		}
-
-		window.addEventListener('keydown', handleKeyDown)
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown)
-		}
-	}, [isEditMode])
-
-	const handleSave = async () => {
-		setIsSaving(true)
-		try {
-			await pushSnippets({ snippets })
-			setOriginalSnippets(snippets)
-			setIsEditMode(false)
-			toast.success('保存成功！')
-		} catch (error: any) {
-			console.error('Failed to save snippets:', error)
-			toast.error(`保存失败: ${error?.message || '未知错误'}`)
-		} finally {
-			setIsSaving(false)
-		}
-	}
-
-	const handleSaveClick = () => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-		} else {
-			void handleSave()
-		}
+	const persist = async () => {
+		await pushSnippets({ snippets })
+		setOriginalSnippets(snippets)
 	}
 
 	const handleCancel = () => {
 		setSnippets(originalSnippets)
 		setIsEditMode(false)
-	}
-
-	const handleChoosePrivateKey = async (file: File) => {
-		try {
-			const text = await file.text()
-			await setPrivateKey(text)
-			await handleSave()
-		} catch (error) {
-			console.error('Failed to read private key:', error)
-			toast.error('读取密钥文件失败')
-		}
 	}
 
 	const openManageDialog = () => {
@@ -117,21 +69,9 @@ export default function Page() {
 		setNewSnippet('')
 	}
 
-	const buttonText = isAuth ? '保存' : '导入密钥'
-
 	return (
 		<>
-			<input
-				ref={keyInputRef}
-				type='file'
-				accept='.pem'
-				className='hidden'
-				onChange={async e => {
-					const file = e.target.files?.[0]
-					if (file) await handleChoosePrivateKey(file)
-					if (e.currentTarget) e.currentTarget.value = ''
-				}}
-			/>
+			<input ref={keyInputRef} type='file' accept='.pem' className='hidden' onChange={handlePemChange} />
 
 			<div className='flex min-h-[70vh] flex-col items-center justify-center px-6 py-24'>
 				<div className='w-full max-w-3xl text-center'>
@@ -139,40 +79,16 @@ export default function Page() {
 				</div>
 			</div>
 
-			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='absolute top-4 right-6 flex gap-3 max-sm:hidden'>
-				{isEditMode ? (
-					<>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={handleCancel}
-							disabled={isSaving}
-							className='rounded-xl border bg-white/60 px-6 py-2 text-sm'>
-							取消
-						</motion.button>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={openManageDialog}
-							className='rounded-xl border bg-white/60 px-6 py-2 text-sm'>
-							管理
-						</motion.button>
-						<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSaveClick} disabled={isSaving} className='brand-btn px-6'>
-							{isSaving ? '保存中...' : buttonText}
-						</motion.button>
-					</>
-				) : (
-					!hideEditButton && (
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={() => setIsEditMode(true)}
-							className='bg-card rounded-xl border px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80'>
-							编辑
-						</motion.button>
-					)
-				)}
-			</motion.div>
+			<EditToolbar
+				isEditMode={isEditMode}
+				isSaving={isSaving}
+				hideEditButton={hideEditButton}
+				buttonText={buttonText}
+				onEdit={enterEditMode}
+				onCancel={handleCancel}
+				onSave={() => handleSaveClick(persist)}
+				extraEditActions={<EditToolbarActionButton onClick={openManageDialog} label='管理' />}
+			/>
 
 			<DialogModal open={isManageOpen} onClose={cancelManageChanges} className='card static w-[520px] max-sm:w-full'>
 				<div className='space-y-4'>
