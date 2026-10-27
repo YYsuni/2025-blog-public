@@ -10,7 +10,7 @@ type MetaSectionProps = {
 }
 
 export function MetaSection({ delay = 0 }: MetaSectionProps) {
-	const { form, updateForm } = useWriteStore()
+	const { form, updateForm, mode } = useWriteStore()
 	console.log(form.date)
 
 	const { categories } = useCategories()
@@ -20,10 +20,17 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 	const categoryOptions = [{ value: '', label: '未分类' }, ...categories.map(cat => ({ value: cat, label: cat }))]
 
 	return (
-		<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay }} className='card relative'>
-			<h2 className='text-sm'>元信息</h2>
+		<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay }} className='card relative py-8'>
+			<div className='space-y-2'>
+				<input
+					type='text'
+					placeholder='Slug（标题英文单词）'
+					className='bg-card w-full rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-60'
+					value={form.slug}
+					disabled={mode === 'edit'}
+					onChange={e => updateForm({ slug: e.target.value })}
+				/>
 
-			<div className='mt-3 space-y-2'>
 				<textarea
 					placeholder='为这篇文章写一段简短摘要'
 					rows={2}

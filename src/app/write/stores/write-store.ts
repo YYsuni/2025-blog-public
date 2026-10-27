@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { toast } from 'sonner'
 import { hashFileSHA256 } from '@/lib/file-utils'
 import { loadBlog } from '@/lib/load-blog'
+import { ensureLeadingH1, extractFirstH1 } from '../lib/md-title'
 import type { PublishForm, ImageItem } from '../types'
 
 export const formatDateTimeLocal = (date: Date = new Date()): string => {
@@ -183,14 +184,17 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 				cover = { id: coverId, type: 'url', url: blog.cover }
 			}
 
+			const configTitle = blog.config.title || ''
+			const md = ensureLeadingH1(blog.markdown, configTitle)
+
 			// Set form
 			set({
 				mode: 'edit',
 				originalSlug: slug,
 				form: {
 					slug,
-					title: blog.config.title || '',
-					md: blog.markdown,
+					title: extractFirstH1(md) || configTitle,
+					md,
 					tags: blog.config.tags || [],
 					date: blog.config.date ? formatDateTimeLocal(new Date(blog.config.date)) : formatDateTimeLocal(),
 					summary: blog.config.summary || '',

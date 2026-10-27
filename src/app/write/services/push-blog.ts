@@ -4,6 +4,7 @@ import type { TreeItem } from '@/lib/github-client'
 import type { ImageItem } from '../types'
 import { toast } from 'sonner'
 import { formatDateTimeLocal } from '../stores/write-store'
+import { extractFirstH1, stripFirstH1 } from '../lib/md-title'
 
 export type PushBlogParams = {
 	form: {
@@ -50,6 +51,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 			let mdToUpload = form.md
 			let coverPath: string | undefined
 			const treeItems: TreeItem[] = []
+			const title = form.title || extractFirstH1(form.md)
 
 			if (allLocalImages.length > 0) {
 				toast.info('正在上传图片...')
@@ -70,13 +72,16 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 				coverPath = cover.url
 			}
 
+			// Keep published markdown consistent with existing posts: title lives in config
+			mdToUpload = stripFirstH1(mdToUpload)
+
 			toast.info('正在创建文件...')
 
 			treeItems.push(fileTreeItem(`${basePath}/index.md`, await ctx.blobFromText(mdToUpload)))
 
 			const dateStr = form.date || formatDateTimeLocal()
 			const config = {
-				title: form.title,
+				title,
 				tags: form.tags,
 				date: dateStr,
 				summary: form.summary,
@@ -93,7 +98,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 				ctx.repo,
 				{
 					slug: form.slug,
-					title: form.title,
+					title,
 					tags: form.tags,
 					date: dateStr,
 					summary: form.summary,

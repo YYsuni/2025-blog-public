@@ -1,159 +1,163 @@
+'use client'
+
 import { motion } from 'motion/react'
+import { useEffect, useRef } from 'react'
+import { useEditor, EditorContent, type Editor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import { Markdown } from '@tiptap/markdown'
+import Link from '@tiptap/extension-link'
+import { Placeholder } from '@tiptap/extensions'
 import { useWriteStore } from '../stores/write-store'
 import { INIT_DELAY } from '@/consts'
-import { useRef } from 'react'
+import { ResolvedImage } from '../extensions/resolved-image'
+import { extractFirstH1 } from '../lib/md-title'
+import type { ImageItem } from '../types'
 
-const defaultText = 'text'
+function imagesToMarkdown(items: ImageItem[]) {
+	return items.map(item => (item.type === 'url' ? `![](${item.url})` : `![](local-image:${item.id})`)).join('\n')
+}
+
+function insertMarkdownAt(editor: Editor, markdown: string, pos?: number) {
+	const target = pos ?? editor.state.selection.from
+	editor.chain().focus().insertContentAt(target, markdown, { contentType: 'markdown' }).run()
+}
+
+function setLink(editor: Editor) {
+	const previous = editor.getAttributes('link').href as string | undefined
+	const url = window.prompt('链接 URL', previous || 'https://')
+	if (url === null) return
+
+	if (url === '') {
+		editor.chain().focus().extendMarkRange('link').unsetLink().run()
+		return
+	}
+
+	editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+}
 
 export function WriteEditor() {
-	const { form, updateForm, images, addFiles } = useWriteStore()
-	const textareaRef = useRef<HTMLTextAreaElement>(null)
+	const { form, updateForm, addFiles } = useWriteStore()
+	const addFilesRef = useRef(addFiles)
+	const editorRef = useRef<Editor | null>(null)
+	const lastEmittedMd = useRef(form.md)
 
-	const insertText = (text: string) => {
-		const textarea = textareaRef.current
-		if (!textarea) return
+	addFilesRef.current = addFiles
 
-		textarea.focus()
-		// Use execCommand to preserve undo/redo stack
-		const success = document.execCommand('insertText', false, text)
-
-		if (!success) {
-			// Fallback for browsers that don't support execCommand
-			const { selectionStart, selectionEnd, value } = textarea
-			const before = value.substring(0, selectionStart)
-			const after = value.substring(selectionEnd)
-			updateForm({ md: before + text + after })
-			setTimeout(() => {
-				textarea.setSelectionRange(selectionStart + text.length, selectionStart + text.length)
-				textarea.focus()
-			}, 0)
-		}
-	}
-
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-		const textarea = textareaRef.current
-		if (!textarea) return
-
-		const { selectionStart, selectionEnd, value } = textarea
-		const selectedText = value.substring(selectionStart, selectionEnd)
-
-		// Ctrl/Cmd + B: Toggle Bold
-		if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
-			e.preventDefault()
-			const before = value.substring(0, selectionStart)
-			const after = value.substring(selectionEnd)
-
-			// Check if already bold
-			const isBold = before.endsWith('**') && after.startsWith('**')
-
-			if (isBold && selectedText) {
-				// Remove bold - select including markers and replace
-				textarea.setSelectionRange(selectionStart - 2, selectionEnd + 2)
-				insertText(selectedText)
-			} else {
-				// Add bold
-				const text = selectedText || defaultText
-				insertText(`**${text}**`)
-				if (!selectedText) {
-					setTimeout(() => {
-						textarea.setSelectionRange(selectionStart + 2, selectionStart + 2 + defaultText.length)
-					}, 0)
+	const editor = useEditor({
+		immediatelyRender: false,
+		extensions: [
+			StarterKit.configure({
+				heading: { levels: [1, 2, 3, 4] },
+				link: false
+			}),
+			Link.configure({
+				openOnClick: false,
+				autolink: true,
+				HTMLAttributes: {
+					class: 'text-blue-500 underline underline-offset-2'
 				}
-			}
-			return
-		}
-
-		// Ctrl/Cmd + I: Toggle Italic
-		if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
-			e.preventDefault()
-			const before = value.substring(0, selectionStart)
-			const after = value.substring(selectionEnd)
-
-			// Check if already italic
-			const isItalic = before.endsWith('*') && after.startsWith('*') && !(before.endsWith('**') && after.startsWith('**'))
-
-			if (isItalic && selectedText) {
-				// Remove italic and replace
-				textarea.setSelectionRange(selectionStart - 1, selectionEnd + 1)
-				insertText(selectedText)
-			} else {
-				// Add italic
-				const text = selectedText || defaultText
-				insertText(`*${text}*`)
-				if (!selectedText) {
-					// Select the default text
-					setTimeout(() => {
-						textarea.setSelectionRange(selectionStart + 1, selectionStart + 1 + defaultText.length)
-					}, 0)
+			}),
+			ResolvedImage,
+			Placeholder.configure({
+				placeholder: '用 # 标题 开始写作…'
+			}),
+			Markdown.configure({
+				indentation: { style: 'space', size: 2 }
+			})
+		],
+		content: form.md,
+		contentType: 'markdown',
+		onCreate: ({ editor: e }) => {
+			editorRef.current = e
+			lastEmittedMd.current = e.getMarkdown()
+		},
+		onDestroy: () => {
+			editorRef.current = null
+		},
+		onUpdate: ({ editor: e }) => {
+			const md = e.getMarkdown()
+			lastEmittedMd.current = md
+			updateForm({ md, title: extractFirstH1(md) })
+		},
+		editorProps: {
+			attributes: {
+				class: 'prose tiptap-editor min-h-[600px] w-full outline-none'
+			},
+			handleKeyDown: (_view, event) => {
+				if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+					event.preventDefault()
+					const current = editorRef.current
+					if (current) setLink(current)
+					return true
 				}
-			}
-			return
-		}
+				return false
+			},
+			handlePaste: (_view, event) => {
+				const items = event.clipboardData?.items
+				if (!items) return false
 
-		// Ctrl/Cmd + K: Link
-		if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-			e.preventDefault()
-			const text = selectedText || defaultText
-			insertText(`[${text}](url)`)
-			// Select 'url' part
-			setTimeout(() => {
-				const urlStart = selectionStart + text.length + 3
-				textarea.setSelectionRange(urlStart, urlStart + 3)
-			}, 0)
-			return
-		}
-
-		// Tab: Indent
-		if (e.key === 'Tab' && !e.shiftKey) {
-			e.preventDefault()
-			insertText('\t')
-			return
-		}
-
-		// Shift + Tab: Outdent
-		if (e.key === 'Tab' && e.shiftKey) {
-			e.preventDefault()
-			const lineStart = value.lastIndexOf('\n', selectionStart - 1) + 1
-			const line = value.substring(lineStart, value.indexOf('\n', selectionStart))
-
-			if (line.startsWith('\t')) {
-				textarea.setSelectionRange(lineStart, lineStart + 1)
-				insertText('')
-			} else if (line.startsWith('  ')) {
-				textarea.setSelectionRange(lineStart, lineStart + 2)
-				insertText('')
-			}
-			return
-		}
-	}
-
-	const handlePaste = async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
-		const items = e.clipboardData.items
-		if (!items) return
-
-		const imageFiles: File[] = []
-		for (let i = 0; i < items.length; i++) {
-			const item = items[i]
-			if (item.type.startsWith('image/')) {
-				const file = item.getAsFile()
-				if (file) {
-					imageFiles.push(file)
+				const imageFiles: File[] = []
+				for (let i = 0; i < items.length; i++) {
+					const item = items[i]
+					if (item.type.startsWith('image/')) {
+						const file = item.getAsFile()
+						if (file) imageFiles.push(file)
+					}
 				}
+
+				if (imageFiles.length === 0) return false
+
+				event.preventDefault()
+				addFilesRef.current(imageFiles).then(resultImages => {
+					const current = editorRef.current
+					if (!current || resultImages.length === 0) return
+					insertMarkdownAt(current, imagesToMarkdown(resultImages))
+				})
+				return true
+			},
+			handleDrop: (view, event, _slice, moved) => {
+				if (moved) return false
+
+				const files = event.dataTransfer?.files
+				if (files && files.length > 0) {
+					const imageFiles = Array.from(files).filter(f => f.type.startsWith('image/'))
+					if (imageFiles.length > 0) {
+						event.preventDefault()
+						const coords = view.posAtCoords({ left: event.clientX, top: event.clientY })
+						addFilesRef.current(imageFiles).then(resultImages => {
+							const current = editorRef.current
+							if (!current || resultImages.length === 0) return
+							insertMarkdownAt(current, imagesToMarkdown(resultImages), coords?.pos)
+						})
+						return true
+					}
+				}
+
+				const md = event.dataTransfer?.getData('text/markdown') || event.dataTransfer?.getData('text/plain') || ''
+				const trimmed = md.trim()
+				if (trimmed && /^!\[[^\]]*\]\([^)]+\)/.test(trimmed)) {
+					event.preventDefault()
+					const coords = view.posAtCoords({ left: event.clientX, top: event.clientY })
+					const current = editorRef.current
+					if (current) {
+						insertMarkdownAt(current, trimmed, coords?.pos)
+					}
+					return true
+				}
+
+				return false
 			}
 		}
+	})
 
-		if (imageFiles.length > 0) {
-			e.preventDefault()
-
-			const resultImages = await addFiles(imageFiles).catch(() => [])
-
-			if (resultImages && resultImages.length > 0) {
-				// 为所有处理后的图片（包括新添加和已存在的）生成 markdown
-				const markdowns = resultImages.map(item => (item.type === 'url' ? `![](${item.url})` : `![](local-image:${item.id})`)).join('\n')
-				insertText(markdowns)
-			}
-		}
-	}
+	// Sync external markdown changes (import MD / load blog)
+	useEffect(() => {
+		if (!editor) return
+		if (form.md === lastEmittedMd.current) return
+		lastEmittedMd.current = form.md
+		editor.commands.setContent(form.md, { contentType: 'markdown', emitUpdate: false })
+		updateForm({ title: extractFirstH1(form.md) })
+	}, [form.md, editor, updateForm])
 
 	return (
 		<motion.div
@@ -161,31 +165,9 @@ export function WriteEditor() {
 			animate={{ opacity: 1, scale: 1 }}
 			transition={{ delay: INIT_DELAY }}
 			className='bg-card flex min-h-[800px] w-[800px] flex-col rounded-[40px] border p-6 shadow'>
-			<div className='mb-3 flex gap-3'>
-				<input
-					type='text'
-					placeholder='标题'
-					className='bg-card flex-1 rounded-lg border px-3 py-2 text-sm'
-					value={form.title}
-					onChange={e => updateForm({ title: e.target.value })}
-				/>
-				<input
-					type='text'
-					placeholder='slug（xx-xx）'
-					className='bg-card w-[200px] rounded-lg border px-3 py-2 text-sm'
-					value={form.slug}
-					onChange={e => updateForm({ slug: e.target.value })}
-				/>
+			<div className='h-[650px] w-full flex-1 overflow-y-auto rounded-xl text-sm'>
+				<EditorContent editor={editor} />
 			</div>
-			<textarea
-				ref={textareaRef}
-				placeholder='Markdown 内容'
-				className='bg-card h-[650px] w-full flex-1 resize-none rounded-xl border p-4 text-sm'
-				value={form.md}
-				onChange={e => updateForm({ md: e.target.value })}
-				onKeyDown={handleKeyDown}
-				onPaste={handlePaste}
-			/>
 		</motion.div>
 	)
 }

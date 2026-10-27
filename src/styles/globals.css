@@ -176,3 +176,28 @@
 		animation: heartbeat-frame 0.8s ease-in-out;
 	}
 }
+
+/* Tiptap editor */
+.tiptap-editor {
+	outline: none;
+}
+
+.tiptap-editor:focus {
+	outline: none;
+}
+
+.tiptap-editor .ProseMirror-selectednode {
+	outline: none;
+}
+
+.tiptap-editor.prose h1 {
+	text-align: center;
+}
+
+.tiptap-editor p.is-editor-empty:first-child::before {
+	color: var(--color-secondary, #a3a3a3);
+	content: attr(data-placeholder);
+	float: left;
+	height: 0;
+	pointer-events: none;
+}
