@@ -1,6 +1,6 @@
 然后看 cordis 1 的 context 部分，这部分承载数据与树形结构
 
-## 拆分内容
+## context 文件
 
 根据代码可以拆分为三部分：service 注册服务，state 存储数据，filter 过滤数据
 
@@ -63,7 +63,7 @@ plugin 主要时 Registry.plugin 行为：主要 3 部分
 
 ![](/blogs/cordis03/2528b0d97a392350.webp)
 
-## lifecycle
+## lifecycle 文件
 
 这个文件是看上去最多，但是逻辑比较易懂的。也分三部分代码：
 
