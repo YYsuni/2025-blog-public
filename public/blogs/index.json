@@ -1,5 +1,17 @@
 [
   {
+    "slug": "cordis03",
+    "title": "**Cordis 学习笔记 #3**",
+    "tags": [
+      "笔记"
+    ],
+    "date": "2026-11-03T20:22",
+    "summary": "学习 cordis 的 v1.0 版本",
+    "cover": "https://www.yysuni.com/blogs/cordis02/233877b0aaf00af6.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "cordis02",
     "title": "Cordis 学习笔记 #2",
     "tags": [
