@@ -47,6 +47,8 @@ filter 这个几乎只在 context 中使用，只是用来处理数据时过滤�
 
 ![](/blogs/cordis03/2986782713a1bcfa.webp)
 
+> 纠正，1.0 建立插件树，只能是 plugin 构建的父子关系。而 union/fork 这种只能浅复制，让 filter 不同，并且访问的是同一份 state。
+
 ## plugin 文件
 
 plugin 主要时 Registry.plugin 行为：主要 3 部分
