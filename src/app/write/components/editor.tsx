@@ -10,7 +10,7 @@ import { Placeholder } from '@tiptap/extensions'
 import { useWriteStore } from '../stores/write-store'
 import { INIT_DELAY } from '@/consts'
 import { ResolvedImage } from '../extensions/resolved-image'
-import { extractFirstH1 } from '../lib/md-title'
+import { extractFirstH1, normalizeLeadingH1 } from '../lib/md-title'
 import type { ImageItem } from '../types'
 
 function imagesToMarkdown(items: ImageItem[]) {
@@ -75,7 +75,8 @@ export function WriteEditor() {
 			editorRef.current = null
 		},
 		onUpdate: ({ editor: e }) => {
-			const md = e.getMarkdown()
+			// TipTap keeps bold marks inside h1 as `# **title**` — normalize before storing
+			const md = normalizeLeadingH1(e.getMarkdown())
 			lastEmittedMd.current = md
 			updateForm({ md, title: extractFirstH1(md) })
 		},

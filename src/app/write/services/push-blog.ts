@@ -4,7 +4,7 @@ import type { TreeItem } from '@/lib/github-client'
 import type { ImageItem } from '../types'
 import { toast } from 'sonner'
 import { formatDateTimeLocal } from '../stores/write-store'
-import { extractFirstH1, stripFirstH1 } from '../lib/md-title'
+import { extractFirstH1, normalizeLeadingH1, stripFirstH1, stripInlineMarkdown } from '../lib/md-title'
 
 export type PushBlogParams = {
 	form: {
@@ -48,10 +48,10 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 			}
 
 			const uploadedHashes = new Set<string>()
-			let mdToUpload = form.md
+			let mdToUpload = normalizeLeadingH1(form.md)
 			let coverPath: string | undefined
 			const treeItems: TreeItem[] = []
-			const title = form.title || extractFirstH1(form.md)
+			const title = stripInlineMarkdown(form.title || extractFirstH1(mdToUpload))
 
 			if (allLocalImages.length > 0) {
 				toast.info('正在上传图片...')

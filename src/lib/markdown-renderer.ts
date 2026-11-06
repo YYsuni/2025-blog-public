@@ -1,5 +1,4 @@
-import { marked } from 'marked'
-import type { Tokens } from 'marked'
+import { Marked, TextRenderer, type Token, type Tokens } from 'marked'
 
 export type TocItem = { id: string; text: string; level: number }
 
@@ -14,6 +13,27 @@ export function slugify(text: string): string {
 		.replace(/[^a-z0-9\u4e00-\u9fa5\s-]/g, '')
 		.trim()
 		.replace(/\s+/g, '-')
+}
+
+function escapeAttr(value: string): string {
+	return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+function escapeHtml(value: string): string {
+	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+/** Collect visible plain text from inline tokens (for TOC / ids). */
+function inlinePlainText(tokens?: Token[]): string {
+	if (!tokens?.length) return ''
+	return tokens
+		.map(token => {
+			if ('tokens' in token && Array.isArray(token.tokens)) {
+				return inlinePlainText(token.tokens as Token[])
+			}
+			return 'text' in token ? String((token as { text?: string }).text || '') : ''
+		})
+		.join('')
 }
 
 // Lazy load shiki to handle environments where it's not available (e.g., Cloudflare Workers)
@@ -56,57 +76,38 @@ async function loadKatex() {
 	}
 }
 
+function walkTokens(tokenList: Tokens.Generic[], visit: (token: Tokens.Generic) => void) {
+	for (const token of tokenList) {
+		visit(token)
+		if ('tokens' in token && Array.isArray(token.tokens)) {
+			walkTokens(token.tokens as Tokens.Generic[], visit)
+		}
+		if (token.type === 'list' && Array.isArray((token as Tokens.List).items)) {
+			for (const item of (token as Tokens.List).items) {
+				if (item.tokens) walkTokens(item.tokens as Tokens.Generic[], visit)
+			}
+		}
+		if (token.type === 'table') {
+			const table = token as Tokens.Table
+			for (const cell of table.header) {
+				if (cell.tokens) walkTokens(cell.tokens as Tokens.Generic[], visit)
+			}
+			for (const row of table.rows) {
+				for (const cell of row) {
+					if (cell.tokens) walkTokens(cell.tokens as Tokens.Generic[], visit)
+				}
+			}
+		}
+	}
+}
+
 export async function renderMarkdown(markdown: string): Promise<MarkdownRenderResult> {
 	// Load optional renderers first so they apply on the FIRST lex/parse pass.
-	// (If we lex before registering extensions, math tokens won't ever be produced on a cold refresh.)
 	const codeBlockMap = new Map<string, { html: string; original: string }>()
 	const [shiki, katex] = await Promise.all([loadShiki(), loadKatex()])
 
-	// Render HTML with heading ids
-	const renderer = new marked.Renderer()
-
-	renderer.heading = (token: Tokens.Heading) => {
-		const id = slugify(token.text || '')
-		return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>`
-	}
-
-	renderer.code = (token: Tokens.Code) => {
-		// Check if this code block was pre-processed
-		const codeData = codeBlockMap.get(token.text)
-		if (codeData) {
-			// Add data-code attribute with original code for copy functionality
-			// Escape HTML entities for attribute value
-			const escapedCode = codeData.original.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-			if (codeData.html) {
-				// Shiki highlighted code
-				return `<pre data-code="${escapedCode}">${codeData.html}</pre>`
-			}
-			// Fallback for failed highlighting
-			return `<pre data-code="${escapedCode}"><code>${codeData.original}</code></pre>`
-		}
-		// Fallback to default (inline code, not code block)
-		return `<code>${token.text}</code>`
-	}
-
-	renderer.listitem = (token: Tokens.ListItem) => {
-		// Render inline markdown inside list items (e.g. links, emphasis)
-		let inner = token.text
-		let tokens = token.tokens
-
-		if (token.task) tokens = tokens.slice(1)
-		inner = marked.parser(tokens) as string
-
-		if (token.task) {
-			const checkbox = token.checked ? '<input type="checkbox" checked disabled />' : '<input type="checkbox" disabled />'
-			return `<li class="task-list-item">${checkbox} ${inner}</li>\n`
-		}
-
-		return `<li>${inner}</li>\n`
-	}
-
 	const renderMath = (content: string, displayMode: boolean) => {
 		if (!katex) {
-			// Keep original delimiters if katex is not available
 			return displayMode ? `$$${content}$$` : `$${content}$`
 		}
 
@@ -122,11 +123,46 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 		}
 	}
 
-	// Register extensions BEFORE lexing so math gets tokenized on cold refresh.
+	// Isolated Marked instance — avoid mutating global marked via marked.use()
+	const marked = new Marked()
+
+	const plainTextRenderer = new TextRenderer()
+
 	marked.use({
-		renderer,
+		renderer: {
+			heading({ tokens, depth }: Tokens.Heading) {
+				const plain = this.parser.parseInline(tokens, plainTextRenderer)
+				const id = slugify(plain)
+				const inner = this.parser.parseInline(tokens)
+				return `<h${depth} id="${id}">${inner}</h${depth}>\n`
+			},
+			code({ text }: Tokens.Code) {
+				const codeData = codeBlockMap.get(text)
+				if (codeData) {
+					const escapedCode = escapeAttr(codeData.original)
+					if (codeData.html) {
+						// shiki already returns a full <pre>...</pre>; inject data-code instead of nesting
+						return codeData.html.replace(/^<pre(?=[\s>])/, `<pre data-code="${escapedCode}"`)
+					}
+					return `<pre data-code="${escapedCode}"><code>${escapeHtml(codeData.original)}</code></pre>\n`
+				}
+				// Still a fenced/indented code block — never collapse to inline <code>
+				return `<pre data-code="${escapeAttr(text)}"><code>${escapeHtml(text)}</code></pre>\n`
+			},
+			listitem(token: Tokens.ListItem) {
+				let tokens = token.tokens
+				if (token.task) tokens = tokens.slice(1)
+				const inner = this.parser.parse(tokens)
+
+				if (token.task) {
+					const checkbox = token.checked ? '<input type="checkbox" checked disabled />' : '<input type="checkbox" disabled />'
+					return `<li class="task-list-item">${checkbox} ${inner}</li>\n`
+				}
+
+				return `<li>${inner}</li>\n`
+			}
+		},
 		extensions: [
-			// Block math: $$ ... $$
 			{
 				name: 'mathBlock',
 				level: 'block',
@@ -140,13 +176,12 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 						type: 'mathBlock',
 						raw: match[0],
 						text: match[1].trim()
-					} as any
+					} as Tokens.Generic
 				},
-				renderer(token: any) {
-					return `${renderMath(token.text || '', true)}\n`
+				renderer(token) {
+					return `${renderMath((token as { text?: string }).text || '', true)}\n`
 				}
 			},
-			// Inline math: $ ... $
 			{
 				name: 'mathInline',
 				level: 'inline',
@@ -155,7 +190,6 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 					return idx === -1 ? undefined : idx
 				},
 				tokenizer(src: string) {
-					// Avoid $$ (block) and escaped dollars
 					if (src.startsWith('$$')) return
 					if (src.startsWith('\\$')) return
 
@@ -163,70 +197,69 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 					if (!match) return
 
 					const inner = match[1]
-					// Heuristic: require some non-space content
 					if (!inner || !inner.trim()) return
 
 					return {
 						type: 'mathInline',
 						raw: match[0],
 						text: inner.trim()
-					} as any
+					} as Tokens.Generic
 				},
-				renderer(token: any) {
-					return renderMath(token.text || '', false)
+				renderer(token) {
+					return renderMath((token as { text?: string }).text || '', false)
 				}
 			}
 		]
 	})
 
-	// Pre-process with marked lexer first (after extensions are registered)
 	const tokens = marked.lexer(markdown)
 
-	// Extract TOC from parsed tokens (this correctly skips code blocks)
 	const toc: TocItem[] = []
-	function extractHeadings(tokenList: typeof tokens) {
+	function extractHeadings(tokenList: Token[]) {
 		for (const token of tokenList) {
 			if (token.type === 'heading' && token.depth <= 3) {
-				// Use the parsed text (markdown syntax like links/code already stripped)
-				const text = token.text
+				const text = inlinePlainText(token.tokens as Token[] | undefined) || token.text || ''
 				const id = slugify(text)
 				toc.push({ id, text, level: token.depth })
 			}
-			// Recursively check nested tokens (e.g., in blockquotes, lists)
 			if ('tokens' in token && token.tokens) {
-				extractHeadings(token.tokens as typeof tokens)
+				extractHeadings(token.tokens as Token[])
+			}
+			if (token.type === 'list') {
+				for (const item of token.items) {
+					if (item.tokens) extractHeadings(item.tokens as Token[])
+				}
 			}
 		}
 	}
-	extractHeadings(tokens)
+	extractHeadings(tokens as Token[])
 
-	// Pre-process code blocks with Shiki
-	for (const token of tokens) {
-		if (token.type === 'code') {
-			const codeToken = token as Tokens.Code
-			const originalCode = codeToken.text
-			const key = `__SHIKI_CODE_${codeBlockMap.size}__`
+	const highlightJobs: Promise<void>[] = []
+	walkTokens(tokens as Tokens.Generic[], token => {
+		if (token.type !== 'code') return
+		const codeToken = token as Tokens.Code
+		const originalCode = codeToken.text
+		const key = `__SHIKI_CODE_${codeBlockMap.size}__`
+		codeBlockMap.set(key, { html: '', original: originalCode })
+		codeToken.text = key
 
-			if (shiki) {
+		if (!shiki) return
+		highlightJobs.push(
+			(async () => {
 				try {
 					const html = await shiki.codeToHtml(originalCode, {
 						lang: codeToken.lang || 'text',
 						theme: 'one-light'
 					})
 					codeBlockMap.set(key, { html, original: originalCode })
-					codeToken.text = key
 				} catch {
-					// Keep original if highlighting fails
 					codeBlockMap.set(key, { html: '', original: originalCode })
-					codeToken.text = key
 				}
-			} else {
-				// Fallback when shiki is not available
-				codeBlockMap.set(key, { html: '', original: originalCode })
-				codeToken.text = key
-			}
-		}
-	}
+			})()
+		)
+	})
+	await Promise.all(highlightJobs)
+
 	const html = (marked.parser(tokens) as string) || ''
 
 	return { html, toc }

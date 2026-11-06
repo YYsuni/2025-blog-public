@@ -194,6 +194,16 @@
 	text-align: center;
 }
 
+.tiptap-editor.prose pre {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.tiptap-editor.prose pre code {
+	display: block;
+	white-space: inherit;
+}
+
 .tiptap-editor p.is-editor-empty:first-child::before {
 	color: var(--color-secondary, #a3a3a3);
 	content: attr(data-placeholder);

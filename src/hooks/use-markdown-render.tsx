@@ -23,11 +23,10 @@ export function useMarkdownRender(markdown: string): MarkdownRenderResult {
 			try {
 				const { html, toc } = await renderMarkdown(markdown)
 				if (!cancelled) {
-					// Extract pre elements and replace with placeholders before parsing
+					// Extract <pre data-code> blocks (single pre from shiki, not nested)
 					const codeBlocks: Array<{ placeholder: string; code: string; preHtml: string }> = []
-					let processedHtml = html.replace(/<pre\s+data-code="([^"]*)"([^>]*)>([\s\S]*?)<\/pre>/g, (match, codeAttr, attrs, content) => {
+					let processedHtml = html.replace(/<pre\s+data-code="([^"]*)"([^>]*)>([\s\S]*?)<\/pre>/g, (_match, codeAttr, attrs, content) => {
 						const placeholder = `__CODE_BLOCK_${codeBlocks.length}__`
-						// Decode HTML entities in code attribute
 						const code = codeAttr
 							.replace(/&quot;/g, '"')
 							.replace(/&#39;/g, "'")
@@ -37,7 +36,8 @@ export function useMarkdownRender(markdown: string): MarkdownRenderResult {
 						codeBlocks.push({
 							placeholder,
 							code,
-							preHtml: `${content}`
+							// Keep a full <pre> so styles still apply inside CodeBlock
+							preHtml: `<pre${attrs || ''}>${content}</pre>`
 						})
 						return placeholder
 					})
