@@ -1,5 +1,15 @@
 [
   {
+    "slug": "cordis04",
+    "title": "Cordis 学习笔记 #4",
+    "tags": [],
+    "date": "2026-11-11T17:42",
+    "summary": "Cordis2.0 的代码理解",
+    "cover": "/blogs/cordis04/416868f07d9cda82.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "cordis03",
     "title": "Cordis 学习笔记 #3",
     "tags": [
