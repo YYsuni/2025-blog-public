@@ -11,7 +11,7 @@ import {
 	type TreeItem
 } from '@/lib/github-client'
 import { fileToBase64NoPrefix, hashFileSHA256 } from '@/lib/file-utils'
-import { getFileExt } from '@/lib/utils'
+import { getFileExt, getFilenameExtension } from '@/lib/utils'
 
 export type CommitContext = {
 	token: string
@@ -91,14 +91,15 @@ export function fileTreeItem(path: string, sha: string | null): TreeItem {
  * Hash a local file, upload blob once per hash, return public URL + tree item.
  * `publicDir` is the path under /public, e.g. `images/share` → `/images/share/{hash}.ext`
  */
-export async function addHashedImage(
+export async function addHashedFile(
 	ctx: CommitContext,
 	file: File,
 	publicDir: string,
-	uploadedHashes: Set<string>
+	uploadedHashes: Set<string>,
+	options?: { ext?: string }
 ): Promise<{ publicPath: string; treeItem: TreeItem | null; hash: string }> {
 	const hash = await hashFileSHA256(file)
-	const ext = getFileExt(file.name)
+	const ext = options?.ext ?? (getFilenameExtension(file.name) || getFileExt(file.name))
 	const filename = `${hash}${ext}`
 	const dir = publicDir.replace(/^\/+|\/+$/g, '')
 	const publicPath = `/${dir}/${filename}`
@@ -117,4 +118,13 @@ export async function addHashedImage(
 		treeItem: fileTreeItem(repoPath, sha),
 		hash
 	}
+}
+
+export async function addHashedImage(
+	ctx: CommitContext,
+	file: File,
+	publicDir: string,
+	uploadedHashes: Set<string>
+): Promise<{ publicPath: string; treeItem: TreeItem | null; hash: string }> {
+	return addHashedFile(ctx, file, publicDir, uploadedHashes, { ext: getFileExt(file.name) })
 }

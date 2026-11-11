@@ -1,3 +1,9 @@
+export type BlogAttachment = {
+	name: string
+	url: string
+	size?: number
+}
+
 export type BlogIndexItem = {
 	slug: string
 	title: string
@@ -17,5 +23,6 @@ export type BlogConfig = {
 	cover?: string
 	hidden?: boolean
 	category?: string
+	attachments?: BlogAttachment[]
 }
 

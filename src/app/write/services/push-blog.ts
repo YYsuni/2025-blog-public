@@ -1,7 +1,7 @@
-import { commitFiles, addHashedImage, fileTreeItem } from '@/lib/github-commit'
+import { commitFiles, addHashedImage, addHashedFile, fileTreeItem } from '@/lib/github-commit'
 import { prepareBlogsIndex } from '@/lib/blog-index'
 import type { TreeItem } from '@/lib/github-client'
-import type { ImageItem } from '../types'
+import type { ImageItem, AttachmentItem, AttachmentMeta } from '../types'
 import { toast } from 'sonner'
 import { formatDateTimeLocal } from '../stores/write-store'
 import { extractFirstH1, normalizeLeadingH1, stripFirstH1, stripInlineMarkdown } from '../lib/md-title'
@@ -19,12 +19,13 @@ export type PushBlogParams = {
 	}
 	cover?: ImageItem | null
 	images?: ImageItem[]
+	attachments?: AttachmentItem[]
 	mode?: 'create' | 'edit'
 	originalSlug?: string | null
 }
 
 export async function pushBlog(params: PushBlogParams): Promise<void> {
-	const { form, cover, images, mode = 'create', originalSlug } = params
+	const { form, cover, images, attachments, mode = 'create', originalSlug } = params
 
 	if (!form?.slug) throw new Error('需要 slug')
 
@@ -52,6 +53,7 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 			let coverPath: string | undefined
 			const treeItems: TreeItem[] = []
 			const title = stripInlineMarkdown(form.title || extractFirstH1(mdToUpload))
+			const attachmentMetas: AttachmentMeta[] = []
 
 			if (allLocalImages.length > 0) {
 				toast.info('正在上传图片...')
@@ -72,6 +74,19 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 				coverPath = cover.url
 			}
 
+			const hasLocalAttachments = (attachments || []).some(it => it.type === 'file')
+			if (hasLocalAttachments) toast.info('正在上传附件...')
+
+			for (const item of attachments || []) {
+				if (item.type === 'file') {
+					const { publicPath, treeItem } = await addHashedFile(ctx, item.file, `blogs/${form.slug}`, uploadedHashes)
+					if (treeItem) treeItems.push(treeItem)
+					attachmentMetas.push({ name: item.name, url: publicPath, size: item.size })
+				} else {
+					attachmentMetas.push({ name: item.name, url: item.url, size: item.size })
+				}
+			}
+
 			// Keep published markdown consistent with existing posts: title lives in config
 			mdToUpload = stripFirstH1(mdToUpload)
 
@@ -87,7 +102,8 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 				summary: form.summary,
 				cover: coverPath,
 				hidden: form.hidden,
-				category: form.category
+				category: form.category,
+				...(attachmentMetas.length > 0 ? { attachments: attachmentMetas } : {})
 			}
 
 			treeItems.push(fileTreeItem(`${basePath}/config.json`, await ctx.blobFromJson(config, 2)))

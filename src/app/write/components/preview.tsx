@@ -1,6 +1,8 @@
+import { useMemo } from 'react'
 import { motion } from 'motion/react'
 import { BlogPreview } from '@/components/blog-preview'
 import { useWriteData } from '../hooks/use-write-data'
+import { useWriteStore } from '../stores/write-store'
 import type { PublishForm } from '../types'
 
 type WritePreviewProps = {
@@ -12,6 +14,17 @@ type WritePreviewProps = {
 
 export function WritePreview({ form, coverPreviewUrl, onClose, slug }: WritePreviewProps) {
 	const previewData = useWriteData()
+	const attachments = useWriteStore(s => s.attachments)
+	const attachmentPreview = useMemo(
+		() =>
+			attachments.map(item => ({
+				name: item.name,
+				url: item.type === 'url' ? item.url : `#attachment-${item.id}`,
+				size: item.size
+			})),
+		[attachments]
+	)
+
 	return (
 		<div>
 			<div onClick={e => e.stopPropagation()}>
@@ -23,6 +36,7 @@ export function WritePreview({ form, coverPreviewUrl, onClose, slug }: WritePrev
 					summary={form.summary}
 					cover={coverPreviewUrl || undefined}
 					slug={slug}
+					attachments={attachmentPreview}
 				/>
 			</div>
 			<motion.button

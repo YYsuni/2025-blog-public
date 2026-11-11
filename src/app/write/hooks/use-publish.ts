@@ -7,7 +7,7 @@ import { useWriteStore } from '../stores/write-store'
 import { useAuthStore } from '@/hooks/use-auth'
 
 export function usePublish() {
-	const { loading, setLoading, form, cover, images, mode, originalSlug } = useWriteStore()
+	const { loading, setLoading, form, cover, images, attachments, mode, originalSlug } = useWriteStore()
 	const { isAuth, setPrivateKey } = useAuthStore()
 
 	const onChoosePrivateKey = useCallback(
@@ -25,6 +25,7 @@ export function usePublish() {
 				form,
 				cover,
 				images,
+				attachments,
 				mode,
 				originalSlug
 			})
@@ -37,7 +38,7 @@ export function usePublish() {
 		} finally {
 			setLoading(false)
 		}
-	}, [form, cover, images, mode, originalSlug, setLoading])
+	}, [form, cover, images, attachments, mode, originalSlug, setLoading])
 
 	const onDelete = useCallback(async () => {
 		const targetSlug = originalSlug || form.slug

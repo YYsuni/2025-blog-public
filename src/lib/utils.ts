@@ -21,6 +21,11 @@ export function thousandsSeparator(n: string | number | any, sign: string = ',')
 	} else return 0
 }
 
+export function getFilenameExtension(filename: string, fallback = ''): string {
+	const match = filename.toLowerCase().match(/(\.[a-z0-9]{1,10})$/)
+	return match ? match[1] : fallback
+}
+
 export function getFileExt(filename: string): string {
 	const lower = filename.toLowerCase()
 	if (lower.endsWith('.jpg')) return '.jpg'
@@ -28,7 +33,14 @@ export function getFileExt(filename: string): string {
 	if (lower.endsWith('.webp')) return '.webp'
 	if (lower.endsWith('.png')) return '.png'
 	if (lower.endsWith('.svg')) return '.svg'
-	return '.png'
+	return getFilenameExtension(filename, '.png')
+}
+
+export function formatBytes(bytes: number): string {
+	if (!Number.isFinite(bytes) || bytes < 0) return ''
+	if (bytes < 1024) return `${Math.round(bytes)} B`
+	if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+	return `${(bytes / 1024 / 1024).toFixed(2)} MB`
 }
 
 export function rand(a: number, b: number) {

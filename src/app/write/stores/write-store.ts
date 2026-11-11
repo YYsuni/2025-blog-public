@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 import { hashFileSHA256 } from '@/lib/file-utils'
 import { loadBlog } from '@/lib/load-blog'
 import { ensureLeadingH1, extractFirstH1, normalizeLeadingH1, stripInlineMarkdown } from '../lib/md-title'
-import type { PublishForm, ImageItem } from '../types'
+import type { PublishForm, ImageItem, AttachmentItem } from '../types'
 
 export const formatDateTimeLocal = (date: Date = new Date()): string => {
 	const pad = (n: number) => String(n).padStart(2, '0')
@@ -31,6 +31,11 @@ type WriteStore = {
 	addUrlImage: (url: string) => void
 	addFiles: (files: FileList | File[]) => Promise<ImageItem[]>
 	deleteImage: (id: string) => void
+
+	// Attachment state
+	attachments: AttachmentItem[]
+	addAttachments: (files: FileList | File[]) => Promise<AttachmentItem[]>
+	deleteAttachment: (id: string) => void
 
 	// Cover state
 	cover: ImageItem | null
@@ -147,6 +152,57 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			return { images: state.images.filter(it => it.id !== id) }
 		}),
 
+	// Attachment state
+	attachments: [],
+	addAttachments: async (files: FileList | File[]) => {
+		const { attachments } = get()
+		const arr = Array.from(files)
+		if (arr.length === 0) return []
+
+		const existingHashes = new Map<string, AttachmentItem>(
+			attachments
+				.filter((it): it is Extract<AttachmentItem, { type: 'file'; hash?: string }> => it.type === 'file' && !!it.hash)
+				.map(it => [it.hash as string, it])
+		)
+
+		const computed = await Promise.all(
+			arr.map(async file => {
+				const hash = await hashFileSHA256(file)
+				return { file, hash }
+			})
+		)
+
+		const seen = new Set<string>()
+		const unique = computed.filter(({ hash }) => {
+			if (existingHashes.has(hash)) return false
+			if (seen.has(hash)) return false
+			seen.add(hash)
+			return true
+		})
+
+		const result: AttachmentItem[] = []
+
+		for (const { hash } of computed) {
+			if (existingHashes.has(hash)) {
+				result.push(existingHashes.get(hash)!)
+			}
+		}
+
+		if (unique.length > 0) {
+			const newItems: AttachmentItem[] = unique.map(({ file, hash }) => {
+				const id = Math.random().toString(36).slice(2, 10)
+				return { id, type: 'file', file, name: file.name, size: file.size, hash }
+			})
+			set(state => ({ attachments: [...state.attachments, ...newItems] }))
+			result.push(...newItems)
+		} else if (result.length === 0) {
+			toast.info('附件已存在，不重复添加')
+		}
+
+		return result
+	},
+	deleteAttachment: id => set(state => ({ attachments: state.attachments.filter(it => it.id !== id) })),
+
 	// Cover state
 	cover: null,
 	setCover: cover => set({ cover }),
@@ -184,6 +240,14 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 				cover = { id: coverId, type: 'url', url: blog.cover }
 			}
 
+			const attachments: AttachmentItem[] = (blog.config.attachments || []).map(item => ({
+				id: Math.random().toString(36).slice(2, 10),
+				type: 'url',
+				name: item.name,
+				url: item.url,
+				size: item.size
+			}))
+
 			const configTitle = stripInlineMarkdown(blog.config.title || '')
 			const md = normalizeLeadingH1(ensureLeadingH1(blog.markdown, configTitle))
 
@@ -202,6 +266,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 					category: blog.config.category || ''
 				},
 				images,
+				attachments,
 				cover,
 				loading: false
 			})
@@ -233,6 +298,7 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			originalSlug: null,
 			form: { ...initialForm, date: formatDateTimeLocal() },
 			images: [],
+			attachments: [],
 			cover: null
 		})
 	}
