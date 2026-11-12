@@ -1,5 +1,17 @@
 [
   {
+    "slug": "cordis05",
+    "title": "Cordis 学习笔记 #5",
+    "tags": [
+      "笔记"
+    ],
+    "date": "2026-11-12T17:54",
+    "summary": "Cordis3.0 看上去开始规范了起来",
+    "cover": "/blogs/cordis05/669a2c63e56dfbab.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "cordis04",
     "title": "Cordis 学习笔记 #4",
     "tags": [],
