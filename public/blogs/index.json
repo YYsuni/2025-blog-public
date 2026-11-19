@@ -1,5 +1,15 @@
 [
   {
+    "slug": "dsh-wasai",
+    "title": "DeepSeek Harness 懵逼",
+    "tags": [],
+    "date": "2026-11-19T22:50",
+    "summary": "叹息之墙",
+    "cover": "/blogs/dsh-wasai/e71a002a1e3dc210.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "cordis07",
     "title": "Cordis学习笔记#7：Fiber",
     "tags": [
