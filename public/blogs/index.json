@@ -1,84 +1,84 @@
 [
   {
     "slug": "cordis07",
-    "title": "Cordis学习笔记#7",
+    "title": "Cordis学习笔记#7：Fiber",
     "tags": [
       "笔记"
     ],
     "date": "2026-11-16T17:42",
-    "summary": "记录最新版本的 Cordis 笔记",
+    "summary": "4.0-rc.13 里插件实例变成 Fiber，plugin 改名为 component。",
     "cover": "/blogs/cordis07/affa9d761c5fda6c.png",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "cordis06",
-    "title": "Cordis 学习笔记 #6",
+    "title": "Cordis 学习笔记 #6：EffectScope",
     "tags": [
       "笔记"
     ],
     "date": "2026-11-13T17:43",
-    "summary": "Cordis4.0-alpha 大改动笔记",
+    "summary": "4.0-alpha 收成单一 EffectScope，Context 拆出 reflect。",
     "cover": "/blogs/cordis06/7c81f6a2c13da253.png",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "cordis05",
-    "title": "Cordis 学习笔记 #5",
+    "title": "Cordis 学习笔记 #5：Context 与 Scope",
     "tags": [
       "笔记"
     ],
     "date": "2026-11-12T17:54",
-    "summary": "Cordis3.0 看上去开始规范了起来",
+    "summary": "3.0 把 Context 改成 Proxy，执行逻辑聚到 EffectScope。",
     "cover": "/blogs/cordis05/669a2c63e56dfbab.png",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "cordis04",
-    "title": "Cordis 学习笔记 #4",
+    "title": "Cordis 学习笔记 #4：插件运行时",
     "tags": [],
     "date": "2026-11-11T17:42",
-    "summary": "Cordis2.0 的代码理解",
+    "summary": "从功能看 2.0：上下文、插件加载、生命周期、服务和事件。",
     "cover": "/blogs/cordis04/416868f07d9cda82.webp",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "cordis03",
-    "title": "Cordis 学习笔记 #3",
+    "title": "Cordis 学习笔记 #3：服务与插件树",
     "tags": [
       "笔记"
     ],
     "date": "2026-11-03T20:22",
-    "summary": "学习 cordis 的 v1.0 版本",
+    "summary": "1.0 的 Context：服务注册、状态树，以及 using 热插拔。",
     "cover": "https://www.yysuni.com/blogs/cordis02/233877b0aaf00af6.webp",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "cordis02",
-    "title": "Cordis 学习笔记 #2",
+    "title": "Cordis 学习笔记 #2：App 壳",
     "tags": [
       "笔记"
     ],
     "date": "2026-11-02T21:56",
-    "summary": "学习 cordis 的 v1.0 版本，app 部分",
+    "summary": "1.0 的 app 只是启动壳，服务挂在应用级 Symbol 上。",
     "cover": "/blogs/cordis02/233877b0aaf00af6.webp",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "cordis01",
-    "title": "Cordis 学习笔记 #1",
+    "title": "Cordis 学习笔记 #1：五个核心概念",
     "tags": [
       "AI",
       "笔记",
       "Cordis"
     ],
     "date": "2026-10-27T23:19",
-    "summary": "DSH 的 cordis 学习笔记",
+    "summary": "从 DeepSeek Harness 看 Cordis 的来源和五个核心概念。",
     "cover": "/blogs/cordis01/53e55b7e02ec0b1f.png",
     "hidden": false,
     "category": ""

@@ -1,10 +1,10 @@
 {
-  "title": "Cordis 学习笔记 #6",
+  "title": "Cordis 学习笔记 #6：EffectScope",
   "tags": [
     "笔记"
   ],
   "date": "2026-11-13T17:43",
-  "summary": "Cordis4.0-alpha 大改动笔记",
+  "summary": "4.0-alpha 收成单一 EffectScope，Context 拆出 reflect。",
   "cover": "/blogs/cordis06/7c81f6a2c13da253.png",
   "hidden": false,
   "category": "",

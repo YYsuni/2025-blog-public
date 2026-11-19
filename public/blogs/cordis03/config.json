@@ -1,10 +1,10 @@
 {
-  "title": "Cordis 学习笔记 #3",
+  "title": "Cordis 学习笔记 #3：服务与插件树",
   "tags": [
     "笔记"
   ],
   "date": "2026-11-03T20:22",
-  "summary": "学习 cordis 的 v1.0 版本",
+  "summary": "1.0 的 Context：服务注册、状态树，以及 using 热插拔。",
   "cover": "https://www.yysuni.com/blogs/cordis02/233877b0aaf00af6.webp",
   "hidden": false,
   "category": ""

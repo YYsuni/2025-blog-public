@@ -208,20 +208,38 @@
 }
 
 /* Tables */
+.prose .table-wrapper,
+.prose .tableWrapper {
+	width: 100%;
+	overflow-x: auto;
+	margin: 1em 0;
+}
 .prose table {
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 0.95em;
-	margin: 1em 0;
+	margin: 0;
 }
 .prose th,
 .prose td {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-	padding: 0.5em 0.6em;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 0.5em 0.75em;
 	text-align: left;
+	vertical-align: top;
+	min-width: 80px;
 }
-.prose thead th {
+.prose th {
 	font-weight: 600;
+	background: rgba(0, 0, 0, 0.04);
+}
+.prose td > p,
+.prose th > p {
+	margin: 0;
+}
+
+/* Table in editor */
+.tiptap-editor .selectedCell {
+	background: rgba(59, 130, 246, 0.12);
 }
 
 /* Anchor offset for in-page headings */

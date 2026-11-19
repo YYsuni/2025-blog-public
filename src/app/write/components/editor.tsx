@@ -7,32 +7,29 @@ import StarterKit from '@tiptap/starter-kit'
 import { Markdown } from '@tiptap/markdown'
 import Link from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extensions'
+import { Table, TableRow, TableHeader, TableCell } from '@tiptap/extension-table'
 import { useWriteStore } from '../stores/write-store'
 import { INIT_DELAY } from '@/consts'
 import { ResolvedImage } from '../extensions/resolved-image'
 import { extractFirstH1, normalizeLeadingH1 } from '../lib/md-title'
 import type { ImageItem } from '../types'
+import { EditorToolbar, setLink } from './editor-toolbar'
 
 function imagesToMarkdown(items: ImageItem[]) {
 	return items.map(item => (item.type === 'url' ? `![](${item.url})` : `![](local-image:${item.id})`)).join('\n')
 }
 
+const MARKDOWN_PATTERN =
+	/^(#{1,6}\s|[-*+]\s|\d+\.\s|>\s|```|\|.*\|\s*$|\s*[-*_]{3,}\s*$)|\*\*[^*\n]+\*\*|__[^_\n]+__|~~[^~\n]+~~|`[^`\n]+`|!?\[[^\]\n]+\]\([^)\n]+\)/m
+
+/** 粗略判断一段文本是否包含 Markdown 语法(用于粘贴时决定是否按 Markdown 解析) */
+function looksLikeMarkdown(text: string) {
+	return MARKDOWN_PATTERN.test(text)
+}
+
 function insertMarkdownAt(editor: Editor, markdown: string, pos?: number) {
 	const target = pos ?? editor.state.selection.from
 	editor.chain().focus().insertContentAt(target, markdown, { contentType: 'markdown' }).run()
-}
-
-function setLink(editor: Editor) {
-	const previous = editor.getAttributes('link').href as string | undefined
-	const url = window.prompt('链接 URL', previous || 'https://')
-	if (url === null) return
-
-	if (url === '') {
-		editor.chain().focus().extendMarkRange('link').unsetLink().run()
-		return
-	}
-
-	editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
 }
 
 export function WriteEditor() {
@@ -58,6 +55,10 @@ export function WriteEditor() {
 				}
 			}),
 			ResolvedImage,
+			Table.configure({ resizable: false }),
+			TableRow,
+			TableHeader,
+			TableCell,
 			Placeholder.configure({
 				placeholder: '用 # 标题 开始写作…'
 			}),
@@ -106,7 +107,16 @@ export function WriteEditor() {
 					}
 				}
 
-				if (imageFiles.length === 0) return false
+				if (imageFiles.length === 0) {
+					// 粘贴的纯文本如果是 Markdown 语法,按 Markdown 解析而不是原样插入
+					const text = event.clipboardData?.getData('text/plain') ?? ''
+					const current = editorRef.current
+					if (!current || current.isActive('codeBlock') || !looksLikeMarkdown(text)) return false
+
+					event.preventDefault()
+					current.chain().focus().insertContent(text, { contentType: 'markdown' }).run()
+					return true
+				}
 
 				event.preventDefault()
 				addFilesRef.current(imageFiles).then(resultImages => {
@@ -166,6 +176,7 @@ export function WriteEditor() {
 			animate={{ opacity: 1, scale: 1 }}
 			transition={{ delay: INIT_DELAY }}
 			className='bg-card flex min-h-[800px] w-[800px] flex-col rounded-[40px] border p-6 shadow'>
+			<EditorToolbar editor={editor} />
 			<div className='h-[650px] w-full flex-1 overflow-y-auto rounded-xl text-sm'>
 				<EditorContent editor={editor} />
 			</div>

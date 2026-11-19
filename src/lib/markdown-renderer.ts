@@ -149,6 +149,17 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 				// Still a fenced/indented code block — never collapse to inline <code>
 				return `<pre data-code="${escapeAttr(text)}"><code>${escapeHtml(text)}</code></pre>\n`
 			},
+			table(token: Tokens.Table) {
+				const renderCell = (cell: Tokens.TableCell, tag: 'th' | 'td') => {
+					const align = cell.align ? ` style="text-align:${cell.align}"` : ''
+					return `<${tag}${align}>${this.parser.parseInline(cell.tokens)}</${tag}>`
+				}
+				const head = `<thead><tr>${token.header.map(cell => renderCell(cell, 'th')).join('')}</tr></thead>`
+				const body = token.rows.length
+					? `<tbody>${token.rows.map(row => `<tr>${row.map(cell => renderCell(cell, 'td')).join('')}</tr>`).join('')}</tbody>`
+					: ''
+				return `<div class="table-wrapper"><table>${head}${body}</table></div>\n`
+			},
 			listitem(token: Tokens.ListItem) {
 				let tokens = token.tokens
 				if (token.task) tokens = tokens.slice(1)

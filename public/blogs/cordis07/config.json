@@ -1,10 +1,10 @@
 {
-  "title": "Cordis学习笔记#7",
+  "title": "Cordis学习笔记#7：Fiber",
   "tags": [
     "笔记"
   ],
   "date": "2026-11-16T17:42",
-  "summary": "记录最新版本的 Cordis 笔记",
+  "summary": "4.0-rc.13 里插件实例变成 Fiber，plugin 改名为 component。",
   "cover": "/blogs/cordis07/affa9d761c5fda6c.png",
   "hidden": false,
   "category": "",

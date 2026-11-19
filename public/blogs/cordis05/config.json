@@ -1,10 +1,10 @@
 {
-  "title": "Cordis 学习笔记 #5",
+  "title": "Cordis 学习笔记 #5：Context 与 Scope",
   "tags": [
     "笔记"
   ],
   "date": "2026-11-12T17:54",
-  "summary": "Cordis3.0 看上去开始规范了起来",
+  "summary": "3.0 把 Context 改成 Proxy，执行逻辑聚到 EffectScope。",
   "cover": "/blogs/cordis05/669a2c63e56dfbab.png",
   "hidden": false,
   "category": "",
