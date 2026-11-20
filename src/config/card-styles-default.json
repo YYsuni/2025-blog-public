@@ -89,14 +89,6 @@
 		"offsetY": null,
 		"enabled": true
 	},
-	"hatCard": {
-		"width": 120,
-		"height": 120,
-		"order": 10,
-		"offsetX": null,
-		"offsetY": null,
-		"enabled": false
-	},
 	"beianCard": {
 		"width": 200,
 		"height": 60,

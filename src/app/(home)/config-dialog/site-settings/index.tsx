@@ -7,7 +7,6 @@ import { SiteMetaForm } from './site-meta-form'
 import { ArtImagesSection } from './art-images-section'
 import { BackgroundImagesSection } from './background-images-section'
 import { SocialButtonsSection } from './social-buttons-section'
-import { HatSection } from './hat-section'
 import { BeianForm } from './beian-form'
 
 export type { FileItem, ArtImageUploads, BackgroundImageUploads, SocialButtonImageUploads } from './types'
@@ -115,18 +114,7 @@ export function SiteSettings({
 					/>
 					<span className='text-sm font-medium'>启用文章分类</span>
 				</label>
-				<label className='flex items-center gap-2'>
-					<input
-						type='checkbox'
-						checked={formData.enableChristmas ?? false}
-						onChange={e => setFormData({ ...formData, enableChristmas: e.target.checked })}
-						className='accent-brand h-4 w-4 rounded'
-					/>
-					<span className='text-sm font-medium'>开启圣诞节</span>
-				</label>
 			</div>
-
-			<HatSection formData={formData} setFormData={setFormData} />
 		</div>
 	)
 }

@@ -2,280 +2,97 @@
 
 import Link from 'next/link'
 import dayjs from 'dayjs'
-import weekOfYear from 'dayjs/plugin/weekOfYear'
 import { motion } from 'motion/react'
-
-dayjs.extend(weekOfYear)
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
+import { Check } from 'lucide-react'
 import { INIT_DELAY } from '@/consts'
 import ShortLineSVG from '@/svgs/short-line.svg'
+import JuejinSVG from '@/svgs/juejin.svg'
 import { useBlogIndex, type BlogIndexItem } from '@/hooks/use-blog-index'
 import { useCategories } from '@/hooks/use-categories'
 import { useReadArticles } from '@/hooks/use-read-articles'
-import JuejinSVG from '@/svgs/juejin.svg'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { readFileAsText } from '@/lib/file-utils'
 import { cn } from '@/lib/utils'
 import { saveBlogEdits } from './services/save-blog-edits'
-import { Check } from 'lucide-react'
-import { BlogCoverHoverPreview, useBlogCoverHover } from './components/blog-cover-hover'
-import { CategoryModal } from './components/category-modal'
 
-type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
+type YearGroup = { year: string; items: BlogIndexItem[] }
+
+function groupByYear(list: BlogIndexItem[]): YearGroup[] {
+	const sorted = [...list].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+	const groups: YearGroup[] = []
+	for (const item of sorted) {
+		const year = dayjs(item.date).format('YYYY')
+		const last = groups[groups.length - 1]
+		if (last?.year === year) last.items.push(item)
+		else groups.push({ year, items: [item] })
+	}
+	return groups
+}
 
 export default function BlogPage() {
 	const { items, loading } = useBlogIndex()
-	const { categories: categoriesFromServer } = useCategories()
+	const { categories } = useCategories()
 	const { isRead } = useReadArticles()
 	const { isAuth, setPrivateKey } = useAuthStore()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
-	const enableCategories = siteContent.enableCategories ?? false
 
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const [editMode, setEditMode] = useState(false)
 	const [editableItems, setEditableItems] = useState<BlogIndexItem[]>([])
 	const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set())
 	const [saving, setSaving] = useState(false)
-	const [displayMode, setDisplayMode] = useState<DisplayMode>('year')
-	const [categoryModalOpen, setCategoryModalOpen] = useState(false)
-	const [categoryList, setCategoryList] = useState<string[]>([])
-	const [newCategory, setNewCategory] = useState('')
-
-	const { cancelCoverPreview, onCoverLinkMouseEnter, hoverCoverPreview, mousePosition } = useBlogCoverHover(editMode)
 
 	useEffect(() => {
-		if (!editMode) {
-			setEditableItems(items)
-		}
+		if (!editMode) setEditableItems(items)
 	}, [items, editMode])
 
-	useEffect(() => {
-		setCategoryList(categoriesFromServer || [])
-	}, [categoriesFromServer])
-
 	const displayItems = editMode ? editableItems : items
-
-	const { groupedItems, groupKeys, getGroupLabel } = useMemo(() => {
-		const sorted = [...displayItems].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-
-		const grouped = sorted.reduce(
-			(acc, item) => {
-				let key: string
-				let label: string
-				const date = dayjs(item.date)
-
-				switch (displayMode) {
-					case 'category':
-						key = item.category || '未分类'
-						label = key
-						break
-					case 'day':
-						key = date.format('YYYY-MM-DD')
-						label = date.format('YYYY年MM月DD日')
-						break
-					case 'week':
-						const week = date.week()
-						key = `${date.format('YYYY')}-W${week.toString().padStart(2, '0')}`
-						label = `${date.format('YYYY')}年第${week}周`
-						break
-					case 'month':
-						key = date.format('YYYY-MM')
-						label = date.format('YYYY年MM月')
-						break
-					case 'year':
-					default:
-						key = date.format('YYYY')
-						label = date.format('YYYY年')
-						break
-				}
-
-				if (!acc[key]) {
-					acc[key] = { items: [], label }
-				}
-				acc[key].items.push(item)
-				return acc
-			},
-			{} as Record<string, { items: BlogIndexItem[]; label: string }>
-		)
-
-		const keys = Object.keys(grouped).sort((a, b) => {
-			if (displayMode === 'category') {
-				const categoryOrder = new Map(categoryList.map((c, index) => [c, index]))
-				const aOrder = categoryOrder.has(a) ? categoryOrder.get(a)! : Number.MAX_SAFE_INTEGER
-				const bOrder = categoryOrder.has(b) ? categoryOrder.get(b)! : Number.MAX_SAFE_INTEGER
-				if (aOrder !== bOrder) return aOrder - bOrder
-				return a.localeCompare(b)
-			}
-			// 按时间倒序排序
-			if (displayMode === 'week') {
-				// 周格式：YYYY-WW
-				const [yearA, weekA] = a.split('-W').map(Number)
-				const [yearB, weekB] = b.split('-W').map(Number)
-				if (yearA !== yearB) return yearB - yearA
-				return weekB - weekA
-			}
-			return b.localeCompare(a)
-		})
-
-		return {
-			groupedItems: grouped,
-			groupKeys: keys,
-			getGroupLabel: (key: string) => grouped[key]?.label || key
-		}
-	}, [displayItems, displayMode, categoryList])
+	const groups = useMemo(() => groupByYear(displayItems), [displayItems])
 
 	const selectedCount = selectedSlugs.size
-	const buttonText = isAuth ? '保存' : '导入密钥'
+	const allSelected = editableItems.length > 0 && selectedCount === editableItems.length
 
-	const toggleEditMode = useCallback(() => {
-		if (editMode) {
-			setEditMode(false)
-			setEditableItems(items)
-			setSelectedSlugs(new Set())
-		} else {
-			setEditableItems(items)
-			setEditMode(true)
-		}
-	}, [editMode, items])
-
-	const toggleSelect = useCallback((slug: string) => {
-		setSelectedSlugs(prev => {
-			const next = new Set(prev)
-			if (next.has(slug)) {
-				next.delete(slug)
-			} else {
-				next.add(slug)
-			}
-			return next
-		})
-	}, [])
-
-	// 全选所有文章
-	const handleSelectAll = useCallback(() => {
-		setSelectedSlugs(new Set(editableItems.map(item => item.slug)))
-	}, [editableItems])
-
-	// 全选/取消全选某个时间维度分组
-	const handleSelectGroup = useCallback(
-		(groupKey: string) => {
-			const group = groupedItems[groupKey]
-			if (!group) return
-
-			// 检查该分组是否所有文章都已选中
-			const allSelected = group.items.every(item => selectedSlugs.has(item.slug))
-
-			setSelectedSlugs(prev => {
-				const next = new Set(prev)
-				if (allSelected) {
-					// 如果已全选，则取消该分组的选择
-					group.items.forEach(item => {
-						next.delete(item.slug)
-					})
-				} else {
-					// 如果未全选，则全选该分组
-					group.items.forEach(item => {
-						next.add(item.slug)
-					})
-				}
-				return next
-			})
-		},
-		[groupedItems, selectedSlugs]
-	)
-
-	// 取消全选
-	const handleDeselectAll = useCallback(() => {
-		setSelectedSlugs(new Set())
-	}, [])
-
-	const handleItemClick = useCallback(
-		(event: React.MouseEvent, slug: string) => {
-			if (!editMode) return
-			event.preventDefault()
-			event.stopPropagation()
-			toggleSelect(slug)
-		},
-		[editMode, toggleSelect]
-	)
-
-	const handleDeleteSelected = useCallback(() => {
-		if (selectedCount === 0) {
-			toast.info('请选择要删除的文章')
-			return
-		}
-		setEditableItems(prev => prev.filter(item => !selectedSlugs.has(item.slug)))
-		setSelectedSlugs(new Set())
-	}, [selectedCount, selectedSlugs])
-
-	const handleAssignCategory = useCallback((slug: string, category?: string) => {
-		setEditableItems(prev =>
-			prev.map(item => {
-				if (item.slug !== slug) return item
-				const nextCategory = category?.trim()
-				if (!nextCategory) return { ...item, category: undefined }
-				return { ...item, category: nextCategory }
-			})
-		)
-	}, [])
-
-	const handleAddCategory = useCallback(() => {
-		const value = newCategory.trim()
-		if (!value) {
-			toast.info('请输入分类名称')
-			return
-		}
-		setCategoryList(prev => (prev.includes(value) ? prev : [...prev, value]))
-		setNewCategory('')
-	}, [newCategory])
-
-	const handleRemoveCategory = useCallback((category: string) => {
-		setCategoryList(prev => prev.filter(item => item !== category))
-		setEditableItems(prev => prev.map(item => (item.category === category ? { ...item, category: undefined } : item)))
-	}, [])
-
-	const handleReorderCategories = useCallback((nextList: string[]) => {
-		setCategoryList(nextList)
-	}, [])
-
-	const handleCancel = useCallback(() => {
+	const exitEditMode = useCallback(() => {
 		setEditableItems(items)
 		setSelectedSlugs(new Set())
 		setEditMode(false)
 	}, [items])
 
-	const handleSave = useCallback(async () => {
-		const removedSlugs = items.filter(item => !editableItems.some(editItem => editItem.slug === item.slug)).map(item => item.slug)
-		const normalizedCategoryList = categoryList.map(c => c.trim()).filter(Boolean)
-		const categoryListChanged = JSON.stringify(normalizedCategoryList) !== JSON.stringify((categoriesFromServer || []).map(c => c.trim()).filter(Boolean))
-		const categoryAssignmentChanged = items.some(origin => {
-			const next = editableItems.find(editItem => editItem.slug === origin.slug)
-			const originCategory = origin.category || ''
-			const nextCategory = next?.category || ''
-			return originCategory !== nextCategory
+	const toggleSelect = useCallback((slugs: string[], select: boolean) => {
+		setSelectedSlugs(prev => {
+			const next = new Set(prev)
+			slugs.forEach(slug => (select ? next.add(slug) : next.delete(slug)))
+			return next
 		})
-		const hasChanges = removedSlugs.length > 0 || categoryListChanged || categoryAssignmentChanged
+	}, [])
 
-		if (!hasChanges) {
+	const handleDeleteSelected = useCallback(() => {
+		if (selectedCount === 0) return
+		setEditableItems(prev => prev.filter(item => !selectedSlugs.has(item.slug)))
+		setSelectedSlugs(new Set())
+	}, [selectedCount, selectedSlugs])
+
+	const handleSave = useCallback(async () => {
+		if (editableItems.length === items.length) {
 			toast.info('没有需要保存的改动')
 			return
 		}
-
 		try {
 			setSaving(true)
-			await saveBlogEdits(items, editableItems, normalizedCategoryList)
+			await saveBlogEdits(items, editableItems, categories || [])
 			setEditMode(false)
 			setSelectedSlugs(new Set())
-			setCategoryModalOpen(false)
 		} catch (error: any) {
 			console.error(error)
 			toast.error(error?.message || '保存失败')
 		} finally {
 			setSaving(false)
 		}
-	}, [items, editableItems, categoryList, categoriesFromServer])
+	}, [items, editableItems, categories])
 
 	const handleSaveClick = useCallback(() => {
 		if (!isAuth) {
@@ -288,8 +105,7 @@ export default function BlogPage() {
 	const handlePrivateKeySelection = useCallback(
 		async (file: File) => {
 			try {
-				const pem = await readFileAsText(file)
-				setPrivateKey(pem)
+				setPrivateKey(await readFileAsText(file))
 				toast.success('密钥导入成功，请再次点击保存')
 			} catch (error) {
 				console.error(error)
@@ -303,15 +119,13 @@ export default function BlogPage() {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (!editMode && (e.ctrlKey || e.metaKey) && e.key === ',') {
 				e.preventDefault()
-				toggleEditMode()
+				setEditableItems(items)
+				setEditMode(true)
 			}
 		}
-
 		window.addEventListener('keydown', handleKeyDown)
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown)
-		}
-	}, [editMode, toggleEditMode])
+		return () => window.removeEventListener('keydown', handleKeyDown)
+	}, [editMode, items])
 
 	return (
 		<>
@@ -327,113 +141,67 @@ export default function BlogPage() {
 				}}
 			/>
 
-			<div className='flex flex-col items-center justify-center gap-6 px-6 pt-24 max-sm:pt-24'>
-				{items.length > 0 && (
-					<motion.div
-						initial={{ opacity: 0, scale: 0.6 }}
-						animate={{ opacity: 1, scale: 1 }}
-						className='card btn-rounded relative mx-auto flex items-center gap-1 p-1 max-sm:hidden'>
-						{[
-							{ value: 'day', label: '日' },
-							{ value: 'week', label: '周' },
-							{ value: 'month', label: '月' },
-							{ value: 'year', label: '年' },
-							...(enableCategories ? ([{ value: 'category', label: '分类' }] as const) : [])
-						].map(option => (
-							<motion.button
-								key={option.value}
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={() => setDisplayMode(option.value as DisplayMode)}
-								className={cn(
-									'btn-rounded px-3 py-1.5 text-xs font-medium transition-all',
-									displayMode === option.value ? 'bg-brand text-white shadow-sm' : 'text-secondary hover:text-brand hover:bg-white/60'
-								)}>
-								{option.label}
-							</motion.button>
-						))}
-					</motion.div>
-				)}
-
-				{groupKeys.map((groupKey, index) => {
-					const group = groupedItems[groupKey]
-					if (!group) return null
+			<div className='flex flex-col items-center gap-6 px-6 pt-24 pb-12'>
+				{groups.map(group => {
+					const slugs = group.items.map(it => it.slug)
+					const groupAllSelected = slugs.every(slug => selectedSlugs.has(slug))
 
 					return (
-						<motion.div
-							onMouseLeave={cancelCoverPreview}
-							key={groupKey}
-							initial={{ opacity: 0, scale: 0.95 }}
-							whileInView={{ opacity: 1, scale: 1 }}
+						<motion.section
+							key={group.year}
+							initial={{ opacity: 0, y: 12 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true }}
 							transition={{ delay: INIT_DELAY / 2 }}
-							className='card relative w-full max-w-[840px] space-y-6'>
-							<div className='mb-3 flex items-center justify-between gap-3 text-base'>
-								<div className='flex items-center gap-3'>
-									<div className='font-medium'>{getGroupLabel(groupKey)}</div>
-									<div className='h-2 w-2 rounded-full bg-[#D9D9D9]'></div>
-									<div className='text-secondary text-sm'>{group.items.length} 篇文章</div>
+							className='card relative w-full max-w-[840px]'>
+							<header className='mb-3 flex items-center justify-between gap-3'>
+								<div className='flex items-baseline gap-3'>
+									<h2 className='text-lg font-medium'>{group.year}</h2>
+									<span className='text-secondary text-sm'>{group.items.length} 篇</span>
 								</div>
-								{editMode &&
-									(() => {
-										const groupAllSelected = group.items.every(item => selectedSlugs.has(item.slug))
-										return (
-											<motion.button
-												whileHover={{ scale: 1.05 }}
-												whileTap={{ scale: 0.95 }}
-												onClick={() => handleSelectGroup(groupKey)}
-												className={cn(
-													'rounded-lg border px-3 py-1 text-xs transition-colors',
-													groupAllSelected
-														? 'border-brand/40 bg-brand/10 text-brand hover:bg-brand/20'
-														: 'text-secondary hover:border-brand/40 hover:text-brand border-transparent bg-white/60 hover:bg-white/80'
-												)}>
-												{groupAllSelected ? '取消全选' : '全选该分组'}
-											</motion.button>
-										)
-									})()}
-							</div>
+								{editMode && (
+									<button
+										onClick={() => toggleSelect(slugs, !groupAllSelected)}
+										className='text-secondary hover:text-brand text-xs transition-colors'>
+										{groupAllSelected ? '取消全选' : '全选本年'}
+									</button>
+								)}
+							</header>
+
 							<div>
 								{group.items.map(it => {
-									const hasRead = isRead(it.slug)
 									const isSelected = selectedSlugs.has(it.slug)
 									return (
 										<Link
-											onMouseEnter={() => onCoverLinkMouseEnter(it.cover)}
-											onMouseLeave={cancelCoverPreview}
 											href={`/blog/${it.slug}`}
 											key={it.slug}
-											onClick={event => handleItemClick(event, it.slug)}
+											onClick={event => {
+												if (!editMode) return
+												event.preventDefault()
+												toggleSelect([it.slug], !isSelected)
+											}}
 											className={cn(
-												'group flex min-h-10 items-center gap-3 py-3 transition-all',
-												editMode
-													? cn(
-															'rounded-lg border px-3',
-															isSelected ? 'border-brand/60 bg-brand/5' : 'hover:border-brand/40 border-transparent hover:bg-white/60'
-														)
-													: 'cursor-pointer'
+												'group flex min-h-10 items-center gap-3 py-3 transition-colors',
+												editMode && 'rounded-lg px-2',
+												editMode && (isSelected ? 'bg-brand/5' : 'hover:bg-white/60')
 											)}>
 											{editMode && (
 												<span
 													className={cn(
-														'flex h-4 w-4 items-center justify-center rounded-full border text-[10px] font-semibold',
+														'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border',
 														isSelected ? 'border-brand bg-brand text-white' : 'border-[#D9D9D9] text-transparent'
 													)}>
-													<Check />
+													<Check className='h-3 w-3' />
 												</span>
 											)}
 											<span className='text-secondary w-[44px] shrink-0 text-sm font-medium'>{dayjs(it.date).format('MM-DD')}</span>
-
 											<div className='relative flex h-2 w-2 items-center justify-center'>
 												<div className='bg-secondary group-hover:bg-brand h-[5px] w-[5px] rounded-full transition-all group-hover:h-4'></div>
 												<ShortLineSVG className='absolute bottom-4' />
 											</div>
-											<div
-												className={cn(
-													'flex-1 truncate text-sm font-medium transition-all',
-													editMode ? null : 'group-hover:text-brand group-hover:translate-x-2'
-												)}>
+											<div className={cn('flex-1 truncate text-sm font-medium transition-all', !editMode && 'group-hover:text-brand group-hover:translate-x-2')}>
 												{it.title || it.slug}
-												{hasRead && <span className='text-secondary ml-2 text-xs'>[已阅读]</span>}
+												{isRead(it.slug) && <span className='text-secondary ml-2 text-xs'>[已读]</span>}
 											</div>
 											<div className='flex flex-wrap items-center gap-2 max-sm:hidden'>
 												{(it.tags || []).map(t => (
@@ -446,101 +214,59 @@ export default function BlogPage() {
 									)
 								})}
 							</div>
-						</motion.div>
+						</motion.section>
 					)
 				})}
-				{items.length > 0 && (
-					<div className='text-center'>
-						<motion.a
-							initial={{ opacity: 0, scale: 0.6 }}
-							animate={{ opacity: 1, scale: 1 }}
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							href='https://juejin.cn/user/2427311675422382/posts'
-							target='_blank'
-							className='card text-secondary static inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs'>
-							<JuejinSVG className='h-4 w-4' />
-							更多
-						</motion.a>
-					</div>
-				)}
-			</div>
 
-			<div className='pt-12'>
-				{!loading && items.length === 0 && <div className='text-secondary py-6 text-center text-sm'>暂无文章</div>}
+				{items.length > 0 && (
+					<a
+						href='https://juejin.cn/user/2427311675422382/posts'
+						target='_blank'
+						rel='noreferrer'
+						className='card text-secondary hover:text-brand static inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs transition-colors'>
+						<JuejinSVG className='h-4 w-4' />
+						更多
+					</a>
+				)}
+
+				{!loading && items.length === 0 &&<div className='text-secondary py-6 text-center text-sm'>暂无文章</div>}
 				{loading && <div className='text-secondary py-6 text-center text-sm'>加载中...</div>}
 			</div>
 
-			<motion.div
-				initial={{ opacity: 0, scale: 0.6 }}
-				animate={{ opacity: 1, scale: 1 }}
-				className='absolute top-4 right-6 flex items-center gap-3 max-sm:hidden'>
+			<div className='absolute top-4 right-6 flex items-center gap-3 max-sm:hidden'>
 				{editMode ? (
 					<>
-						{enableCategories && (
-							<motion.button
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={() => setCategoryModalOpen(true)}
-								disabled={saving}
-								className='rounded-xl border bg-white/60 px-4 py-2 text-sm transition-colors hover:bg-white/80'>
-								分类
-							</motion.button>
-						)}
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={handleCancel}
-							disabled={saving}
-							className='rounded-xl border bg-white/60 px-6 py-2 text-sm'>
+						<button onClick={exitEditMode} disabled={saving} className='rounded-xl border bg-white/60 px-5 py-2 text-sm'>
 							取消
-						</motion.button>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={selectedCount === editableItems.length ? handleDeselectAll : handleSelectAll}
-							className='rounded-xl border bg-white/60 px-4 py-2 text-sm transition-colors hover:bg-white/80'>
-							{selectedCount === editableItems.length ? '取消全选' : '全选'}
-						</motion.button>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
+						</button>
+						<button
+							onClick={() => toggleSelect(editableItems.map(it => it.slug), !allSelected)}
+							className='rounded-xl border bg-white/60 px-4 py-2 text-sm hover:bg-white/80'>
+							{allSelected ? '取消全选' : '全选'}
+						</button>
+						<button
 							onClick={handleDeleteSelected}
 							disabled={selectedCount === 0}
-							className='rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600 transition-colors disabled:opacity-60'>
-							删除(已选:{selectedCount}篇)
-						</motion.button>
-						<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSaveClick} disabled={saving} className='brand-btn px-6'>
-							{saving ? '保存中...' : buttonText}
-						</motion.button>
+							className='rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600 disabled:opacity-50'>
+							删除{selectedCount > 0 ? ` (${selectedCount})` : ''}
+						</button>
+						<button onClick={handleSaveClick} disabled={saving} className='brand-btn px-6'>
+							{saving ? '保存中...' : isAuth ? '保存' : '导入密钥'}
+						</button>
 					</>
 				) : (
 					!hideEditButton && (
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={toggleEditMode}
-							className='bg-card rounded-xl border px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80'>
+						<button
+							onClick={() => {
+								setEditableItems(items)
+								setEditMode(true)
+							}}
+							className='bg-card rounded-xl border px-6 py-2 text-sm backdrop-blur-sm hover:bg-white/80'>
 							编辑
-						</motion.button>
+						</button>
 					)
 				)}
-			</motion.div>
-
-			<BlogCoverHoverPreview preview={hoverCoverPreview} position={mousePosition} />
-
-			<CategoryModal
-				open={categoryModalOpen}
-				onClose={() => setCategoryModalOpen(false)}
-				categoryList={categoryList}
-				newCategory={newCategory}
-				onNewCategoryChange={setNewCategory}
-				onAddCategory={handleAddCategory}
-				onRemoveCategory={handleRemoveCategory}
-				onReorderCategories={handleReorderCategories}
-				editableItems={editableItems}
-				onAssignCategory={handleAssignCategory}
-			/>
+			</div>
 		</>
 	)
 }

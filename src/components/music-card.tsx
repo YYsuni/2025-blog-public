@@ -17,7 +17,7 @@ const MUSIC_FILES = ['/music/close-to-you.mp3']
 export default function MusicCard() {
 	const pathname = usePathname()
 	const center = useCenterStore()
-	const { cardStyles, siteContent } = useConfigStore()
+	const { cardStyles } = useConfigStore()
 	const styles = cardStyles.musicCard
 	const hiCardStyles = cardStyles.hiCard
 	const clockCardStyles = cardStyles.clockCard
@@ -138,22 +138,6 @@ export default function MusicCard() {
 	return (
 		<HomeDraggableLayer cardKey='musicCard' x={x} y={y} width={styles.width} height={styles.height}>
 			<Card order={styles.order} width={styles.width} height={styles.height} x={x} y={y} className={clsx('flex items-center gap-3', !isHomePage && 'fixed')}>
-				{siteContent.enableChristmas && (
-					<>
-						<img
-							src='/images/christmas/snow-10.webp'
-							alt='Christmas decoration'
-							className='pointer-events-none absolute'
-							style={{ width: 120, left: -8, top: -12, opacity: 0.8 }}
-						/>
-						<img
-							src='/images/christmas/snow-11.webp'
-							alt='Christmas decoration'
-							className='pointer-events-none absolute'
-							style={{ width: 80, right: -10, top: -12, opacity: 0.8 }}
-						/>
-					</>
-				)}
 
 				<MusicSVG className='h-8 w-8' />
 
