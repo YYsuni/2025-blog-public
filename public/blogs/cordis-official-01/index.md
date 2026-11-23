@@ -12,7 +12,7 @@
 
 直接使用为：
 
-```
+```ts
 import { Context } from 'cordis'
 import Loader from '@cordisjs/loader'
 const ctx = new Context()
@@ -34,7 +34,7 @@ await ctx.loader.create({
 而使用 include 插件直接写 yml：
 
 ```yml
-# 基础设施
+
 - id: timer
   name: '@cordisjs/timer'
 - id: logger
