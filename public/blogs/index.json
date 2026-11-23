@@ -1,5 +1,15 @@
 [
   {
+    "slug": "cordis-official-01",
+    "title": "Cordis 官方教程笔记 #1：Loader",
+    "tags": [],
+    "date": "2026-11-23T23:09",
+    "summary": "官方启动的 loader 插件",
+    "cover": "/blogs/cordis-official-01/d882610c02bfa8d6.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "dsh-wasai",
     "title": "DeepSeek Harness 懵逼",
     "tags": [],
