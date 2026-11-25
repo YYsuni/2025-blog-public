@@ -251,13 +251,13 @@ export const useWriteStore = create<WriteStore>((set, get) => ({
 			const configTitle = stripInlineMarkdown(blog.config.title || '')
 			const md = normalizeLeadingH1(ensureLeadingH1(blog.markdown, configTitle))
 
-			// Set form
+			// Set form — published posts keep title in config.json, not in markdown
 			set({
 				mode: 'edit',
 				originalSlug: slug,
 				form: {
 					slug,
-					title: extractFirstH1(md) || configTitle,
+					title: configTitle || extractFirstH1(md),
 					md,
 					tags: blog.config.tags || [],
 					date: blog.config.date ? formatDateTimeLocal(new Date(blog.config.date)) : formatDateTimeLocal(),

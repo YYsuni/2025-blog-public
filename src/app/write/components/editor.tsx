@@ -79,7 +79,9 @@ export function WriteEditor() {
 			// TipTap keeps bold marks inside h1 as `# **title**` — normalize before storing
 			const md = normalizeLeadingH1(e.getMarkdown())
 			lastEmittedMd.current = md
-			updateForm({ md, title: extractFirstH1(md) })
+			const title = extractFirstH1(md)
+			// Keep existing title if leading h1 is temporarily missing (e.g. mid-edit)
+			updateForm(title ? { md, title } : { md })
 		},
 		editorProps: {
 			attributes: {
@@ -167,7 +169,8 @@ export function WriteEditor() {
 		if (form.md === lastEmittedMd.current) return
 		lastEmittedMd.current = form.md
 		editor.commands.setContent(form.md, { contentType: 'markdown', emitUpdate: false })
-		updateForm({ title: extractFirstH1(form.md) })
+		const title = extractFirstH1(form.md)
+		if (title) updateForm({ title })
 	}, [form.md, editor, updateForm])
 
 	return (
